@@ -1,0 +1,15 @@
+/node_modules
+/.next/
+/out/
+/build
+*.tsbuildinfo
+next-env.d.ts
+.DS_Store
+
+# env files — never commit anything but the template
+.env
+.env.*
+!.env.example
+
+DESIGN.md
+INTEGRATION.md

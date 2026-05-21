@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+<g id="bg-light-grey">
+  <rect width="400" height="400" fill="#B5B5B5"/>
+</g>
+
+<defs><linearGradient id="fade-grad" x1="0" y1="0" x2="0" y2="1"><stop offset="99%" stop-color="white"/><stop offset="100%" stop-color="black"/></linearGradient><mask id="fade-mask"><rect width="400" height="400" fill="url(#fade-grad)"/></mask></defs>
+<g mask="url(#fade-mask)">
+<g id="hair-back-none">
+  <!-- No back fill needed for this hair variant -->
+</g>
+
+<g id="body-male-wide">
+  <path d="M76,400 Q75,325 95,305 Q110,290 145,285 L178,282 L178,265 L222,265 L222,282 L255,285 Q290,290 305,305 Q325,325 324,400 Z" fill="#D08B5B" stroke="#333" stroke-width="2"/>
+</g>
+
+<g id="head-round">
+  <path d="M113,163 Q113,59 200,55 Q287,59 287,163 Q287,268 200,280 Q113,268 113,163 Z" fill="#D08B5B" stroke="#333" stroke-width="2"/>
+  <!-- Nose -->
+  <path d="M193,190 Q200,200 207,190" fill="none" stroke="#333" stroke-width="2"/>
+</g>
+
+<g id="ears-male"><path d="M113,155 Q101,167 113,181 Z" fill="#D08B5B" stroke="#333" stroke-width="2"/><path d="M111,162 Q109,167 111,173" fill="none" stroke="#333" stroke-width="1.5"/><path d="M287,155 Q299,167 287,181 Z" fill="#D08B5B" stroke="#333" stroke-width="2"/><path d="M289,162 Q291,167 289,173" fill="none" stroke="#333" stroke-width="1.5"/></g>
+<g id="eyes-surprised">
+  <ellipse cx="168" cy="158" rx="22" ry="24" fill="#FFF" stroke="#333" stroke-width="2"/>
+  <ellipse cx="232" cy="158" rx="22" ry="24" fill="#FFF" stroke="#333" stroke-width="2"/>
+  <circle cx="168" cy="160" r="3" fill="#333"/>
+  <circle cx="232" cy="160" r="3" fill="#333"/>
+</g>
+
+<g id="eyebrows-normal">
+  <path d="M150,136 Q170,130 190,136" fill="none" stroke="#333" stroke-width="3" stroke-linecap="round"/>
+  <path d="M210,136 Q230,130 250,136" fill="none" stroke="#333" stroke-width="3" stroke-linecap="round"/>
+</g>
+
+<g id="clothing-buttonup">
+  <path d="M68,400 Q68,323 88,305 Q105,290 145,285 L175,280 L200,292 L225,280 L255,285 Q295,290 312,305 Q332,323 332,400 Z" fill="#9B59B6" stroke="#333" stroke-width="2"/>
+  <path d="M175,280 L168,310 L195,290" fill="#9B59B6" stroke="#333" stroke-width="1.5"/>
+  <path d="M225,280 L232,310 L205,290" fill="#9B59B6" stroke="#333" stroke-width="1.5"/>
+  <line x1="200" y1="292" x2="200" y2="400" stroke="#333" stroke-width="1.5"/>
+  <circle cx="200" cy="310" r="2" fill="#333"/>
+  <circle cx="200" cy="340" r="2" fill="#333"/>
+  <circle cx="200" cy="370" r="2" fill="#333"/>
+  <line x1="110" y1="340" x2="110" y2="400" stroke="#333" stroke-width="1.5"/>
+  <line x1="290" y1="340" x2="290" y2="400" stroke="#333" stroke-width="1.5"/>
+</g>
+
+<g id="facialhair-goateei">
+  <path d="M188,242 Q200,260 177,275 Q188,280 200,280 Q212,280 223,275 Q200,260 212,242 Q200,248 188,242 Z" fill="#2C222B" stroke="#333" stroke-width="1.5"/>
+</g>
+
+<g id="mouth-open">
+  <ellipse cx="200" cy="225" rx="15" ry="11" fill="#333" stroke="#333" stroke-width="2"/>
+</g>
+
+<g id="accessory-none">
+  <!-- No accessory -->
+</g>
+
+<g id="hair-male-buzzcut">
+  <path d="M115,137 Q113,59 200,55 Q287,59 285,137 L270,132 L270,102 Q200,110 130,102 L130,132 L115,137 Z" fill="#2C222B" stroke="#333" stroke-width="2"/>
+</g>
+
+<g id="accessoryii-crown">
+  <!-- Crown points (fanning outward, gentle concave inner side peaks) -->
+  <path d="M115,107 L109,75 Q119,89 138,104 L159,61 L179,100 L200,51 L221,100 L241,61 L262,104 Q281,89 291,75 L285,107 Q200,97 115,107 Z" fill="#F1C40F" stroke="#333" stroke-width="2"/>
+  <!-- Crown base band (curved, straight vertical sides) -->
+  <path d="M115,119 Q200,109 285,119 L285,107 Q200,97 115,107 Z" fill="#F1C40F" stroke="#333" stroke-width="2"/>
+  <!-- Jewels -->
+  <circle cx="159" cy="109" r="4" fill="#E74C3C" stroke="#C0392B" stroke-width="1"/>
+  <circle cx="200" cy="108" r="4" fill="#3498DB" stroke="#2980B9" stroke-width="1"/>
+  <circle cx="241" cy="109" r="4" fill="#2ECC71" stroke="#27AE60" stroke-width="1"/>
+</g>
+
+<g id="special-none">
+  <!-- No special effect -->
+</g>
+
+</g>
+</svg>

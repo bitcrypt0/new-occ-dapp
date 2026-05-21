@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+<g id="bg-light-grey">
+  <rect width="400" height="400" fill="#B5B5B5"/>
+</g>
+
+<defs><linearGradient id="fade-grad" x1="0" y1="0" x2="0" y2="1"><stop offset="99%" stop-color="white"/><stop offset="100%" stop-color="black"/></linearGradient><mask id="fade-mask"><rect width="400" height="400" fill="url(#fade-grad)"/></mask></defs>
+<g mask="url(#fade-mask)">
+<g id="hair-back-none">
+  <!-- No back fill needed for this hair variant -->
+</g>
+
+<g id="body-female-wide">
+  <path d="M86,400 Q85,325 105,305 Q120,290 152,285 L180,282 L180,265 L220,265 L220,282 L248,285 Q280,290 295,305 Q315,325 314,400 Z" fill="#FFDBB4" stroke="#333" stroke-width="2"/>
+</g>
+
+<g id="head-round-female">
+  <path d="M115,165 Q115,62 200,58 Q285,62 285,165 Q285,268 200,280 Q115,268 115,165 Z" fill="#FFDBB4" stroke="#333" stroke-width="2"/>
+  <!-- Nose -->
+  <path d="M194,191 Q200,201 206,191" fill="none" stroke="#333" stroke-width="1.5"/>
+</g>
+
+<g id="eyes-wink">
+  <ellipse cx="170" cy="158" rx="18" ry="18" fill="#FFF" stroke="#333" stroke-width="2"/>
+  <circle cx="172" cy="160" r="4" fill="#333"/>
+  <path d="M210,160 Q230,153 250,160" fill="none" stroke="#333" stroke-width="3" stroke-linecap="round"/>
+</g>
+
+<g id="eyebrows-normal">
+  <path d="M150,136 Q170,130 190,136" fill="none" stroke="#333" stroke-width="3" stroke-linecap="round"/>
+  <path d="M210,136 Q230,130 250,136" fill="none" stroke="#333" stroke-width="3" stroke-linecap="round"/>
+</g>
+
+<g id="clothing-jacket-f">
+  <!-- Cloth fill (closed shape, no stroke) — top traces the chin curve precisely -->
+  <path d="M78,400 Q78,323 98,305 Q115,290 152,285 L175,280 L175,274 Q186,278 200,280 Q214,278 225,274 L225,280 L248,285 Q285,290 302,305 Q322,323 322,400 Z" fill="#E67E22" stroke="none"/>
+  <!-- Visible outline (open at tube top so the chin curve isn't double-stroked) -->
+  <path d="M78,400 Q78,323 98,305 Q115,290 152,285 L175,280 L175,274 M225,274 L225,280 L248,285 Q285,290 302,305 Q322,323 322,400" fill="none" stroke="#333" stroke-width="2"/>
+  <!-- Collar fold seam at neck -->
+  <path d="M175,280 Q200,289 225,280" fill="none" stroke="#333" stroke-width="1.5"/>
+  <!-- Center zipper line -->
+  <line x1="200" y1="280" x2="200" y2="400" stroke="#333" stroke-width="3"/>
+  <!-- Sleeve seams -->
+  <line x1="112" y1="340" x2="112" y2="400" stroke="#333" stroke-width="1.5"/>
+  <line x1="288" y1="340" x2="288" y2="400" stroke="#333" stroke-width="1.5"/>
+  <!-- Bust seams -->
+  <path d="M122,350 Q106,374 122,400" fill="none" stroke="#333" stroke-width="1.5"/>
+  <path d="M278,350 Q294,374 278,400" fill="none" stroke="#333" stroke-width="1.5"/>
+  <!-- Left chest emblem (star patch) -->
+  <polygon points="148,305 150,312 158,312 152,316 154,323 148,319 142,323 144,316 138,312 146,312" fill="#FFF" stroke="#333" stroke-width="1.5"/>
+  <!-- Right chest emblem (triple stripes) -->
+  <line x1="242" y1="319" x2="260" y2="305" stroke="#333" stroke-width="2.5"/>
+  <line x1="246" y1="323" x2="264" y2="309" stroke="#333" stroke-width="2.5"/>
+  <line x1="250" y1="327" x2="268" y2="313" stroke="#333" stroke-width="2.5"/>
+</g>
+
+<g id="mouth-lipstick">
+  <path d="M175,222 Q188,215 200,222 Q212,215 225,222 Q212,238 200,240 Q188,238 175,222 Z" fill="#E74C3C" stroke="#333" stroke-width="2"/>
+  <path d="M175,222 Q200,232 225,222" fill="none" stroke="#333" stroke-width="1.5"/>
+</g>
+
+<g id="accessory-none">
+  <!-- No accessory -->
+</g>
+
+<g id="hair-female-bob">
+  <path d="M115,130 Q115,62 200,58 Q285,62 285,130 L290,185 Q295,218 272,222 L272,130 Q262,112 200,112 Q138,112 128,130 L128,222 Q105,218 110,185 Z" fill="#2C222B" stroke="#333" stroke-width="2"/>
+</g>
+
+<g id="accessoryii-baseball-cap-ii-f">
+  <!-- Cap dome -->
+  <path d="M116,113 Q116,48 200,48 Q284,48 284,113 Z" fill="#2980B9" stroke="#333" stroke-width="2"/>
+  <!-- Panel seams (curving outward) -->
+  <path d="M200,48 Q158,68 160,113" fill="none" stroke="#555" stroke-width="1"/>
+  <path d="M200,48 Q242,68 240,113" fill="none" stroke="#555" stroke-width="1"/>
+  <!-- Football logo -->
+  <path d="M200,73 Q213,88 200,103 Q187,88 200,73 Z" fill="#FFF" stroke="#555" stroke-width="1"/>
+  <line x1="192" y1="88" x2="208" y2="88" stroke="#555" stroke-width="1"/>
+  <line x1="195" y1="84" x2="195" y2="92" stroke="#555" stroke-width="0.8"/>
+  <line x1="200" y1="84" x2="200" y2="92" stroke="#555" stroke-width="0.8"/>
+  <line x1="205" y1="84" x2="205" y2="92" stroke="#555" stroke-width="0.8"/>
+  <!-- Cap button -->
+  <circle cx="200" cy="48" r="3" fill="#2980B9" stroke="#555" stroke-width="1.5"/>
+  <!-- Cap visor -->
+  <path d="M116,113 Q200,112 284,113 Q200,133 116,113 Z" fill="#2980B9" stroke="#333" stroke-width="2"/>
+</g>
+
+<g id="special-none">
+  <!-- No special effect -->
+</g>
+
+</g>
+</svg>
