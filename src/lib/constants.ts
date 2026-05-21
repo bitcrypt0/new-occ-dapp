@@ -64,8 +64,8 @@ export const CONTRACT = {
 
 export const SOCIALS = {
   raffle: "https://dropr.fun",
-  marketplace: "https://opensea.io",
-  twitter: "https://x.com",
+  marketplace: "https://opensea.io/collection/onchain-citizens-v2",
+  twitter: "https://x.com/citizensonchain",
   etherscan: "https://etherscan.io",
 };
 
