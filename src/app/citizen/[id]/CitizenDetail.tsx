@@ -17,6 +17,7 @@ import { EmptyState } from "@/components/states/EmptyState";
 import { ErrorState } from "@/components/states/ErrorState";
 import { LoadingSkeleton } from "@/components/states/LoadingSkeleton";
 import { useToast } from "@/components/actions/Toast";
+import { downloadCitizenPng } from "@/lib/citizen/download";
 import { cn } from "@/lib/cn";
 import { BG_HEX, CONTRACT } from "@/lib/constants";
 import type { BackgroundColor, TxState } from "@/lib/types";
@@ -58,6 +59,22 @@ export function CitizenDetail({ id }: { id: number }) {
   const [txError, setTxError] = useState<string>();
   const [transferred, setTransferred] = useState(false);
   const [transferTo, setTransferTo] = useState("");
+  const [downloading, setDownloading] = useState(false);
+
+  async function handleDownload() {
+    if (!citizen || downloading) return;
+    setDownloading(true);
+    try {
+      await downloadCitizenPng(citizen);
+    } catch (err) {
+      toast(
+        err instanceof Error ? err.message : "Couldn't save the PNG.",
+        "error",
+      );
+    } finally {
+      setDownloading(false);
+    }
+  }
 
   const lockFeeEth = lockFeeWei != null ? formatEther(lockFeeWei) : String(CONTRACT.lockTraitsFee);
 
@@ -160,7 +177,7 @@ export function CitizenDetail({ id }: { id: number }) {
       <div className="grid gap-8 lg:grid-cols-[0.95fr_1.05fr]">
         {/* ---- art ---- */}
         <div>
-          <div className="rounded-panel border-ink-lg border-ink bg-paper p-3 shadow-panel-lg">
+          <div className="relative rounded-panel border-ink-lg border-ink bg-paper p-3 shadow-panel-lg">
             <CitizenRender
               art={citizen.art}
               stage={citizen.stage}
@@ -170,6 +187,39 @@ export function CitizenDetail({ id }: { id: number }) {
               imageUri={citizen.imageUri}
               framed
             />
+            <button
+              type="button"
+              onClick={handleDownload}
+              disabled={downloading || !citizen.imageUri}
+              aria-label={`Download Citizen #${citizen.id} as PNG`}
+              title="Download PNG"
+              className={cn(
+                "absolute bottom-5 right-5 z-10 grid h-9 w-9 place-items-center rounded-full border-2 border-ink bg-paper text-ink",
+                "hover:bg-cream disabled:opacity-50",
+              )}
+            >
+              {downloading ? (
+                <span
+                  aria-hidden
+                  className="h-3.5 w-3.5 rounded-full border-[3px] border-ink border-t-transparent motion-safe:animate-spin"
+                />
+              ) : (
+                <svg
+                  viewBox="0 0 24 24"
+                  className="h-4 w-4"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth={2.5}
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  aria-hidden
+                >
+                  <path d="M12 4v11" />
+                  <path d="M7 11l5 5 5-5" />
+                  <path d="M5 20h14" />
+                </svg>
+              )}
+            </button>
           </div>
           <p className="mt-3 text-center font-body text-xs text-brown">
             Rendered on-chain · {CONTRACT.chain}
