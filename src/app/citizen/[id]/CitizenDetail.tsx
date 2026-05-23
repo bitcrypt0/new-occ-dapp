@@ -57,7 +57,14 @@ export function CitizenDetail({ id }: { id: number }) {
   const [modal, setModal] = useState<ActiveModal>("none");
   const [tx, setTx] = useState<TxState>("idle");
   const [txError, setTxError] = useState<string>();
-  const [transferred, setTransferred] = useState(false);
+  /**
+   * Message shown after a completed transfer. Stays null until the transfer
+   * confirms; once set, the owner-actions panel renders this in place of the
+   * action buttons. The wording is computed at transfer time so it always
+   * reflects what the transfer actually did — leaving the wallet vs. a
+   * self-transfer used to nudge a reshuffle (or a no-op when locked).
+   */
+  const [postTransferMessage, setPostTransferMessage] = useState<string | null>(null);
   const [transferTo, setTransferTo] = useState("");
   const [downloading, setDownloading] = useState(false);
 
@@ -151,11 +158,31 @@ export function CitizenDetail({ id }: { id: number }) {
 
   async function doTransfer() {
     setTxError(undefined);
+    // Capture the inputs *before* the await so the post-transfer message
+    // reflects the state at the moment the user confirmed the tx.
+    const recipient = transferTo.trim().toLowerCase();
+    const me = (address ?? "").toLowerCase();
+    const toSelf = me.length > 0 && recipient === me;
+    const wasLocked = citizen!.traitsLocked;
+
     const r = await transferCitizen(id, transferTo, setTx);
     if (r.state === "success") {
-      setTransferred(true);
+      let message: string;
+      if (!toSelf) {
+        message = reshufflesActive
+          ? "You transferred this Citizen — it's no longer in your wallet. Its unlocked traits will reshuffle for the new owner."
+          : "You transferred this Citizen — it's no longer in your wallet. Once reshuffles are active, an unlocked Citizen's traits re-roll for each new owner.";
+      } else if (wasLocked) {
+        message = "Transfer successful. Your Citizen's metadata remains unchanged.";
+      } else {
+        message = "Transfer successful! You successfully reshuffled this Citizen's metadata.";
+      }
+      setPostTransferMessage(message);
       refresh(id);
-      toast(`Citizen #${id} sent.`, "success");
+      toast(
+        toSelf ? `Citizen #${id} transferred.` : `Citizen #${id} sent.`,
+        "success",
+      );
       setModal("none");
       setTx("idle");
     } else {
@@ -266,13 +293,9 @@ export function CitizenDetail({ id }: { id: number }) {
           {/* owner actions */}
           <Panel tone="cream" className="mt-6 p-5">
             <h2 className="font-display text-display-sm">Owner actions</h2>
-            {transferred ? (
+            {postTransferMessage ? (
               <p className="mt-3 font-body text-sm text-brown">
-                You transferred this Citizen — it&apos;s no longer in your
-                wallet.{" "}
-                {reshufflesActive
-                  ? "Its unlocked traits will reshuffle for the new owner."
-                  : "Once reshuffles are active, an unlocked Citizen's traits re-roll for each new owner."}
+                {postTransferMessage}
               </p>
             ) : !connected ? (
               <div className="mt-3">

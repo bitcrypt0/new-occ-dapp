@@ -59,16 +59,29 @@ export function parseCitizen(tokenId: number, tokenUri: string): Citizen {
   const transferRaw = byType.get("Transfer Count");
   const transferCount = typeof transferRaw === "number" ? transferRaw : Number(transferRaw ?? 0);
 
-  const attributes: Attribute[] = raw
-    .filter((a) => a.trait_type && TRAIT_CATEGORY_SET.has(a.trait_type))
-    .map((a) => {
-      const category = a.trait_type as TraitCategory;
-      return {
+  // Build the attribute list in canonical TRAIT_CATEGORIES order, taking
+  // only the *first* occurrence of each trait_type. The contract emits some
+  // trait_types twice — most notably "Skin Tone" (once as the palette color
+  // in the header section, once as the registry-variant in the per-category
+  // loop). Without dedupe, two entries share the same React key and one of
+  // them silently drops out of the rendered list.
+  const firstByCategory = new Map<string, RawAttribute>();
+  for (const a of raw) {
+    if (!a.trait_type || firstByCategory.has(a.trait_type)) continue;
+    if (!TRAIT_CATEGORY_SET.has(a.trait_type)) continue;
+    firstByCategory.set(a.trait_type, a);
+  }
+  const attributes: Attribute[] = TRAIT_CATEGORIES.flatMap((category) => {
+    const a = firstByCategory.get(category);
+    if (!a) return [];
+    return [
+      {
         category,
         value: String(a.value ?? ""),
         reshufflable: RESHUFFLABLE.includes(category),
-      };
-    });
+      },
+    ];
+  });
 
   return {
     id: tokenId,

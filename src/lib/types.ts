@@ -13,6 +13,10 @@ export const TRAIT_CATEGORIES = [
   "Eyebrows",
   "Mouth",
   "Hair",
+  // "Hair Color" is not an enum slot in the contract — it's the palette name
+  // (derived from permSeed and emitted as its own trait_type in tokenURI).
+  // Listed here so the dapp surfaces it in the trait grid like any other.
+  "Hair Color",
   "Facial Hair",
   "Clothing",
   "Accessory",
