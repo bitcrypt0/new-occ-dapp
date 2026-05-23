@@ -62,6 +62,10 @@ export const CONTRACT = {
   lockTraitsFee: 0.001,
 } as const;
 
+/** Permalink to a specific V2 token on OpenSea. */
+export const openseaTokenUrl = (id: number): string =>
+  `https://opensea.io/assets/ethereum/${ADDRESSES.occv2.toLowerCase()}/${id}`;
+
 export const SOCIALS = {
   raffle: "https://dropr.fun",
   marketplace: "https://opensea.io/collection/onchain-citizens-v2",
@@ -73,11 +77,12 @@ export const SOCIALS = {
 export const MARKET_LIVE = false;
 
 /**
- * Master switch for the Live Feed. Stays false until the off-chain indexer
- * is built, deployed, and confirmed online (Phase 2). Flipping this is a
- * deliberate post-indexer step.
+ * Master switch for the Live Feed. Phase 2a ships a client-side websocket
+ * stream (no backend, no history — live-from-now-on). Flip back to false
+ * to instantly revert /feed to the "coming soon" state without removing
+ * the live code.
  */
-export const FEED_LIVE = false;
+export const FEED_LIVE = true;
 
 /**
  * Whether trait reshuffle-on-transfer is active yet. This is a fallback for

@@ -49,11 +49,11 @@ export function Modal({ open, onClose, title, children, footer, className }: Mod
         ref={ref}
         tabIndex={-1}
         className={cn(
-          "relative z-10 w-full max-w-lg rounded-panel border-ink-lg border-ink bg-paper shadow-panel-lg outline-none",
+          "relative z-10 flex max-h-[calc(100vh-2rem)] w-full max-w-lg flex-col rounded-panel border-ink-lg border-ink bg-paper shadow-panel-lg outline-none",
           className,
         )}
       >
-        <div className="flex items-center justify-between gap-4 border-b-ink border-ink bg-cream px-5 py-3">
+        <div className="flex shrink-0 items-center justify-between gap-4 border-b-ink border-ink bg-cream px-5 py-3">
           <h2 className="font-display text-display-sm">{title}</h2>
           <button
             onClick={onClose}
@@ -63,9 +63,9 @@ export function Modal({ open, onClose, title, children, footer, className }: Mod
             ✕
           </button>
         </div>
-        <div className="px-5 py-4">{children}</div>
+        <div className="overflow-y-auto px-5 py-4">{children}</div>
         {footer && (
-          <div className="flex flex-wrap justify-end gap-3 border-t-ink border-ink px-5 py-3">
+          <div className="flex shrink-0 flex-wrap justify-end gap-3 border-t-ink border-ink px-5 py-3">
             {footer}
           </div>
         )}
