@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import { Page, PageHeader } from "@/components/layout/Page";
 import { Panel } from "@/components/layout/Panel";
@@ -20,6 +20,7 @@ import { useWallet } from "@/lib/hooks/useWallet";
 import {
   useV1Tokens,
   useStakedV1Tokens,
+  useV1ApprovedForV2,
   approveV2,
   claimTokens,
   unstakeV1,
@@ -32,11 +33,19 @@ export default function ClaimPage() {
   const { connected, isWrongNetwork, address } = useWallet();
   const { tokens: v1Tokens, isLoading, error } = useV1Tokens();
   const { tokens: stakedTokens, isLoading: stakedLoading } = useStakedV1Tokens();
+  const { approved: isV1Approved, isLoading: approvalLoading } = useV1ApprovedForV2();
   const toast = useToast();
   const queryClient = useQueryClient();
 
   const [selected, setSelected] = useState<number[]>([]);
   const [step, setStep] = useState(0);
+
+  // V1's `setApprovalForAll` is a permanent, owner-wide grant. If the wallet
+  // already approved the V2 contract — in a prior session, or via another
+  // dapp — skip Step 1 entirely and start at Migrate.
+  useEffect(() => {
+    if (isV1Approved && step === 0) setStep(1);
+  }, [isV1Approved, step]);
   const [approveTx, setApproveTx] = useState<TxState>("idle");
   const [claimTx, setClaimTx] = useState<TxState>("idle");
   const [unstakeTx, setUnstakeTx] = useState<TxState>("idle");
@@ -160,7 +169,7 @@ export default function ClaimPage() {
           description="Migrating runs on Ethereum Mainnet. Switch your wallet's network to continue."
           action={<ConnectButton />}
         />
-      ) : isLoading || stakedLoading ? (
+      ) : isLoading || stakedLoading || approvalLoading ? (
         <LoadingSkeleton variant="grid" count={6} />
       ) : error ? (
         <ErrorState

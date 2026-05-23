@@ -44,7 +44,7 @@ function provenance(count: number): string {
 export function CitizenDetail({ id }: { id: number }) {
   const { citizen, isLoading, error, notFound } = useCitizen(id);
   const isOwner = useIsOwner(id);
-  const { connected, isWrongNetwork } = useWallet();
+  const { connected, isWrongNetwork, address } = useWallet();
   const reshufflesActive = useReshufflesActive();
   const lockFeeWei = useTraitLockFee();
   const toast = useToast();
@@ -386,7 +386,11 @@ export function CitizenDetail({ id }: { id: number }) {
             ? "Remember — on arrival its unlocked traits reshuffle for the new owner."
             : "Once reshuffles are active, an unlocked Citizen's traits re-roll for the new owner on arrival."}
         </p>
-        <AddressInput value={transferTo} onChange={setTransferTo} />
+        <AddressInput
+          value={transferTo}
+          onChange={setTransferTo}
+          onUseSelf={address ? () => setTransferTo(address) : undefined}
+        />
         {tx !== "idle" && (
           <TxStatus
             state={tx}

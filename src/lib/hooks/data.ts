@@ -387,6 +387,26 @@ export function useReshufflesActive(): boolean {
   return Boolean(data);
 }
 
+/**
+ * Has the connected wallet already approved the V2 contract to move its V1
+ * tokens? V1 `setApprovalForAll(v2, true)` is a one-time, owner-wide grant —
+ * persistent on-chain — so the claim flow should skip the Approve step for
+ * anyone who has already done it (or who approved through another dapp).
+ */
+export function useV1ApprovedForV2(): { approved: boolean; isLoading: boolean } {
+  const { address, isConnected } = useAccount();
+  const { data, isLoading } = useReadContract({
+    ...occv1Contract,
+    functionName: "isApprovedForAll",
+    args: [
+      (address ?? "0x0000000000000000000000000000000000000000") as `0x${string}`,
+      occv2Contract.address,
+    ],
+    query: { enabled: isConnected && Boolean(address) },
+  });
+  return { approved: Boolean(data), isLoading: isConnected && isLoading };
+}
+
 /** Live `traitLockFee()` in wei — the lock/unlock payable amount. */
 export function useTraitLockFee(): bigint | undefined {
   const { data } = useReadContract({

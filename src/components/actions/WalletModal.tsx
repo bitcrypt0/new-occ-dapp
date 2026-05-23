@@ -2,8 +2,15 @@
 
 import { useMemo, useState } from "react";
 import { useConnect, type Connector } from "wagmi";
+import { disconnect } from "@wagmi/core";
+import { wagmiConfig } from "@/lib/wagmi";
 import { Modal } from "./Modal";
 import { cn } from "@/lib/cn";
+
+/** Minimal EIP-1193 provider shape — enough to call wallet_requestPermissions. */
+type Eip1193 = {
+  request: (args: { method: string; params?: unknown[] }) => Promise<unknown>;
+};
 
 /** EIP-6963 rdns identifiers we special-case. */
 const METAMASK_RDNS = "io.metamask";
@@ -47,8 +54,48 @@ export function WalletModal({
     });
   }, [connectors]);
 
-  function handleConnect(connector: Connector) {
+  async function handleConnect(connector: Connector) {
     setPendingId(connector.id);
+
+    // 1. Clear any half-resolved wagmi state from a previous session.
+    //    Without this, a stale connection record from cookie storage can
+    //    block the new connect from settling cleanly.
+    try {
+      await disconnect(wagmiConfig);
+    } catch {
+      /* already disconnected — fine */
+    }
+
+    // 2. Force a fresh wallet handshake. This is the actual fix for the
+    //    "stuck after Chrome restart / dev-server restart" UX:
+    //    wagmi's `connect` calls `eth_requestAccounts`, which returns
+    //    SILENTLY when the wallet still has the dapp permitted from a prior
+    //    session. The dapp sees no popup and the modal hangs. Calling
+    //    `wallet_requestPermissions` (EIP-2255) forces every major wallet —
+    //    MetaMask, Rabby, Coinbase Wallet — to re-prompt and rebuild a clean
+    //    permission grant, so dapp and wallet always finish in sync.
+    //    Wallets that don't implement it throw; we fall through to wagmi's
+    //    normal connect path in that case.
+    try {
+      const provider = (await connector.getProvider()) as Eip1193 | undefined;
+      if (provider?.request) {
+        await provider.request({
+          method: "wallet_requestPermissions",
+          params: [{ eth_accounts: {} }],
+        });
+      }
+    } catch (err) {
+      const message = (err as Error)?.message ?? "";
+      if (/user rejected|denied|request rejected/i.test(message)) {
+        // The user explicitly cancelled the permission prompt — stop here.
+        setPendingId(null);
+        return;
+      }
+      // Any other error: the wallet doesn't support the method or threw an
+      // unrelated error. Continue with the standard wagmi connect.
+    }
+
+    // 3. Let wagmi finish wiring up its state from the now-fresh handshake.
     connect(
       { connector },
       {
