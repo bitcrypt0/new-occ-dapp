@@ -3,17 +3,24 @@
 import { BG_HEX } from "@/lib/constants";
 import type { Citizen } from "@/lib/types";
 
+export type ImageFormat = "png" | "jpeg";
+
 /**
- * Rasterize a Citizen's on-chain SVG to PNG and trigger a download.
+ * Rasterize a Citizen's on-chain SVG and trigger a download.
  *
- * The contract serves art as a `data:image/svg+xml;base64,…` URI which the
- * browser can load directly into an Image element. Drawing that onto a canvas
- * lets us export a PNG without any server round-trip. The Citizen's background
- * color is painted first so the saved file looks identical to what's on screen
- * (the SVG's outer canvas is transparent).
+ * Both PNG and JPEG are produced from the same canvas. The Citizen's
+ * background color is painted first so the saved file matches what's on
+ * screen — and so JPEG (which doesn't support transparency) doesn't fall
+ * back to black.
+ *
+ * JPEG is rendered at quality 0.95. Twitter, Farcaster, and most other
+ * social platforms re-encode uploaded images as JPEG; supplying a JPEG that
+ * already targets their encoder typically preserves more detail than
+ * uploading a PNG and letting them re-compress it.
  */
-export async function downloadCitizenPng(
+export async function downloadCitizenImage(
   citizen: Citizen,
+  format: ImageFormat = "png",
   size = 1024,
 ): Promise<void> {
   if (typeof window === "undefined") return;
@@ -40,19 +47,25 @@ export async function downloadCitizenPng(
   ctx.fillRect(0, 0, size, size);
   ctx.drawImage(img, 0, 0, size, size);
 
-  // Export to PNG and trigger the download.
+  const mimeType = format === "jpeg" ? "image/jpeg" : "image/png";
+  const extension = format === "jpeg" ? "jpg" : "png";
+  const quality = format === "jpeg" ? 0.95 : undefined;
+
   const blob = await new Promise<Blob | null>((resolve) => {
-    canvas.toBlob(resolve, "image/png");
+    canvas.toBlob(resolve, mimeType, quality);
   });
-  if (!blob) throw new Error("Couldn't generate the PNG.");
+  if (!blob) throw new Error("Couldn't generate the image.");
 
   const url = URL.createObjectURL(blob);
   const a = document.createElement("a");
   a.href = url;
-  a.download = `OnChainCitizen-${citizen.id}.png`;
+  a.download = `OnChainCitizen-${citizen.id}.${extension}`;
   document.body.appendChild(a);
   a.click();
   document.body.removeChild(a);
-  // Release the blob URL after the click handler has had a chance to fire.
   setTimeout(() => URL.revokeObjectURL(url), 1_000);
 }
+
+/** Legacy alias — kept so existing callers needn't change all at once. */
+export const downloadCitizenPng = (citizen: Citizen, size = 1024) =>
+  downloadCitizenImage(citizen, "png", size);
