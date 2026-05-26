@@ -287,8 +287,8 @@ function FeedComingSoon() {
           <Button href="/collection" size="sm">
             View my Collection
           </Button>
-          <Button href="/how-it-works" variant="ghost" size="sm">
-            How OnChain Citizens works
+          <Button href="/docs" variant="ghost" size="sm">
+            Open the Docs
           </Button>
         </div>
       </Panel>

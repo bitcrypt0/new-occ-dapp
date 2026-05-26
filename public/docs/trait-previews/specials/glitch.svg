@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" preserveAspectRatio="xMidYMid meet">
+  <path d="M76,400 Q75,325 95,305 Q110,290 145,285 L178,282 L178,265 L222,265 L222,282 L255,285 Q290,290 305,305 Q325,325 324,400 Z" fill="#FFDBB4" stroke="#333" stroke-width="2"/>
+  <line x1="110" y1="340" x2="110" y2="398" stroke="#333" stroke-width="1.5" stroke-linecap="round"/><line x1="290" y1="340" x2="290" y2="398" stroke="#333" stroke-width="1.5" stroke-linecap="round"/>
+  <path d="M113,163 Q113,59 200,55 Q287,59 287,163 Q287,268 200,280 Q113,268 113,163 Z" fill="#FFDBB4" stroke="#333" stroke-width="2"/>
+  <!-- Nose -->
+  <path d="M193,190 Q200,200 207,190" fill="none" stroke="#333" stroke-width="2"/>
+  <path d="M113,155 Q101,167 113,181 Z" fill="#FFDBB4" stroke="#333" stroke-width="2"/><path d="M111,162 Q109,167 111,173" fill="none" stroke="#333" stroke-width="1.5"/><path d="M287,155 Q299,167 287,181 Z" fill="#FFDBB4" stroke="#333" stroke-width="2"/><path d="M289,162 Q291,167 289,173" fill="none" stroke="#333" stroke-width="1.5"/>
+  <ellipse cx="170" cy="158" rx="18" ry="18" fill="#FFF" stroke="#333" stroke-width="2"/>
+  <ellipse cx="230" cy="158" rx="18" ry="18" fill="#FFF" stroke="#333" stroke-width="2"/>
+  <circle cx="172" cy="160" r="4" fill="#333"/>
+  <circle cx="232" cy="160" r="4" fill="#333"/>
+  <path d="M147,128 Q170,118 193,128" fill="none" stroke="#333" stroke-width="3" stroke-linecap="round"/><path d="M207,128 Q230,118 253,128" fill="none" stroke="#333" stroke-width="3" stroke-linecap="round"/>
+  <path d="M175,230 Q200,210 225,230" fill="none" stroke="#333" stroke-width="2"/>
+  <!-- Glitch effect with flickering animation -->
+  <!-- 4 animated groups: 3 glitch zones + scan lines -->
+
+  <!-- Upper glitch zone — flicker (2.5s cycle) -->
+  <g>
+    <animate attributeName="opacity" values="1;0;1;1;0.3;1" dur="2.5s" repeatCount="indefinite"/>
+    <rect x="0" y="82" width="175" height="3" fill="#00FFFF" opacity="0.45"/>
+    <rect x="185" y="82" width="215" height="3" fill="#00FFFF" opacity="0.45"/>
+    <rect x="5" y="85" width="195" height="3" fill="#FF00FF" opacity="0.4"/>
+    <rect x="210" y="85" width="190" height="3" fill="#FF00FF" opacity="0.4"/>
+  </g>
+
+  <!-- Middle glitch zone — shift + flicker (3s cycle) -->
+  <g>
+    <animate attributeName="opacity" values="1;1;0;0.5;1;1" dur="3s" repeatCount="indefinite"/>
+    <animateTransform attributeName="transform" type="translate" values="0,0; 3,0; -2,0; 0,0" dur="3s" repeatCount="indefinite"/>
+    <rect x="0" y="193" width="155" height="4" fill="#FF00FF" opacity="0.4"/>
+    <rect x="165" y="193" width="235" height="4" fill="#FF00FF" opacity="0.4"/>
+    <rect x="-3" y="197" width="175" height="3" fill="#00FFFF" opacity="0.45"/>
+    <rect x="180" y="197" width="223" height="3" fill="#00FFFF" opacity="0.45"/>
+  </g>
+
+  <!-- Lower glitch zone — flicker (3.5s cycle, offset pattern) -->
+  <g>
+    <animate attributeName="opacity" values="0.5;1;1;0;1;0.8" dur="3.5s" repeatCount="indefinite"/>
+    <rect x="0" y="318" width="215" height="3" fill="#00FFFF" opacity="0.45"/>
+    <rect x="225" y="318" width="175" height="3" fill="#00FFFF" opacity="0.45"/>
+    <rect x="8" y="321" width="190" height="3" fill="#FF00FF" opacity="0.4"/>
+    <rect x="205" y="321" width="195" height="3" fill="#FF00FF" opacity="0.4"/>
+  </g>
+
+  <!-- Scan lines — gentle pulse (4s cycle) -->
+  <g>
+    <animate attributeName="opacity" values="0.2;0.5;0.2;0.3;0.2" dur="4s" repeatCount="indefinite"/>
+    <line x1="0" y1="50" x2="400" y2="50" stroke="#00FFFF" stroke-width="1"/>
+    <line x1="0" y1="145" x2="400" y2="145" stroke="#FF00FF" stroke-width="1"/>
+    <line x1="0" y1="260" x2="400" y2="260" stroke="#00FFFF" stroke-width="1"/>
+    <line x1="0" y1="370" x2="400" y2="370" stroke="#FF00FF" stroke-width="1"/>
+  </g>
+</svg>

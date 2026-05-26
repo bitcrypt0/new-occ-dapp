@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" preserveAspectRatio="xMidYMid meet">
+  <path d="M76,400 Q75,325 95,305 Q110,290 145,285 L178,282 L178,265 L222,265 L222,282 L255,285 Q290,290 305,305 Q325,325 324,400 Z" fill="#FFDBB4" stroke="#333" stroke-width="2"/>
+  <line x1="110" y1="340" x2="110" y2="398" stroke="#333" stroke-width="1.5" stroke-linecap="round"/><line x1="290" y1="340" x2="290" y2="398" stroke="#333" stroke-width="1.5" stroke-linecap="round"/>
+  <path d="M113,163 Q113,59 200,55 Q287,59 287,163 Q287,268 200,280 Q113,268 113,163 Z" fill="#FFDBB4" stroke="#333" stroke-width="2"/>
+  <!-- Nose -->
+  <path d="M193,190 Q200,200 207,190" fill="none" stroke="#333" stroke-width="2"/>
+  <path d="M113,155 Q101,167 113,181 Z" fill="#FFDBB4" stroke="#333" stroke-width="2"/><path d="M111,162 Q109,167 111,173" fill="none" stroke="#333" stroke-width="1.5"/><path d="M287,155 Q299,167 287,181 Z" fill="#FFDBB4" stroke="#333" stroke-width="2"/><path d="M289,162 Q291,167 289,173" fill="none" stroke="#333" stroke-width="1.5"/>
+  <ellipse cx="168" cy="158" rx="22" ry="24" fill="#FFF" stroke="#333" stroke-width="2"/>
+  <ellipse cx="232" cy="158" rx="22" ry="24" fill="#FFF" stroke="#333" stroke-width="2"/>
+  <circle cx="168" cy="160" r="3" fill="#333"/>
+  <circle cx="232" cy="160" r="3" fill="#333"/>
+  <path d="M147,128 Q170,118 193,128" fill="none" stroke="#333" stroke-width="3" stroke-linecap="round"/><path d="M207,128 Q230,118 253,128" fill="none" stroke="#333" stroke-width="3" stroke-linecap="round"/>
+  <path d="M175,230 Q200,210 225,230" fill="none" stroke="#333" stroke-width="2"/>
+  <!-- Animated candlestick chart overlay — bullish breakout -->
+
+  <!-- Group 1: candles 1-4 (2.5s flicker) -->
+  <g>
+    <animate attributeName="opacity" values="0.7;0.5;0.7;0.7;0.4;0.7" dur="2.5s" repeatCount="indefinite"/>
+    <!-- Candle 1 (Red) -->
+    <line x1="20" y1="362" x2="20" y2="394" stroke="#EF4444" stroke-width="2"/>
+    <rect x="13" y="368" width="14" height="20" fill="#EF4444" stroke="#C53030" stroke-width="0.5"/>
+    <!-- Candle 2 (Green) -->
+    <line x1="48" y1="350" x2="48" y2="388" stroke="#22C55E" stroke-width="2"/>
+    <rect x="41" y="358" width="14" height="24" fill="#22C55E" stroke="#15803D" stroke-width="0.5"/>
+    <!-- Candle 3 (Red) -->
+    <line x1="76" y1="355" x2="76" y2="380" stroke="#EF4444" stroke-width="2"/>
+    <rect x="69" y="362" width="14" height="13" fill="#EF4444" stroke="#C53030" stroke-width="0.5"/>
+    <!-- Candle 4 (Green) -->
+    <line x1="104" y1="340" x2="104" y2="376" stroke="#22C55E" stroke-width="2"/>
+    <rect x="97" y="348" width="14" height="22" fill="#22C55E" stroke="#15803D" stroke-width="0.5"/>
+  </g>
+
+  <!-- Group 2: candles 5-8 (3s flicker + shift) -->
+  <g>
+    <animate attributeName="opacity" values="0.7;0.7;0.5;0.6;0.7;0.7" dur="3s" repeatCount="indefinite"/>
+    <animateTransform attributeName="transform" type="translate" values="0,0; 2,0; -1,0; 0,0" dur="3s" repeatCount="indefinite"/>
+    <!-- Candle 5 (Red) -->
+    <line x1="132" y1="345" x2="132" y2="372" stroke="#EF4444" stroke-width="2"/>
+    <rect x="125" y="352" width="14" height="13" fill="#EF4444" stroke="#C53030" stroke-width="0.5"/>
+    <!-- Candle 6 (Green) -->
+    <line x1="160" y1="330" x2="160" y2="366" stroke="#22C55E" stroke-width="2"/>
+    <rect x="153" y="338" width="14" height="22" fill="#22C55E" stroke="#15803D" stroke-width="0.5"/>
+    <!-- Candle 7 (Red) -->
+    <line x1="188" y1="335" x2="188" y2="362" stroke="#EF4444" stroke-width="2"/>
+    <rect x="181" y="342" width="14" height="13" fill="#EF4444" stroke="#C53030" stroke-width="0.5"/>
+    <!-- Candle 8 (Green) -->
+    <line x1="216" y1="320" x2="216" y2="356" stroke="#22C55E" stroke-width="2"/>
+    <rect x="209" y="328" width="14" height="22" fill="#22C55E" stroke="#15803D" stroke-width="0.5"/>
+  </g>
+
+  <!-- Group 3: candles 9-12 (3.5s flicker) -->
+  <g>
+    <animate attributeName="opacity" values="0.6;0.7;0.7;0.5;0.7;0.7" dur="3.5s" repeatCount="indefinite"/>
+    <!-- Candle 9 (Red) -->
+    <line x1="244" y1="325" x2="244" y2="352" stroke="#EF4444" stroke-width="2"/>
+    <rect x="237" y="332" width="14" height="13" fill="#EF4444" stroke="#C53030" stroke-width="0.5"/>
+    <!-- Candle 10 (Green) -->
+    <line x1="272" y1="310" x2="272" y2="346" stroke="#22C55E" stroke-width="2"/>
+    <rect x="265" y="318" width="14" height="22" fill="#22C55E" stroke="#15803D" stroke-width="0.5"/>
+    <!-- Candle 11 (Red) -->
+    <line x1="300" y1="315" x2="300" y2="342" stroke="#EF4444" stroke-width="2"/>
+    <rect x="293" y="322" width="14" height="13" fill="#EF4444" stroke="#C53030" stroke-width="0.5"/>
+    <!-- Candle 12 (Green) -->
+    <line x1="335" y1="300" x2="335" y2="336" stroke="#22C55E" stroke-width="2"/>
+    <rect x="328" y="308" width="14" height="22" fill="#22C55E" stroke="#15803D" stroke-width="0.5"/>
+  </g>
+
+  <!-- Group 4: candle 13 — LONG GREEN breakout (2s fast flicker) -->
+  <g>
+    <animate attributeName="opacity" values="0.7;0.6;0.7;0.5;0.7;0.7" dur="2s" repeatCount="indefinite"/>
+    <line x1="380" y1="8" x2="380" y2="322" stroke="#22C55E" stroke-width="2"/>
+    <rect x="373" y="18" width="14" height="297" fill="#22C55E" stroke="#15803D" stroke-width="0.5"/>
+  </g>
+</svg>

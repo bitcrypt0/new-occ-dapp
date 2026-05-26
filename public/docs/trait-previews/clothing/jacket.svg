@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" preserveAspectRatio="xMidYMid meet">
+  <path d="M76,400 Q75,325 95,305 Q110,290 145,285 L178,282 L178,265 L222,265 L222,282 L255,285 Q290,290 305,305 Q325,325 324,400 Z" fill="#AE5D29" stroke="#333" stroke-width="2"/>
+  <line x1="110" y1="340" x2="110" y2="398" stroke="#333" stroke-width="1.5" stroke-linecap="round"/><line x1="290" y1="340" x2="290" y2="398" stroke="#333" stroke-width="1.5" stroke-linecap="round"/>
+  <path d="M113,163 Q113,59 200,55 Q287,59 287,163 Q287,268 200,280 Q113,268 113,163 Z" fill="#AE5D29" stroke="#333" stroke-width="2"/>
+  <!-- Nose -->
+  <path d="M193,190 Q200,200 207,190" fill="none" stroke="#333" stroke-width="2"/>
+  <path d="M113,155 Q101,167 113,181 Z" fill="#AE5D29" stroke="#333" stroke-width="2"/><path d="M111,162 Q109,167 111,173" fill="none" stroke="#333" stroke-width="1.5"/><path d="M287,155 Q299,167 287,181 Z" fill="#AE5D29" stroke="#333" stroke-width="2"/><path d="M289,162 Q291,167 289,173" fill="none" stroke="#333" stroke-width="1.5"/>
+  <ellipse cx="168" cy="158" rx="22" ry="24" fill="#FFF" stroke="#333" stroke-width="2"/>
+  <ellipse cx="232" cy="158" rx="22" ry="24" fill="#FFF" stroke="#333" stroke-width="2"/>
+  <circle cx="168" cy="160" r="3" fill="#333"/>
+  <circle cx="232" cy="160" r="3" fill="#333"/>
+  <path d="M147,128 Q170,118 193,128" fill="none" stroke="#333" stroke-width="3" stroke-linecap="round"/><path d="M207,128 Q230,118 253,128" fill="none" stroke="#333" stroke-width="3" stroke-linecap="round"/>
+  <!-- Open mouth -->
+  <path d="M175,220 Q200,246 225,220 Z" fill="#333" stroke="#333" stroke-width="2"/>
+  <!-- Upper teeth row (curved) -->
+  <path d="M178,220 Q200,230 222,220 Z" fill="#FFF" stroke="none"/>
+  <!-- Tooth dividers -->
+  <line x1="185" y1="220" x2="185" y2="222" stroke="#333" stroke-width="1"/>
+  <line x1="192" y1="220" x2="192" y2="224" stroke="#333" stroke-width="1"/>
+  <line x1="200" y1="220" x2="200" y2="225" stroke="#333" stroke-width="1"/>
+  <line x1="208" y1="220" x2="208" y2="224" stroke="#333" stroke-width="1"/>
+  <line x1="215" y1="220" x2="215" y2="222" stroke="#333" stroke-width="1"/>
+  <!-- Cloth fill (closed shape, no stroke) — top traces the chin curve precisely -->
+  <path d="M68,400 Q68,323 88,305 Q105,290 145,285 L175,280 L175,274 Q186,278 200,280 Q214,278 225,274 L225,280 L255,285 Q295,290 312,305 Q332,323 332,400 Z" fill="#A6C0E0" stroke="none"/>
+  <!-- Visible outline (open at tube top so the chin curve isn't double-stroked) -->
+  <path d="M68,400 Q68,323 88,305 Q105,290 145,285 L175,280 L175,274 M225,274 L225,280 L255,285 Q295,290 312,305 Q332,323 332,400" fill="none" stroke="#333" stroke-width="2"/>
+  <!-- Collar fold seam at neck -->
+  <path d="M175,280 Q200,289 225,280" fill="none" stroke="#333" stroke-width="1.5"/>
+  <!-- Center zipper line -->
+  <line x1="200" y1="280" x2="200" y2="400" stroke="#333" stroke-width="3"/>
+  <!-- Sleeve seams -->
+  <line x1="110" y1="340" x2="110" y2="400" stroke="#333" stroke-width="1.5"/>
+  <line x1="290" y1="340" x2="290" y2="400" stroke="#333" stroke-width="1.5"/>
+  <!-- Left chest emblem (star patch) -->
+  <polygon points="145,308 147,315 155,315 149,319 151,326 145,322 139,326 141,319 135,315 143,315" fill="#FFF" stroke="#333" stroke-width="1.5"/>
+  <!-- Right chest emblem (triple stripes) -->
+  <line x1="244" y1="322" x2="262" y2="308" stroke="#333" stroke-width="2.5"/>
+  <line x1="248" y1="326" x2="266" y2="312" stroke="#333" stroke-width="2.5"/>
+  <line x1="252" y1="330" x2="270" y2="316" stroke="#333" stroke-width="2.5"/>
+</svg>

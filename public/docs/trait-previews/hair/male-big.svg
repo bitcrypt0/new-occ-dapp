@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" preserveAspectRatio="xMidYMid meet">
+  <!-- No back fill needed for this hair variant -->
+  <path d="M76,400 Q75,325 95,305 Q110,290 145,285 L178,282 L178,265 L222,265 L222,282 L255,285 Q290,290 305,305 Q325,325 324,400 Z" fill="#AE5D29" stroke="#333" stroke-width="2"/>
+  <line x1="110" y1="340" x2="110" y2="398" stroke="#333" stroke-width="1.5" stroke-linecap="round"/><line x1="290" y1="340" x2="290" y2="398" stroke="#333" stroke-width="1.5" stroke-linecap="round"/>
+  <path d="M113,163 Q113,59 200,55 Q287,59 287,163 Q287,268 200,280 Q113,268 113,163 Z" fill="#AE5D29" stroke="#333" stroke-width="2"/>
+  <!-- Nose -->
+  <path d="M193,190 Q200,200 207,190" fill="none" stroke="#333" stroke-width="2"/>
+  <path d="M113,155 Q101,167 113,181 Z" fill="#AE5D29" stroke="#333" stroke-width="2"/><path d="M111,162 Q109,167 111,173" fill="none" stroke="#333" stroke-width="1.5"/><path d="M287,155 Q299,167 287,181 Z" fill="#AE5D29" stroke="#333" stroke-width="2"/><path d="M289,162 Q291,167 289,173" fill="none" stroke="#333" stroke-width="1.5"/>
+  <ellipse cx="170" cy="158" rx="18" ry="8" fill="#FFF" stroke="#333" stroke-width="2"/>
+  <ellipse cx="230" cy="158" rx="18" ry="8" fill="#FFF" stroke="#333" stroke-width="2"/>
+  <circle cx="172" cy="159" r="3" fill="#333"/>
+  <circle cx="232" cy="159" r="3" fill="#333"/>
+  <path d="M147,128 Q170,118 193,128" fill="none" stroke="#333" stroke-width="3" stroke-linecap="round"/><path d="M207,128 Q230,118 253,128" fill="none" stroke="#333" stroke-width="3" stroke-linecap="round"/>
+  <line x1="180" y1="225" x2="220" y2="225" stroke="#333" stroke-width="2" stroke-linecap="round"/>
+  <path d="M115,132 Q111,96 120,80 Q115,70 124,60 Q128,48 155,43 Q150,36 167,38 Q183,32 200,36 Q222,30 240,38 Q257,36 254,43 Q280,50 285,63 Q294,73 289,80 Q292,94 285,132 L270,132 L270,102 Q200,110 130,102 L130,132 L115,132 Z" fill="#3A2A1F" stroke="#333" stroke-width="2"/>
+</svg>

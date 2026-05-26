@@ -1,0 +1,138 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1300 900">
+  <!-- Preview: All 12 Eye Variants on Round Head with Ivory skin -->
+  <rect width="1300" height="900" fill="#E8E8E8"/>
+
+  <!-- Row 1: eyes 1-4 -->
+  <!-- Wide Open -->
+  <g transform="translate(-90,20)">
+    <text x="200" y="10" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#333">Wide Open</text>
+    <path d="M110,162 Q110,56 200,52 Q290,56 290,162 Q290,268 200,280 Q110,268 110,162 Z" fill="#FFDBB4" stroke="#333" stroke-width="2"/>
+    <ellipse cx="170" cy="155" rx="25" ry="28" fill="#FFF" stroke="#333" stroke-width="2"/>
+    <ellipse cx="230" cy="155" rx="25" ry="28" fill="#FFF" stroke="#333" stroke-width="2"/>
+    <circle cx="173" cy="157" r="7" fill="#333"/>
+    <circle cx="233" cy="157" r="7" fill="#333"/>
+    <path d="M175,220 Q200,240 225,220" fill="none" stroke="#333" stroke-width="2"/>
+  </g>
+
+  <!-- Normal -->
+  <g transform="translate(230,20)">
+    <text x="200" y="10" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#333">Normal</text>
+    <path d="M110,162 Q110,56 200,52 Q290,56 290,162 Q290,268 200,280 Q110,268 110,162 Z" fill="#FFDBB4" stroke="#333" stroke-width="2"/>
+    <ellipse cx="170" cy="155" rx="22" ry="24" fill="#FFF" stroke="#333" stroke-width="2"/>
+    <ellipse cx="230" cy="155" rx="22" ry="24" fill="#FFF" stroke="#333" stroke-width="2"/>
+    <circle cx="172" cy="157" r="6" fill="#333"/>
+    <circle cx="232" cy="157" r="6" fill="#333"/>
+    <path d="M175,220 Q200,240 225,220" fill="none" stroke="#333" stroke-width="2"/>
+  </g>
+
+  <!-- Small -->
+  <g transform="translate(550,20)">
+    <text x="200" y="10" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#333">Small</text>
+    <path d="M110,162 Q110,56 200,52 Q290,56 290,162 Q290,268 200,280 Q110,268 110,162 Z" fill="#FFDBB4" stroke="#333" stroke-width="2"/>
+    <ellipse cx="170" cy="155" rx="18" ry="18" fill="#FFF" stroke="#333" stroke-width="2"/>
+    <ellipse cx="230" cy="155" rx="18" ry="18" fill="#FFF" stroke="#333" stroke-width="2"/>
+    <circle cx="172" cy="156" r="5" fill="#333"/>
+    <circle cx="232" cy="156" r="5" fill="#333"/>
+    <path d="M175,220 Q200,240 225,220" fill="none" stroke="#333" stroke-width="2"/>
+  </g>
+
+  <!-- Squinting -->
+  <g transform="translate(870,20)">
+    <text x="200" y="10" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#333">Squinting</text>
+    <path d="M110,162 Q110,56 200,52 Q290,56 290,162 Q290,268 200,280 Q110,268 110,162 Z" fill="#FFDBB4" stroke="#333" stroke-width="2"/>
+    <ellipse cx="170" cy="155" rx="22" ry="12" fill="#FFF" stroke="#333" stroke-width="2"/>
+    <ellipse cx="230" cy="155" rx="22" ry="12" fill="#FFF" stroke="#333" stroke-width="2"/>
+    <circle cx="172" cy="156" r="5" fill="#333"/>
+    <circle cx="232" cy="156" r="5" fill="#333"/>
+    <path d="M175,220 Q200,240 225,220" fill="none" stroke="#333" stroke-width="2"/>
+  </g>
+
+  <!-- Row 2: eyes 5-8 -->
+  <!-- Surprised -->
+  <g transform="translate(-90,320)">
+    <text x="200" y="10" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#333">Surprised</text>
+    <path d="M110,162 Q110,56 200,52 Q290,56 290,162 Q290,268 200,280 Q110,268 110,162 Z" fill="#FFDBB4" stroke="#333" stroke-width="2"/>
+    <ellipse cx="165" cy="152" rx="30" ry="34" fill="#FFF" stroke="#333" stroke-width="2"/>
+    <ellipse cx="235" cy="152" rx="30" ry="34" fill="#FFF" stroke="#333" stroke-width="2"/>
+    <circle cx="165" cy="155" r="4" fill="#333"/>
+    <circle cx="235" cy="155" r="4" fill="#333"/>
+    <path d="M175,220 Q200,240 225,220" fill="none" stroke="#333" stroke-width="2"/>
+  </g>
+
+  <!-- Happy -->
+  <g transform="translate(230,320)">
+    <text x="200" y="10" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#333">Happy</text>
+    <path d="M110,162 Q110,56 200,52 Q290,56 290,162 Q290,268 200,280 Q110,268 110,162 Z" fill="#FFDBB4" stroke="#333" stroke-width="2"/>
+    <path d="M148,155 Q170,138 192,155" fill="none" stroke="#333" stroke-width="3" stroke-linecap="round"/>
+    <path d="M208,155 Q230,138 252,155" fill="none" stroke="#333" stroke-width="3" stroke-linecap="round"/>
+    <path d="M175,220 Q200,240 225,220" fill="none" stroke="#333" stroke-width="2"/>
+  </g>
+
+  <!-- Angry -->
+  <g transform="translate(550,320)">
+    <text x="200" y="10" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#333">Angry</text>
+    <path d="M110,162 Q110,56 200,52 Q290,56 290,162 Q290,268 200,280 Q110,268 110,162 Z" fill="#FFDBB4" stroke="#333" stroke-width="2"/>
+    <ellipse cx="170" cy="160" rx="22" ry="22" fill="#FFF" stroke="#333" stroke-width="2"/>
+    <ellipse cx="230" cy="160" rx="22" ry="22" fill="#FFF" stroke="#333" stroke-width="2"/>
+    <circle cx="172" cy="162" r="6" fill="#333"/>
+    <circle cx="232" cy="162" r="6" fill="#333"/>
+    <path d="M145,135 L192,145 L192,140 L145,128 Z" fill="#333" stroke="#333" stroke-width="1"/>
+    <path d="M255,135 L208,145 L208,140 L255,128 Z" fill="#333" stroke="#333" stroke-width="1"/>
+    <path d="M175,220 Q200,240 225,220" fill="none" stroke="#333" stroke-width="2"/>
+  </g>
+
+  <!-- Sleepy -->
+  <g transform="translate(870,320)">
+    <text x="200" y="10" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#333">Sleepy</text>
+    <path d="M110,162 Q110,56 200,52 Q290,56 290,162 Q290,268 200,280 Q110,268 110,162 Z" fill="#FFDBB4" stroke="#333" stroke-width="2"/>
+    <path d="M149,160 L191,160 Q170,174 149,160 Z" fill="#FFF" stroke="#333" stroke-width="2"/>
+    <circle cx="170" cy="165" r="3.5" fill="#333"/>
+    <path d="M209,160 L251,160 Q230,174 209,160 Z" fill="#FFF" stroke="#333" stroke-width="2"/>
+    <circle cx="230" cy="165" r="3.5" fill="#333"/>
+    <path d="M175,220 Q200,240 225,220" fill="none" stroke="#333" stroke-width="2"/>
+  </g>
+
+  <!-- Row 3: eyes 9-12 -->
+  <!-- Side Look -->
+  <g transform="translate(-90,620)">
+    <text x="200" y="10" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#333">Side Look</text>
+    <path d="M110,162 Q110,56 200,52 Q290,56 290,162 Q290,268 200,280 Q110,268 110,162 Z" fill="#FFDBB4" stroke="#333" stroke-width="2"/>
+    <ellipse cx="170" cy="155" rx="22" ry="24" fill="#FFF" stroke="#333" stroke-width="2"/>
+    <ellipse cx="230" cy="155" rx="22" ry="24" fill="#FFF" stroke="#333" stroke-width="2"/>
+    <circle cx="180" cy="157" r="6" fill="#333"/>
+    <circle cx="240" cy="157" r="6" fill="#333"/>
+    <path d="M175,220 Q200,240 225,220" fill="none" stroke="#333" stroke-width="2"/>
+  </g>
+
+  <!-- Wink -->
+  <g transform="translate(230,620)">
+    <text x="200" y="10" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#333">Wink</text>
+    <path d="M110,162 Q110,56 200,52 Q290,56 290,162 Q290,268 200,280 Q110,268 110,162 Z" fill="#FFDBB4" stroke="#333" stroke-width="2"/>
+    <ellipse cx="170" cy="155" rx="22" ry="24" fill="#FFF" stroke="#333" stroke-width="2"/>
+    <circle cx="172" cy="157" r="6" fill="#333"/>
+    <path d="M208,157 Q230,148 252,157" fill="none" stroke="#333" stroke-width="3" stroke-linecap="round"/>
+    <path d="M175,220 Q200,240 225,220" fill="none" stroke="#333" stroke-width="2"/>
+  </g>
+
+  <!-- Cross-Eyed -->
+  <g transform="translate(550,620)">
+    <text x="200" y="10" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#333">Cross-Eyed</text>
+    <path d="M110,162 Q110,56 200,52 Q290,56 290,162 Q290,268 200,280 Q110,268 110,162 Z" fill="#FFDBB4" stroke="#333" stroke-width="2"/>
+    <ellipse cx="170" cy="155" rx="22" ry="24" fill="#FFF" stroke="#333" stroke-width="2"/>
+    <ellipse cx="230" cy="155" rx="22" ry="24" fill="#FFF" stroke="#333" stroke-width="2"/>
+    <circle cx="180" cy="157" r="6" fill="#333"/>
+    <circle cx="220" cy="157" r="6" fill="#333"/>
+    <path d="M175,220 Q200,240 225,220" fill="none" stroke="#333" stroke-width="2"/>
+  </g>
+
+  <!-- Starry -->
+  <g transform="translate(870,620)">
+    <text x="200" y="10" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#333">Starry</text>
+    <path d="M110,162 Q110,56 200,52 Q290,56 290,162 Q290,268 200,280 Q110,268 110,162 Z" fill="#FFDBB4" stroke="#333" stroke-width="2"/>
+    <ellipse cx="170" cy="155" rx="24" ry="26" fill="#FFF" stroke="#333" stroke-width="2"/>
+    <ellipse cx="230" cy="155" rx="24" ry="26" fill="#FFF" stroke="#333" stroke-width="2"/>
+    <path d="M170,148 L172,153 L178,153 L173,157 L175,163 L170,159 L165,163 L167,157 L162,153 L168,153 Z" fill="#333"/>
+    <path d="M230,148 L232,153 L238,153 L233,157 L235,163 L230,159 L225,163 L227,157 L222,153 L228,153 Z" fill="#333"/>
+    <path d="M175,220 Q200,240 225,220" fill="none" stroke="#333" stroke-width="2"/>
+  </g>
+</svg>

@@ -295,7 +295,10 @@ export function useMintAvailability(): MintAvailability {
     },
   });
 
-  // The free-mintable id pool — ids 4541–8000 not yet claimed on V2.
+  // The contiguous-block portion of the free-mintable pool: ids in the
+  // never-minted block (4541–8000) that haven't been claimed on V2 yet.
+  // NB: this does not include the burnt-in-place V1 tokens inside 1–4540
+  // that the contract also accepts as free-mintable.
   const pool = useQuery({
     queryKey: ["mintablePool"],
     enabled: Boolean(client),
@@ -304,8 +307,8 @@ export function useMintAvailability(): MintAvailability {
       scanUnclaimedIds(
         client!,
         occv2Contract,
-        CONTRACT.freeMintRangeStart,
-        CONTRACT.freeMintRangeEnd,
+        CONTRACT.neverMintedBlockStart,
+        CONTRACT.neverMintedBlockEnd,
       ),
   });
 

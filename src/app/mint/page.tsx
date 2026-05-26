@@ -63,7 +63,7 @@ export default function MintPage() {
         <PageHeader
           kicker="For everyone else"
           title="Mint a Citizen"
-          intro="No V1 token? Free-mint a brand-new Citizen from the eligible IDs in 4541–8000 — the token IDs whose original V1 is no longer live. It's genuinely free, you only pay Ethereum gas."
+          intro="No V1 token? Free-mint a brand-new Citizen from the eligible IDs in 1–8000 — the token IDs whose original V1 is no longer live (the never-minted block in 4541–8000 plus the 24 V1 tokens burnt-in-place inside 1–4540). It's genuinely free, you only pay Ethereum gas."
           className="mb-0"
         />
         <div className="hidden h-24 w-24 shrink-0 sm:block">
@@ -122,9 +122,9 @@ export default function MintPage() {
           <section>
             <h2 className="font-display text-display-sm">Pick your token IDs</h2>
             <p className="mb-4 mt-1 font-body text-sm text-brown">
-              Choose up to {cap} mintable ID{cap === 1 ? "" : "s"} below — the
-              eligible 4541–8000 IDs whose original V1 is no longer live. Each
-              becomes a fresh Citizen with on-chain art.
+              Choose up to {cap} mintable ID{cap === 1 ? "" : "s"} below — IDs
+              in 1–8000 whose original V1 token is no longer live. Each becomes
+              a fresh Citizen with on-chain art.
             </p>
             <Panel tone="paper" shadow="sm" className="p-5">
               <TokenIdPicker

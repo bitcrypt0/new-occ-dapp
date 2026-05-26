@@ -3,7 +3,7 @@ export interface FaqItem {
   a: string;
 }
 
-/** Shared FAQ content — used by /how-it-works and the homepage teaser. */
+/** Shared FAQ content — used by /docs and the homepage teaser. */
 export const FAQ: FaqItem[] = [
   {
     q: "What does \"fully on-chain\" actually mean?",

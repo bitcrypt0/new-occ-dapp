@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" preserveAspectRatio="xMidYMid meet">
+  <path d="M76,400 Q75,325 95,305 Q110,290 145,285 L178,282 L178,265 L222,265 L222,282 L255,285 Q290,290 305,305 Q325,325 324,400 Z" fill="#D08B5B" stroke="#333" stroke-width="2"/>
+  <line x1="110" y1="340" x2="110" y2="398" stroke="#333" stroke-width="1.5" stroke-linecap="round"/><line x1="290" y1="340" x2="290" y2="398" stroke="#333" stroke-width="1.5" stroke-linecap="round"/>
+  <path d="M113,163 Q113,59 200,55 Q287,59 287,163 Q287,268 200,280 Q113,268 113,163 Z" fill="#D08B5B" stroke="#333" stroke-width="2"/>
+  <!-- Nose -->
+  <path d="M193,190 Q200,200 207,190" fill="none" stroke="#333" stroke-width="2"/>
+  <path d="M113,155 Q101,167 113,181 Z" fill="#D08B5B" stroke="#333" stroke-width="2"/><path d="M111,162 Q109,167 111,173" fill="none" stroke="#333" stroke-width="1.5"/><path d="M287,155 Q299,167 287,181 Z" fill="#D08B5B" stroke="#333" stroke-width="2"/><path d="M289,162 Q291,167 289,173" fill="none" stroke="#333" stroke-width="1.5"/>
+  <ellipse cx="168" cy="158" rx="22" ry="24" fill="#FFF" stroke="#333" stroke-width="2"/>
+  <ellipse cx="232" cy="158" rx="22" ry="24" fill="#FFF" stroke="#333" stroke-width="2"/>
+  <circle cx="168" cy="160" r="3" fill="#333"/>
+  <circle cx="232" cy="160" r="3" fill="#333"/>
+  <path d="M147,128 Q170,118 193,128" fill="none" stroke="#333" stroke-width="3" stroke-linecap="round"/><path d="M207,128 Q230,118 253,128" fill="none" stroke="#333" stroke-width="3" stroke-linecap="round"/>
+  <path d="M168,218 Q200,255 232,218 Z" fill="#333" stroke="#333" stroke-width="2"/>
+  <path d="M178,218 Q200,225 222,218" fill="#FFF" stroke="none"/>
+  <path d="M68,400 Q68,323 88,305 Q105,290 145,285 L175,280 Q200,292 225,280 L255,285 Q295,290 312,305 Q332,323 332,400 Z" fill="#A6C0E0" stroke="#333" stroke-width="2"/>
+  <path d="M165,355 Q200,365 235,355 L235,388 Q200,398 165,388 Z" fill="none" stroke="#333" stroke-width="1.5"/>
+  <line x1="193" y1="286" x2="190" y2="316" stroke="#333" stroke-width="1.5"/>
+  <line x1="207" y1="286" x2="210" y2="316" stroke="#333" stroke-width="1.5"/>
+  <line x1="110" y1="340" x2="110" y2="400" stroke="#333" stroke-width="1.5"/>
+  <line x1="290" y1="340" x2="290" y2="400" stroke="#333" stroke-width="1.5"/>
+  <line x1="110" y1="345" x2="290" y2="345" stroke="#333" stroke-width="1.5"/>
+</svg>

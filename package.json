@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "build:docs-art": "node scripts/build-trait-previews.mjs"
   },
   "dependencies": {
     "@tanstack/react-query": "^5.100.11",

@@ -11,7 +11,7 @@ const serverClient = createPublicClient({
 });
 
 /**
- * Live `reshufflesActive()` for server-rendered pages (homepage, how-it-works).
+ * Live `reshufflesActive()` for server-rendered pages (homepage, /docs).
  * Reshuffle activation is a rare one-way event, so a 60s cache is ample.
  * On RPC failure it fails safe to `false` — the copy stays future-tense.
  */

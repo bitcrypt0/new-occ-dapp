@@ -1,0 +1,119 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1700 600">
+  <!-- Preview: All 10 Mouth Variants on Round Head -->
+  <rect width="1700" height="600" fill="#E8E8E8"/>
+
+  <!-- Row 1: mouths 1-5 -->
+  <!-- Smile -->
+  <g transform="translate(-90,20)">
+    <text x="200" y="10" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#333">Smile</text>
+    <path d="M110,162 Q110,56 200,52 Q290,56 290,162 Q290,268 200,280 Q110,268 110,162 Z" fill="#FFDBB4" stroke="#333" stroke-width="2"/>
+    <ellipse cx="170" cy="155" rx="22" ry="24" fill="#FFF" stroke="#333" stroke-width="2"/>
+    <ellipse cx="230" cy="155" rx="22" ry="24" fill="#FFF" stroke="#333" stroke-width="2"/>
+    <circle cx="172" cy="157" r="6" fill="#333"/>
+    <circle cx="232" cy="157" r="6" fill="#333"/>
+    <path d="M175,220 Q200,245 225,220" fill="none" stroke="#333" stroke-width="2"/>
+  </g>
+
+  <!-- Big Smile -->
+  <g transform="translate(230,20)">
+    <text x="200" y="10" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#333">Big Smile</text>
+    <path d="M110,162 Q110,56 200,52 Q290,56 290,162 Q290,268 200,280 Q110,268 110,162 Z" fill="#FFDBB4" stroke="#333" stroke-width="2"/>
+    <ellipse cx="170" cy="155" rx="22" ry="24" fill="#FFF" stroke="#333" stroke-width="2"/>
+    <ellipse cx="230" cy="155" rx="22" ry="24" fill="#FFF" stroke="#333" stroke-width="2"/>
+    <circle cx="172" cy="157" r="6" fill="#333"/>
+    <circle cx="232" cy="157" r="6" fill="#333"/>
+    <path d="M165,218 Q200,255 235,218 Z" fill="#333" stroke="#333" stroke-width="2"/>
+    <path d="M175,218 Q200,225 225,218" fill="#FFF" stroke="none"/>
+  </g>
+
+  <!-- Frown -->
+  <g transform="translate(550,20)">
+    <text x="200" y="10" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#333">Frown</text>
+    <path d="M110,162 Q110,56 200,52 Q290,56 290,162 Q290,268 200,280 Q110,268 110,162 Z" fill="#FFDBB4" stroke="#333" stroke-width="2"/>
+    <ellipse cx="170" cy="155" rx="22" ry="24" fill="#FFF" stroke="#333" stroke-width="2"/>
+    <ellipse cx="230" cy="155" rx="22" ry="24" fill="#FFF" stroke="#333" stroke-width="2"/>
+    <circle cx="172" cy="157" r="6" fill="#333"/>
+    <circle cx="232" cy="157" r="6" fill="#333"/>
+    <path d="M175,230 Q200,210 225,230" fill="none" stroke="#333" stroke-width="2"/>
+  </g>
+
+  <!-- Open -->
+  <g transform="translate(870,20)">
+    <text x="200" y="10" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#333">Open</text>
+    <path d="M110,162 Q110,56 200,52 Q290,56 290,162 Q290,268 200,280 Q110,268 110,162 Z" fill="#FFDBB4" stroke="#333" stroke-width="2"/>
+    <ellipse cx="170" cy="155" rx="22" ry="24" fill="#FFF" stroke="#333" stroke-width="2"/>
+    <ellipse cx="230" cy="155" rx="22" ry="24" fill="#FFF" stroke="#333" stroke-width="2"/>
+    <circle cx="172" cy="157" r="6" fill="#333"/>
+    <circle cx="232" cy="157" r="6" fill="#333"/>
+    <ellipse cx="200" cy="225" rx="18" ry="14" fill="#333" stroke="#333" stroke-width="2"/>
+  </g>
+
+  <!-- Teeth -->
+  <g transform="translate(1190,20)">
+    <text x="200" y="10" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#333">Teeth</text>
+    <path d="M110,162 Q110,56 200,52 Q290,56 290,162 Q290,268 200,280 Q110,268 110,162 Z" fill="#FFDBB4" stroke="#333" stroke-width="2"/>
+    <ellipse cx="170" cy="155" rx="22" ry="24" fill="#FFF" stroke="#333" stroke-width="2"/>
+    <ellipse cx="230" cy="155" rx="22" ry="24" fill="#FFF" stroke="#333" stroke-width="2"/>
+    <circle cx="172" cy="157" r="6" fill="#333"/>
+    <circle cx="232" cy="157" r="6" fill="#333"/>
+    <path d="M170,218 Q200,248 230,218 Z" fill="#333" stroke="#333" stroke-width="2"/>
+    <path d="M174,218 L226,218 L226,225 L174,225 Z" fill="#FFF" stroke="none"/>
+  </g>
+
+  <!-- Row 2: mouths 6-10 -->
+  <!-- Flat -->
+  <g transform="translate(-90,310)">
+    <text x="200" y="10" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#333">Flat</text>
+    <path d="M110,162 Q110,56 200,52 Q290,56 290,162 Q290,268 200,280 Q110,268 110,162 Z" fill="#FFDBB4" stroke="#333" stroke-width="2"/>
+    <ellipse cx="170" cy="155" rx="22" ry="24" fill="#FFF" stroke="#333" stroke-width="2"/>
+    <ellipse cx="230" cy="155" rx="22" ry="24" fill="#FFF" stroke="#333" stroke-width="2"/>
+    <circle cx="172" cy="157" r="6" fill="#333"/>
+    <circle cx="232" cy="157" r="6" fill="#333"/>
+    <line x1="180" y1="225" x2="220" y2="225" stroke="#333" stroke-width="2" stroke-linecap="round"/>
+  </g>
+
+  <!-- Smirk -->
+  <g transform="translate(230,310)">
+    <text x="200" y="10" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#333">Smirk</text>
+    <path d="M110,162 Q110,56 200,52 Q290,56 290,162 Q290,268 200,280 Q110,268 110,162 Z" fill="#FFDBB4" stroke="#333" stroke-width="2"/>
+    <ellipse cx="170" cy="155" rx="22" ry="24" fill="#FFF" stroke="#333" stroke-width="2"/>
+    <ellipse cx="230" cy="155" rx="22" ry="24" fill="#FFF" stroke="#333" stroke-width="2"/>
+    <circle cx="172" cy="157" r="6" fill="#333"/>
+    <circle cx="232" cy="157" r="6" fill="#333"/>
+    <path d="M180,223 Q200,223 220,215" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round"/>
+  </g>
+
+  <!-- Tongue Out -->
+  <g transform="translate(550,310)">
+    <text x="200" y="10" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#333">Tongue Out</text>
+    <path d="M110,162 Q110,56 200,52 Q290,56 290,162 Q290,268 200,280 Q110,268 110,162 Z" fill="#FFDBB4" stroke="#333" stroke-width="2"/>
+    <ellipse cx="170" cy="155" rx="22" ry="24" fill="#FFF" stroke="#333" stroke-width="2"/>
+    <ellipse cx="230" cy="155" rx="22" ry="24" fill="#FFF" stroke="#333" stroke-width="2"/>
+    <circle cx="172" cy="157" r="6" fill="#333"/>
+    <circle cx="232" cy="157" r="6" fill="#333"/>
+    <path d="M168,216 Q200,250 232,216 Z" fill="#333" stroke="#333" stroke-width="2"/>
+    <path d="M178,221 L222,221 Q222,248 200,252 Q178,248 178,221 Z" fill="#E74C3C" stroke="#333" stroke-width="2"/>
+  </g>
+
+  <!-- Lipstick -->
+  <g transform="translate(870,310)">
+    <text x="200" y="10" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#333">Lipstick</text>
+    <path d="M110,162 Q110,56 200,52 Q290,56 290,162 Q290,268 200,280 Q110,268 110,162 Z" fill="#FFDBB4" stroke="#333" stroke-width="2"/>
+    <ellipse cx="170" cy="155" rx="22" ry="24" fill="#FFF" stroke="#333" stroke-width="2"/>
+    <ellipse cx="230" cy="155" rx="22" ry="24" fill="#FFF" stroke="#333" stroke-width="2"/>
+    <circle cx="172" cy="157" r="6" fill="#333"/>
+    <circle cx="232" cy="157" r="6" fill="#333"/>
+    <path d="M175,222 Q188,215 200,222 Q212,215 225,222 Q212,238 200,240 Q188,238 175,222 Z" fill="#E74C3C" stroke="#333" stroke-width="2"/>
+  </g>
+
+  <!-- Surprised O -->
+  <g transform="translate(1190,310)">
+    <text x="200" y="10" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#333">Surprised O</text>
+    <path d="M110,162 Q110,56 200,52 Q290,56 290,162 Q290,268 200,280 Q110,268 110,162 Z" fill="#FFDBB4" stroke="#333" stroke-width="2"/>
+    <ellipse cx="170" cy="155" rx="22" ry="24" fill="#FFF" stroke="#333" stroke-width="2"/>
+    <ellipse cx="230" cy="155" rx="22" ry="24" fill="#FFF" stroke="#333" stroke-width="2"/>
+    <circle cx="172" cy="157" r="6" fill="#333"/>
+    <circle cx="232" cy="157" r="6" fill="#333"/>
+    <circle cx="200" cy="228" r="12" fill="#333" stroke="#333" stroke-width="2"/>
+  </g>
+</svg>

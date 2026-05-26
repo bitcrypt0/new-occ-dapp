@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" preserveAspectRatio="xMidYMid meet">
+  <path d="M76,400 Q75,325 95,305 Q110,290 145,285 L178,282 L178,265 L222,265 L222,282 L255,285 Q290,290 305,305 Q325,325 324,400 Z" fill="#F5D0A9" stroke="#333" stroke-width="2"/>
+  <line x1="110" y1="340" x2="110" y2="398" stroke="#333" stroke-width="1.5" stroke-linecap="round"/><line x1="290" y1="340" x2="290" y2="398" stroke="#333" stroke-width="1.5" stroke-linecap="round"/>
+  <path d="M113,163 Q113,59 200,55 Q287,59 287,163 Q287,268 200,280 Q113,268 113,163 Z" fill="#F5D0A9" stroke="#333" stroke-width="2"/>
+  <!-- Nose -->
+  <path d="M193,190 Q200,200 207,190" fill="none" stroke="#333" stroke-width="2"/>
+  <path d="M113,155 Q101,167 113,181 Z" fill="#F5D0A9" stroke="#333" stroke-width="2"/><path d="M111,162 Q109,167 111,173" fill="none" stroke="#333" stroke-width="1.5"/><path d="M287,155 Q299,167 287,181 Z" fill="#F5D0A9" stroke="#333" stroke-width="2"/><path d="M289,162 Q291,167 289,173" fill="none" stroke="#333" stroke-width="1.5"/>
+  <ellipse cx="170" cy="158" rx="21" ry="22" fill="#FFF" stroke="#333" stroke-width="2"/>
+  <ellipse cx="230" cy="158" rx="21" ry="22" fill="#FFF" stroke="#333" stroke-width="2"/>
+  <circle cx="173" cy="160" r="5" fill="#333"/>
+  <circle cx="233" cy="160" r="5" fill="#333"/>
+  <path d="M147,128 Q170,118 193,128" fill="none" stroke="#333" stroke-width="3" stroke-linecap="round"/><path d="M207,128 Q230,118 253,128" fill="none" stroke="#333" stroke-width="3" stroke-linecap="round"/>
+  <ellipse cx="200" cy="225" rx="15" ry="11" fill="#333" stroke="#333" stroke-width="2"/>
+  <!-- Cap dome -->
+  <path d="M117,113 Q117,43 200,43 Q283,43 283,113 Z" fill="#F7931A" stroke="#333" stroke-width="2"/>
+  <!-- Panel seams (curving outward) -->
+  <path d="M200,43 Q157,64 157,113" fill="none" stroke="#333" stroke-width="1"/>
+  <path d="M200,43 Q244,64 243,113" fill="none" stroke="#333" stroke-width="1"/>
+  <!-- Bitcoin 'B' logo -->
+  <line x1="195" y1="75" x2="195" y2="95" stroke="#FFF" stroke-width="3"/>
+  <path d="M195,75 Q206,75 206,80 Q206,85 195,85" fill="none" stroke="#FFF" stroke-width="2.5"/>
+  <path d="M195,85 Q208,85 208,90 Q208,95 195,95" fill="none" stroke="#FFF" stroke-width="2.5"/>
+  <line x1="200" y1="69" x2="200" y2="83" stroke="#FFF" stroke-width="2.5"/>
+  <line x1="200" y1="87" x2="200" y2="101" stroke="#FFF" stroke-width="2.5"/>
+  <!-- Cap button -->
+  <circle cx="200" cy="43" r="3" fill="#F7931A" stroke="#333" stroke-width="1.5"/>
+  <!-- Cap visor -->
+  <path d="M117,113 Q200,112 283,113 Q200,139 117,113 Z" fill="#F7931A" stroke="#333" stroke-width="2"/>
+</svg>

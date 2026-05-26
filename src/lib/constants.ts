@@ -48,11 +48,19 @@ export const CONTRACT = {
   totalSupply: 10000,
   migrationBucketEnd: 8000,
   /**
-   * V1's highest minted token id is 4540, so V2 ids 4541–8000 have no live
-   * V1 counterpart and form the free-mint pool (minus ids already claimed).
+   * The contiguous **never-minted block** on V1: token ids 4541–8000 were
+   * never minted on the V1 contract. These ids are the easiest source of
+   * free-mintable V2 ids — a public `claimed(id)` scan across this range
+   * is enough to enumerate them.
+   *
+   * NOTE: this is NOT the full free-mint pool. The actual contract rule
+   * is `tokenId in 1..8000 AND OCC.ownerOf(tokenId) reverts`, which also
+   * includes V1 tokens that were burnt-in-place inside 1..4540 (~24 of
+   * them at last check). Treat these constants as the bounds of the
+   * contiguous block only — do not codify a "free-mint range" assumption.
    */
-  freeMintRangeStart: 4541,
-  freeMintRangeEnd: 8000,
+  neverMintedBlockStart: 4541,
+  neverMintedBlockEnd: 8000,
   freeMintCap: 2,
   // anti-bot balance gate (ETH) — checked, never spent
   balanceGateMin: 0.015,

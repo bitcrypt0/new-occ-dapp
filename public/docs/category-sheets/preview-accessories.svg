@@ -1,0 +1,212 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1300 1200">
+  <rect width="1300" height="1200" fill="#E8E8E8"/>
+
+  <!-- Row 1 -->
+  <!-- 1. None -->
+  <g transform="translate(-90,20)">
+    <text x="200" y="10" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#333">None</text>
+    <path d="M115,165 Q115,62 200,58 Q285,62 285,165 Q285,268 200,280 Q115,268 115,165 Z" fill="#FFDBB4" stroke="#333" stroke-width="2"/>
+    <ellipse cx="170" cy="158" rx="20" ry="20" fill="#FFF" stroke="#333" stroke-width="2"/>
+    <ellipse cx="230" cy="158" rx="20" ry="20" fill="#FFF" stroke="#333" stroke-width="2"/>
+    <circle cx="172" cy="160" r="5" fill="#333"/><circle cx="232" cy="160" r="5" fill="#333"/>
+    <path d="M196,192 Q200,200 204,192" fill="none" stroke="#333" stroke-width="1.5"/>
+    <path d="M175,220 Q200,240 225,220" fill="none" stroke="#333" stroke-width="2"/>
+    <path d="M150,128 Q170,122 190,128" fill="none" stroke="#333" stroke-width="2.5" stroke-linecap="round"/>
+    <path d="M210,128 Q230,122 250,128" fill="none" stroke="#333" stroke-width="2.5" stroke-linecap="round"/>
+  </g>
+
+  <!-- 2. Round Glasses -->
+  <g transform="translate(230,20)">
+    <text x="200" y="10" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#333">Round Glasses</text>
+    <path d="M115,165 Q115,62 200,58 Q285,62 285,165 Q285,268 200,280 Q115,268 115,165 Z" fill="#FFDBB4" stroke="#333" stroke-width="2"/>
+    <ellipse cx="170" cy="158" rx="20" ry="20" fill="#FFF" stroke="#333" stroke-width="2"/>
+    <ellipse cx="230" cy="158" rx="20" ry="20" fill="#FFF" stroke="#333" stroke-width="2"/>
+    <circle cx="172" cy="160" r="5" fill="#333"/><circle cx="232" cy="160" r="5" fill="#333"/>
+    <path d="M196,192 Q200,200 204,192" fill="none" stroke="#333" stroke-width="1.5"/>
+    <path d="M175,220 Q200,240 225,220" fill="none" stroke="#333" stroke-width="2"/>
+    <path d="M150,128 Q170,122 190,128" fill="none" stroke="#333" stroke-width="2.5" stroke-linecap="round"/>
+    <path d="M210,128 Q230,122 250,128" fill="none" stroke="#333" stroke-width="2.5" stroke-linecap="round"/>
+    <!-- Accessory -->
+    <circle cx="170" cy="158" r="28" fill="none" stroke="#555" stroke-width="2.5"/>
+    <circle cx="230" cy="158" r="28" fill="none" stroke="#555" stroke-width="2.5"/>
+    <path d="M198,155 Q200,148 202,155" fill="none" stroke="#555" stroke-width="2"/>
+    <line x1="142" y1="152" x2="116" y2="148" stroke="#555" stroke-width="2"/>
+    <line x1="258" y1="152" x2="284" y2="148" stroke="#555" stroke-width="2"/>
+  </g>
+
+  <!-- 3. Sunglasses -->
+  <g transform="translate(550,20)">
+    <text x="200" y="10" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#333">Sunglasses</text>
+    <path d="M115,165 Q115,62 200,58 Q285,62 285,165 Q285,268 200,280 Q115,268 115,165 Z" fill="#FFDBB4" stroke="#333" stroke-width="2"/>
+    <ellipse cx="170" cy="158" rx="20" ry="20" fill="#FFF" stroke="#333" stroke-width="2"/>
+    <ellipse cx="230" cy="158" rx="20" ry="20" fill="#FFF" stroke="#333" stroke-width="2"/>
+    <circle cx="172" cy="160" r="5" fill="#333"/><circle cx="232" cy="160" r="5" fill="#333"/>
+    <path d="M196,192 Q200,200 204,192" fill="none" stroke="#333" stroke-width="1.5"/>
+    <path d="M175,220 Q200,240 225,220" fill="none" stroke="#333" stroke-width="2"/>
+    <path d="M150,128 Q170,122 190,128" fill="none" stroke="#333" stroke-width="2.5" stroke-linecap="round"/>
+    <path d="M210,128 Q230,122 250,128" fill="none" stroke="#333" stroke-width="2.5" stroke-linecap="round"/>
+    <!-- Accessory -->
+    <rect x="138" y="130" width="58" height="56" rx="8" fill="#111" stroke="#333" stroke-width="2"/>
+    <rect x="204" y="130" width="58" height="56" rx="8" fill="#111" stroke="#333" stroke-width="2"/>
+    <path d="M196,150 Q200,142 204,150" fill="none" stroke="#333" stroke-width="2.5"/>
+    <line x1="138" y1="150" x2="116" y2="148" stroke="#333" stroke-width="2.5"/>
+    <line x1="262" y1="150" x2="284" y2="148" stroke="#333" stroke-width="2.5"/>
+  </g>
+
+  <!-- 4. 3D Glasses -->
+  <g transform="translate(870,20)">
+    <text x="200" y="10" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#333">3D Glasses</text>
+    <path d="M115,165 Q115,62 200,58 Q285,62 285,165 Q285,268 200,280 Q115,268 115,165 Z" fill="#FFDBB4" stroke="#333" stroke-width="2"/>
+    <ellipse cx="170" cy="158" rx="20" ry="20" fill="#FFF" stroke="#333" stroke-width="2"/>
+    <ellipse cx="230" cy="158" rx="20" ry="20" fill="#FFF" stroke="#333" stroke-width="2"/>
+    <circle cx="172" cy="160" r="5" fill="#333"/><circle cx="232" cy="160" r="5" fill="#333"/>
+    <path d="M196,192 Q200,200 204,192" fill="none" stroke="#333" stroke-width="1.5"/>
+    <path d="M175,220 Q200,240 225,220" fill="none" stroke="#333" stroke-width="2"/>
+    <path d="M150,128 Q170,122 190,128" fill="none" stroke="#333" stroke-width="2.5" stroke-linecap="round"/>
+    <path d="M210,128 Q230,122 250,128" fill="none" stroke="#333" stroke-width="2.5" stroke-linecap="round"/>
+    <!-- Accessory -->
+    <rect x="136" y="128" width="62" height="60" rx="8" fill="none" stroke="#EEE" stroke-width="3"/>
+    <rect x="202" y="128" width="62" height="60" rx="8" fill="none" stroke="#EEE" stroke-width="3"/>
+    <rect x="138" y="130" width="58" height="56" rx="7" fill="#FF0000" fill-opacity="0.45" stroke="#333" stroke-width="2"/>
+    <rect x="204" y="130" width="58" height="56" rx="7" fill="#00BFFF" fill-opacity="0.45" stroke="#333" stroke-width="2"/>
+    <path d="M198,150 Q200,142 202,150" fill="none" stroke="#EEE" stroke-width="3"/>
+    <line x1="136" y1="150" x2="116" y2="148" stroke="#333" stroke-width="3"/>
+    <line x1="264" y1="150" x2="284" y2="148" stroke="#333" stroke-width="3"/>
+  </g>
+
+  <!-- Row 2 -->
+  <!-- 5. Monocle -->
+  <g transform="translate(-90,315)">
+    <text x="200" y="10" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#333">Monocle</text>
+    <path d="M115,165 Q115,62 200,58 Q285,62 285,165 Q285,268 200,280 Q115,268 115,165 Z" fill="#FFDBB4" stroke="#333" stroke-width="2"/>
+    <ellipse cx="170" cy="158" rx="20" ry="20" fill="#FFF" stroke="#333" stroke-width="2"/>
+    <ellipse cx="230" cy="158" rx="20" ry="20" fill="#FFF" stroke="#333" stroke-width="2"/>
+    <circle cx="172" cy="160" r="5" fill="#333"/><circle cx="232" cy="160" r="5" fill="#333"/>
+    <path d="M196,192 Q200,200 204,192" fill="none" stroke="#333" stroke-width="1.5"/>
+    <path d="M175,220 Q200,240 225,220" fill="none" stroke="#333" stroke-width="2"/>
+    <path d="M150,128 Q170,122 190,128" fill="none" stroke="#333" stroke-width="2.5" stroke-linecap="round"/>
+    <path d="M210,128 Q230,122 250,128" fill="none" stroke="#333" stroke-width="2.5" stroke-linecap="round"/>
+    <!-- Accessory -->
+    <circle cx="230" cy="158" r="28" fill="none" stroke="#C8A84E" stroke-width="2.5"/>
+    <path d="M218,146 Q220,143 224,144" fill="none" stroke="#FFF" stroke-width="1.5" opacity="0.6"/>
+    <path d="M258,160 Q264,192 256,224 Q252,244 258,264" fill="none" stroke="#C8A84E" stroke-width="1.5"/>
+  </g>
+
+  <!-- 6. Eye Patch -->
+  <g transform="translate(230,315)">
+    <text x="200" y="10" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#333">Eye Patch</text>
+    <path d="M115,165 Q115,62 200,58 Q285,62 285,165 Q285,268 200,280 Q115,268 115,165 Z" fill="#FFDBB4" stroke="#333" stroke-width="2"/>
+    <ellipse cx="170" cy="158" rx="20" ry="20" fill="#FFF" stroke="#333" stroke-width="2"/>
+    <ellipse cx="230" cy="158" rx="20" ry="20" fill="#FFF" stroke="#333" stroke-width="2"/>
+    <circle cx="172" cy="160" r="5" fill="#333"/><circle cx="232" cy="160" r="5" fill="#333"/>
+    <path d="M196,192 Q200,200 204,192" fill="none" stroke="#333" stroke-width="1.5"/>
+    <path d="M175,220 Q200,240 225,220" fill="none" stroke="#333" stroke-width="2"/>
+    <path d="M150,128 Q170,122 190,128" fill="none" stroke="#333" stroke-width="2.5" stroke-linecap="round"/>
+    <path d="M210,128 Q230,122 250,128" fill="none" stroke="#333" stroke-width="2.5" stroke-linecap="round"/>
+    <!-- Accessory -->
+    <line x1="116" y1="172" x2="276" y2="106" stroke="#222" stroke-width="3.5"/>
+    <ellipse cx="170" cy="158" rx="28" ry="28" fill="#222" stroke="#333" stroke-width="2"/>
+  </g>
+
+  <!-- 7. Clear Glasses -->
+  <g transform="translate(550,315)">
+    <text x="200" y="10" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#333">Clear Glasses</text>
+    <path d="M115,165 Q115,62 200,58 Q285,62 285,165 Q285,268 200,280 Q115,268 115,165 Z" fill="#FFDBB4" stroke="#333" stroke-width="2"/>
+    <ellipse cx="170" cy="158" rx="20" ry="20" fill="#FFF" stroke="#333" stroke-width="2"/>
+    <ellipse cx="230" cy="158" rx="20" ry="20" fill="#FFF" stroke="#333" stroke-width="2"/>
+    <circle cx="172" cy="160" r="5" fill="#333"/><circle cx="232" cy="160" r="5" fill="#333"/>
+    <path d="M196,192 Q200,200 204,192" fill="none" stroke="#333" stroke-width="1.5"/>
+    <path d="M175,220 Q200,240 225,220" fill="none" stroke="#333" stroke-width="2"/>
+    <path d="M150,128 Q170,122 190,128" fill="none" stroke="#333" stroke-width="2.5" stroke-linecap="round"/>
+    <path d="M210,128 Q230,122 250,128" fill="none" stroke="#333" stroke-width="2.5" stroke-linecap="round"/>
+    <!-- Accessory -->
+    <rect x="138" y="130" width="58" height="56" rx="8" fill="#FFF" fill-opacity="0.2" stroke="#333" stroke-width="2"/>
+    <rect x="204" y="130" width="58" height="56" rx="8" fill="#FFF" fill-opacity="0.2" stroke="#333" stroke-width="2"/>
+    <path d="M196,150 Q200,142 204,150" fill="none" stroke="#333" stroke-width="2.5"/>
+    <line x1="138" y1="150" x2="116" y2="148" stroke="#333" stroke-width="2.5"/>
+    <line x1="262" y1="150" x2="284" y2="148" stroke="#333" stroke-width="2.5"/>
+  </g>
+
+  <!-- Row 3 -->
+  <!-- 8. Scar -->
+  <g transform="translate(870,315)">
+    <text x="200" y="10" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#333">Scar</text>
+    <path d="M115,165 Q115,62 200,58 Q285,62 285,165 Q285,268 200,280 Q115,268 115,165 Z" fill="#FFDBB4" stroke="#333" stroke-width="2"/>
+    <ellipse cx="170" cy="158" rx="20" ry="20" fill="#FFF" stroke="#333" stroke-width="2"/>
+    <ellipse cx="230" cy="158" rx="20" ry="20" fill="#FFF" stroke="#333" stroke-width="2"/>
+    <circle cx="172" cy="160" r="5" fill="#333"/><circle cx="232" cy="160" r="5" fill="#333"/>
+    <path d="M196,192 Q200,200 204,192" fill="none" stroke="#333" stroke-width="1.5"/>
+    <path d="M175,220 Q200,240 225,220" fill="none" stroke="#333" stroke-width="2"/>
+    <path d="M150,128 Q170,122 190,128" fill="none" stroke="#333" stroke-width="2.5" stroke-linecap="round"/>
+    <path d="M210,128 Q230,122 250,128" fill="none" stroke="#333" stroke-width="2.5" stroke-linecap="round"/>
+    <!-- Accessory -->
+    <path d="M154,186 L138,210" fill="none" stroke="#C47070" stroke-width="2.5" stroke-linecap="round"/>
+    <path d="M147,190 L153,194" fill="none" stroke="#C47070" stroke-width="1.5" stroke-linecap="round"/>
+    <path d="M143,196 L149,200" fill="none" stroke="#C47070" stroke-width="1.5" stroke-linecap="round"/>
+    <path d="M139,202 L145,206" fill="none" stroke="#C47070" stroke-width="1.5" stroke-linecap="round"/>
+  </g>
+
+  <!-- 9. Blush -->
+  <g transform="translate(-90,610)">
+    <text x="200" y="10" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#333">Blush</text>
+    <path d="M115,165 Q115,62 200,58 Q285,62 285,165 Q285,268 200,280 Q115,268 115,165 Z" fill="#FFDBB4" stroke="#333" stroke-width="2"/>
+    <ellipse cx="170" cy="158" rx="20" ry="20" fill="#FFF" stroke="#333" stroke-width="2"/>
+    <ellipse cx="230" cy="158" rx="20" ry="20" fill="#FFF" stroke="#333" stroke-width="2"/>
+    <circle cx="172" cy="160" r="5" fill="#333"/><circle cx="232" cy="160" r="5" fill="#333"/>
+    <path d="M196,192 Q200,200 204,192" fill="none" stroke="#333" stroke-width="1.5"/>
+    <path d="M175,220 Q200,240 225,220" fill="none" stroke="#333" stroke-width="2"/>
+    <path d="M150,128 Q170,122 190,128" fill="none" stroke="#333" stroke-width="2.5" stroke-linecap="round"/>
+    <path d="M210,128 Q230,122 250,128" fill="none" stroke="#333" stroke-width="2.5" stroke-linecap="round"/>
+    <!-- Accessory -->
+    <ellipse cx="148" cy="198" rx="20" ry="14" fill="#FFB6C1" opacity="0.4"/>
+    <ellipse cx="252" cy="198" rx="20" ry="14" fill="#FFB6C1" opacity="0.4"/>
+  </g>
+
+  <!-- 10. Freckles -->
+  <g transform="translate(230,610)">
+    <text x="200" y="10" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#333">Freckles</text>
+    <path d="M115,165 Q115,62 200,58 Q285,62 285,165 Q285,268 200,280 Q115,268 115,165 Z" fill="#FFDBB4" stroke="#333" stroke-width="2"/>
+    <ellipse cx="170" cy="158" rx="20" ry="20" fill="#FFF" stroke="#333" stroke-width="2"/>
+    <ellipse cx="230" cy="158" rx="20" ry="20" fill="#FFF" stroke="#333" stroke-width="2"/>
+    <circle cx="172" cy="160" r="5" fill="#333"/><circle cx="232" cy="160" r="5" fill="#333"/>
+    <path d="M196,192 Q200,200 204,192" fill="none" stroke="#333" stroke-width="1.5"/>
+    <path d="M175,220 Q200,240 225,220" fill="none" stroke="#333" stroke-width="2"/>
+    <path d="M150,128 Q170,122 190,128" fill="none" stroke="#333" stroke-width="2.5" stroke-linecap="round"/>
+    <path d="M210,128 Q230,122 250,128" fill="none" stroke="#333" stroke-width="2.5" stroke-linecap="round"/>
+    <!-- Accessory -->
+    <circle cx="152" cy="185" r="2" fill="#C49A6C" opacity="0.7"/>
+    <circle cx="145" cy="192" r="1.8" fill="#C49A6C" opacity="0.7"/>
+    <circle cx="155" cy="195" r="1.5" fill="#C49A6C" opacity="0.7"/>
+    <circle cx="140" cy="200" r="2" fill="#C49A6C" opacity="0.7"/>
+    <circle cx="150" cy="203" r="1.5" fill="#C49A6C" opacity="0.7"/>
+    <circle cx="192" cy="190" r="1.5" fill="#C49A6C" opacity="0.7"/>
+    <circle cx="200" cy="186" r="1.8" fill="#C49A6C" opacity="0.7"/>
+    <circle cx="208" cy="190" r="1.5" fill="#C49A6C" opacity="0.7"/>
+    <circle cx="248" cy="185" r="2" fill="#C49A6C" opacity="0.7"/>
+    <circle cx="255" cy="192" r="1.8" fill="#C49A6C" opacity="0.7"/>
+    <circle cx="245" cy="195" r="1.5" fill="#C49A6C" opacity="0.7"/>
+    <circle cx="260" cy="200" r="2" fill="#C49A6C" opacity="0.7"/>
+    <circle cx="250" cy="203" r="1.5" fill="#C49A6C" opacity="0.7"/>
+  </g>
+
+  <!-- 11. Band-Aid -->
+  <g transform="translate(550,610)">
+    <text x="200" y="10" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#333">Band-Aid</text>
+    <path d="M115,165 Q115,62 200,58 Q285,62 285,165 Q285,268 200,280 Q115,268 115,165 Z" fill="#FFDBB4" stroke="#333" stroke-width="2"/>
+    <ellipse cx="170" cy="158" rx="20" ry="20" fill="#FFF" stroke="#333" stroke-width="2"/>
+    <ellipse cx="230" cy="158" rx="20" ry="20" fill="#FFF" stroke="#333" stroke-width="2"/>
+    <circle cx="172" cy="160" r="5" fill="#333"/><circle cx="232" cy="160" r="5" fill="#333"/>
+    <path d="M196,192 Q200,200 204,192" fill="none" stroke="#333" stroke-width="1.5"/>
+    <path d="M175,220 Q200,240 225,220" fill="none" stroke="#333" stroke-width="2"/>
+    <path d="M150,128 Q170,122 190,128" fill="none" stroke="#333" stroke-width="2.5" stroke-linecap="round"/>
+    <path d="M210,128 Q230,122 250,128" fill="none" stroke="#333" stroke-width="2.5" stroke-linecap="round"/>
+    <!-- Accessory -->
+    <g transform="translate(255,195) rotate(30)">
+      <rect x="-12" y="-5" width="24" height="10" rx="3" fill="#E8C49A" stroke="#C8A478" stroke-width="1"/>
+      <rect x="-4" y="-3" width="8" height="6" rx="1" fill="#F5E0C0"/>
+      <circle cx="-1" cy="-1" r="0.7" fill="#D4B896"/>
+      <circle cx="1.5" cy="0.5" r="0.7" fill="#D4B896"/>
+      <circle cx="-0.5" cy="1.5" r="0.7" fill="#D4B896"/>
+    </g>
+  </g>
+</svg>

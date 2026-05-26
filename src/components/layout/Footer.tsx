@@ -8,7 +8,7 @@ const PAGES = [
   { href: "/collection", label: "My Collection" },
   { href: "/feed", label: "Live Feed" },
   { href: "/market", label: "Trait Market" },
-  { href: "/how-it-works", label: "How It Works" },
+  { href: "/docs", label: "Docs" },
 ];
 
 export function Footer() {

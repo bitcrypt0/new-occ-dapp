@@ -17,8 +17,8 @@ export function FaqTeaser() {
           <FaqAccordion items={FAQ.slice(0, 4)} />
         </div>
         <div className="mt-8 text-center">
-          <Button href="/how-it-works" variant="ghost">
-            Read the full guide
+          <Button href="/docs" variant="ghost">
+            Read the full Docs
           </Button>
         </div>
       </div>

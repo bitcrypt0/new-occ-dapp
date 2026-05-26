@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1620 480">
+  <!-- Preview: Clothing Group 1 — Casual Tops (SKIN=#FFDBB4, CLOTH=#3498DB) -->
+  <rect width="1620" height="480" fill="#E8E8E8"/>
+
+  <!-- T-Shirt (short sleeve) -->
+  <g transform="translate(10,30)">
+    <text x="200" y="0" text-anchor="middle" font-family="sans-serif" font-size="16" font-weight="bold" fill="#333">T-Shirt</text>
+    <path d="M76,400 Q75,325 95,305 Q110,290 145,285 L178,282 L178,265 L222,265 L222,282 L255,285 Q290,290 305,305 Q325,325 324,400 Z" fill="#FFDBB4" stroke="#333" stroke-width="2"/>
+    <path d="M110,162 Q110,56 200,52 Q290,56 290,162 Q290,268 200,280 Q110,268 110,162 Z" fill="#FFDBB4" stroke="#333" stroke-width="2"/>
+    <ellipse cx="170" cy="155" rx="22" ry="24" fill="#FFF" stroke="#333" stroke-width="2"/>
+    <ellipse cx="230" cy="155" rx="22" ry="24" fill="#FFF" stroke="#333" stroke-width="2"/>
+    <circle cx="172" cy="157" r="6" fill="#333"/>
+    <circle cx="232" cy="157" r="6" fill="#333"/>
+    <path d="M175,220 Q200,240 225,220" fill="none" stroke="#333" stroke-width="2"/>
+    <path d="M68,348 Q65,325 88,305 Q105,290 145,285 L165,280 Q200,292 235,280 L255,285 Q295,290 312,305 Q335,325 332,348 L305,348 L305,400 L95,400 L95,348 Z" fill="#3498DB" stroke="#333" stroke-width="2"/>
+    <path d="M165,280 Q200,292 235,280" fill="none" stroke="#333" stroke-width="1.5"/>
+    <path d="M159,283 Q200,296 241,283" fill="none" stroke="#333" stroke-width="1.5"/>
+  </g>
+
+  <!-- V-Neck (short sleeve) -->
+  <g transform="translate(330,30)">
+    <text x="200" y="0" text-anchor="middle" font-family="sans-serif" font-size="16" font-weight="bold" fill="#333">V-Neck</text>
+    <path d="M76,400 Q75,325 95,305 Q110,290 145,285 L178,282 L178,265 L222,265 L222,282 L255,285 Q290,290 305,305 Q325,325 324,400 Z" fill="#FFDBB4" stroke="#333" stroke-width="2"/>
+    <path d="M110,162 Q110,56 200,52 Q290,56 290,162 Q290,268 200,280 Q110,268 110,162 Z" fill="#FFDBB4" stroke="#333" stroke-width="2"/>
+    <ellipse cx="170" cy="155" rx="22" ry="24" fill="#FFF" stroke="#333" stroke-width="2"/>
+    <ellipse cx="230" cy="155" rx="22" ry="24" fill="#FFF" stroke="#333" stroke-width="2"/>
+    <circle cx="172" cy="157" r="6" fill="#333"/>
+    <circle cx="232" cy="157" r="6" fill="#333"/>
+    <path d="M175,220 Q200,240 225,220" fill="none" stroke="#333" stroke-width="2"/>
+    <path d="M68,348 Q65,325 88,305 Q105,290 145,285 L172,280 L200,305 L228,280 L255,285 Q295,290 312,305 Q335,325 332,348 L305,348 L305,400 L95,400 L95,348 Z" fill="#3498DB" stroke="#333" stroke-width="2"/>
+  </g>
+
+  <!-- Tank Top (sleeveless) -->
+  <g transform="translate(650,30)">
+    <text x="200" y="0" text-anchor="middle" font-family="sans-serif" font-size="16" font-weight="bold" fill="#333">Tank Top</text>
+    <path d="M76,400 Q75,325 95,305 Q110,290 145,285 L178,282 L178,265 L222,265 L222,282 L255,285 Q290,290 305,305 Q325,325 324,400 Z" fill="#FFDBB4" stroke="#333" stroke-width="2"/>
+    <path d="M110,162 Q110,56 200,52 Q290,56 290,162 Q290,268 200,280 Q110,268 110,162 Z" fill="#FFDBB4" stroke="#333" stroke-width="2"/>
+    <ellipse cx="170" cy="155" rx="22" ry="24" fill="#FFF" stroke="#333" stroke-width="2"/>
+    <ellipse cx="230" cy="155" rx="22" ry="24" fill="#FFF" stroke="#333" stroke-width="2"/>
+    <circle cx="172" cy="157" r="6" fill="#333"/>
+    <circle cx="232" cy="157" r="6" fill="#333"/>
+    <path d="M175,220 Q200,240 225,220" fill="none" stroke="#333" stroke-width="2"/>
+    <path d="M110,400 L110,335 Q150,310 150,280 L170,280 Q200,340 230,280 L250,280 Q250,310 290,335 L290,400 Z" fill="#3498DB" stroke="#333" stroke-width="2"/>
+  </g>
+
+  <!-- Hoodie (long sleeve) -->
+  <g transform="translate(970,30)">
+    <text x="200" y="0" text-anchor="middle" font-family="sans-serif" font-size="16" font-weight="bold" fill="#333">Hoodie</text>
+    <path d="M76,400 Q75,325 95,305 Q110,290 145,285 L178,282 L178,265 L222,265 L222,282 L255,285 Q290,290 305,305 Q325,325 324,400 Z" fill="#FFDBB4" stroke="#333" stroke-width="2"/>
+    <path d="M110,162 Q110,56 200,52 Q290,56 290,162 Q290,268 200,280 Q110,268 110,162 Z" fill="#FFDBB4" stroke="#333" stroke-width="2"/>
+    <ellipse cx="170" cy="155" rx="22" ry="24" fill="#FFF" stroke="#333" stroke-width="2"/>
+    <ellipse cx="230" cy="155" rx="22" ry="24" fill="#FFF" stroke="#333" stroke-width="2"/>
+    <circle cx="172" cy="157" r="6" fill="#333"/>
+    <circle cx="232" cy="157" r="6" fill="#333"/>
+    <path d="M175,220 Q200,240 225,220" fill="none" stroke="#333" stroke-width="2"/>
+    <path d="M68,400 Q68,323 88,305 Q105,290 145,285 L170,280 Q200,292 230,280 L255,285 Q295,290 312,305 Q332,323 332,400 Z" fill="#3498DB" stroke="#333" stroke-width="2"/>
+    <path d="M165,355 Q200,365 235,355 L235,388 Q200,398 165,388 Z" fill="none" stroke="#333" stroke-width="1.5"/>
+    <line x1="193" y1="286" x2="190" y2="316" stroke="#333" stroke-width="1.5"/>
+    <line x1="207" y1="286" x2="210" y2="316" stroke="#333" stroke-width="1.5"/>
+    <line x1="110" y1="340" x2="110" y2="400" stroke="#333" stroke-width="1.5"/>
+    <line x1="290" y1="340" x2="290" y2="400" stroke="#333" stroke-width="1.5"/>
+    <line x1="110" y1="345" x2="290" y2="345" stroke="#333" stroke-width="1.5"/>
+  </g>
+
+  <!-- Sweater (long sleeve) -->
+  <g transform="translate(1290,30)">
+    <text x="200" y="0" text-anchor="middle" font-family="sans-serif" font-size="16" font-weight="bold" fill="#333">Sweater</text>
+    <path d="M76,400 Q75,325 95,305 Q110,290 145,285 L178,282 L178,265 L222,265 L222,282 L255,285 Q290,290 305,305 Q325,325 324,400 Z" fill="#FFDBB4" stroke="#333" stroke-width="2"/>
+    <path d="M110,162 Q110,56 200,52 Q290,56 290,162 Q290,268 200,280 Q110,268 110,162 Z" fill="#FFDBB4" stroke="#333" stroke-width="2"/>
+    <ellipse cx="170" cy="155" rx="22" ry="24" fill="#FFF" stroke="#333" stroke-width="2"/>
+    <ellipse cx="230" cy="155" rx="22" ry="24" fill="#FFF" stroke="#333" stroke-width="2"/>
+    <circle cx="172" cy="157" r="6" fill="#333"/>
+    <circle cx="232" cy="157" r="6" fill="#333"/>
+    <path d="M175,220 Q200,240 225,220" fill="none" stroke="#333" stroke-width="2"/>
+    <path d="M68,400 Q68,323 88,305 Q105,290 145,285 L165,280 Q200,292 235,280 L255,285 Q295,290 312,305 Q332,323 332,400 Z" fill="#3498DB" stroke="#333" stroke-width="2"/>
+    <path d="M165,280 Q200,292 235,280" fill="none" stroke="#333" stroke-width="1.5"/>
+    <path d="M159,283 Q200,296 241,283" fill="none" stroke="#333" stroke-width="1.5"/>
+    <line x1="110" y1="340" x2="110" y2="400" stroke="#333" stroke-width="1.5"/>
+    <line x1="290" y1="340" x2="290" y2="400" stroke="#333" stroke-width="1.5"/>
+    <line x1="110" y1="345" x2="290" y2="345" stroke="#333" stroke-width="1.5"/>
+  </g>
+</svg>

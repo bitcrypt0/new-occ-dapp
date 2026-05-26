@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" preserveAspectRatio="xMidYMid meet">
+  <path d="M76,400 Q75,325 95,305 Q110,290 145,285 L178,282 L178,265 L222,265 L222,282 L255,285 Q290,290 305,305 Q325,325 324,400 Z" fill="#AE5D29" stroke="#333" stroke-width="2"/>
+  <line x1="110" y1="340" x2="110" y2="398" stroke="#333" stroke-width="1.5" stroke-linecap="round"/><line x1="290" y1="340" x2="290" y2="398" stroke="#333" stroke-width="1.5" stroke-linecap="round"/>
+  <path d="M113,163 Q113,59 200,55 Q287,59 287,163 Q287,268 200,280 Q113,268 113,163 Z" fill="#AE5D29" stroke="#333" stroke-width="2"/>
+  <!-- Nose -->
+  <path d="M193,190 Q200,200 207,190" fill="none" stroke="#333" stroke-width="2"/>
+  <path d="M113,155 Q101,167 113,181 Z" fill="#AE5D29" stroke="#333" stroke-width="2"/><path d="M111,162 Q109,167 111,173" fill="none" stroke="#333" stroke-width="1.5"/><path d="M287,155 Q299,167 287,181 Z" fill="#AE5D29" stroke="#333" stroke-width="2"/><path d="M289,162 Q291,167 289,173" fill="none" stroke="#333" stroke-width="1.5"/>
+  <ellipse cx="170" cy="158" rx="21" ry="22" fill="#FFF" stroke="#333" stroke-width="2"/>
+  <ellipse cx="230" cy="158" rx="21" ry="22" fill="#FFF" stroke="#333" stroke-width="2"/>
+  <circle cx="173" cy="160" r="5" fill="#333"/>
+  <circle cx="233" cy="160" r="5" fill="#333"/>
+  <path d="M147,128 Q170,118 193,128" fill="none" stroke="#333" stroke-width="3" stroke-linecap="round"/><path d="M207,128 Q230,118 253,128" fill="none" stroke="#333" stroke-width="3" stroke-linecap="round"/>
+  <path d="M175,230 Q200,210 225,230" fill="none" stroke="#333" stroke-width="2"/>
+  <!-- T-shirt body (always black) -->
+  <path d="M77,348 Q75,324 94,305 Q110,289 145,285 L175,280 Q200,292 225,280 L255,285 Q290,289 306,305 Q325,324 323,348 L290,348 L290,400 L110,400 L110,348 Z" fill="#000" stroke="#333" stroke-width="2"/>
+  <!-- Double curve neck seam -->
+  <path d="M175,280 Q200,292 225,280" fill="none" stroke="#333" stroke-width="1.5"/>
+  <path d="M169,283 Q200,296 231,283" fill="none" stroke="#333" stroke-width="1.5"/>
+  <!-- Ethereum logo (upper-left chest, same position as jersey badge) -->
+  <!-- Top half -->
+  <path d="M137,317 L126,332 L137,328 Z" fill="#DDD" stroke="none"/>
+  <path d="M137,317 L148,332 L137,328 Z" fill="#FFF" stroke="none"/>
+  <!-- Bottom half -->
+  <path d="M137,349 L126,335 L137,341 Z" fill="#DDD" stroke="none"/>
+  <path d="M137,349 L148,335 L137,341 Z" fill="#FFF" stroke="none"/>
+</svg>

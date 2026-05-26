@@ -1,0 +1,216 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1300 900">
+  <!-- Preview: All 9 Facial Hair Variants on Male Round Head (HAIR=#5C3317) -->
+  <rect width="1300" height="900" fill="#E8E8E8"/>
+
+  <!-- Row 1: 1-4 -->
+
+  <!-- Clean-shaven -->
+  <g transform="translate(-90,20)">
+    <text x="200" y="10" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#333">Clean-shaven</text>
+    <!-- Head -->
+    <path d="M110,162 Q110,56 200,52 Q290,56 290,162 Q290,268 200,280 Q110,268 110,162 Z" fill="#FFDBB4" stroke="#333" stroke-width="2"/>
+    <!-- Eyes -->
+    <ellipse cx="170" cy="155" rx="22" ry="24" fill="#FFF" stroke="#333" stroke-width="2"/>
+    <ellipse cx="230" cy="155" rx="22" ry="24" fill="#FFF" stroke="#333" stroke-width="2"/>
+    <circle cx="172" cy="157" r="6" fill="#333"/>
+    <circle cx="232" cy="157" r="6" fill="#333"/>
+    <!-- Eyebrows -->
+    <path d="M150,120 Q170,114 190,120" fill="none" stroke="#333" stroke-width="3" stroke-linecap="round"/>
+    <path d="M210,120 Q230,114 250,120" fill="none" stroke="#333" stroke-width="3" stroke-linecap="round"/>
+    <!-- Nose -->
+    <path d="M193,190 Q200,200 207,190" fill="none" stroke="#333" stroke-width="2"/>
+    <!-- Mouth -->
+    <path d="M175,220 Q200,240 225,220" fill="none" stroke="#333" stroke-width="2"/>
+    <!-- No facial hair -->
+  </g>
+
+  <!-- Stubble -->
+  <g transform="translate(230,20)">
+    <text x="200" y="10" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#333">Stubble</text>
+    <!-- Head -->
+    <path d="M110,162 Q110,56 200,52 Q290,56 290,162 Q290,268 200,280 Q110,268 110,162 Z" fill="#FFDBB4" stroke="#333" stroke-width="2"/>
+    <!-- Eyes -->
+    <ellipse cx="170" cy="155" rx="22" ry="24" fill="#FFF" stroke="#333" stroke-width="2"/>
+    <ellipse cx="230" cy="155" rx="22" ry="24" fill="#FFF" stroke="#333" stroke-width="2"/>
+    <circle cx="172" cy="157" r="6" fill="#333"/>
+    <circle cx="232" cy="157" r="6" fill="#333"/>
+    <!-- Eyebrows -->
+    <path d="M150,120 Q170,114 190,120" fill="none" stroke="#333" stroke-width="3" stroke-linecap="round"/>
+    <path d="M210,120 Q230,114 250,120" fill="none" stroke="#333" stroke-width="3" stroke-linecap="round"/>
+    <!-- Nose -->
+    <path d="M193,190 Q200,200 207,190" fill="none" stroke="#333" stroke-width="2"/>
+    <!-- Mouth -->
+    <path d="M175,220 Q200,240 225,220" fill="none" stroke="#333" stroke-width="2"/>
+    <!-- Stubble -->
+    <circle cx="185" cy="212" r="1.5" fill="#5C3317"/>
+    <circle cx="193" cy="210" r="1.5" fill="#5C3317"/>
+    <circle cx="200" cy="208" r="1.5" fill="#5C3317"/>
+    <circle cx="207" cy="210" r="1.5" fill="#5C3317"/>
+    <circle cx="215" cy="212" r="1.5" fill="#5C3317"/>
+    <circle cx="188" cy="250" r="1.5" fill="#5C3317"/>
+    <circle cx="197" cy="253" r="1.5" fill="#5C3317"/>
+    <circle cx="203" cy="253" r="1.5" fill="#5C3317"/>
+    <circle cx="212" cy="250" r="1.5" fill="#5C3317"/>
+    <circle cx="194" cy="261" r="1.5" fill="#5C3317"/>
+    <circle cx="206" cy="261" r="1.5" fill="#5C3317"/>
+    <circle cx="200" cy="269" r="1.5" fill="#5C3317"/>
+    <circle cx="152" cy="240" r="1.5" fill="#5C3317"/>
+    <circle cx="148" cy="230" r="1.5" fill="#5C3317"/>
+    <circle cx="248" cy="240" r="1.5" fill="#5C3317"/>
+    <circle cx="252" cy="230" r="1.5" fill="#5C3317"/>
+  </g>
+
+  <!-- Goatee I -->
+  <g transform="translate(550,20)">
+    <text x="200" y="10" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#333">Goatee I</text>
+    <!-- Head -->
+    <path d="M110,162 Q110,56 200,52 Q290,56 290,162 Q290,268 200,280 Q110,268 110,162 Z" fill="#FFDBB4" stroke="#333" stroke-width="2"/>
+    <!-- Eyes -->
+    <ellipse cx="170" cy="155" rx="22" ry="24" fill="#FFF" stroke="#333" stroke-width="2"/>
+    <ellipse cx="230" cy="155" rx="22" ry="24" fill="#FFF" stroke="#333" stroke-width="2"/>
+    <circle cx="172" cy="157" r="6" fill="#333"/>
+    <circle cx="232" cy="157" r="6" fill="#333"/>
+    <!-- Eyebrows -->
+    <path d="M150,120 Q170,114 190,120" fill="none" stroke="#333" stroke-width="3" stroke-linecap="round"/>
+    <path d="M210,120 Q230,114 250,120" fill="none" stroke="#333" stroke-width="3" stroke-linecap="round"/>
+    <!-- Nose -->
+    <path d="M193,190 Q200,200 207,190" fill="none" stroke="#333" stroke-width="2"/>
+    <!-- Mouth -->
+    <path d="M175,220 Q200,240 225,220" fill="none" stroke="#333" stroke-width="2"/>
+    <!-- Goatee I -->
+    <path d="M188,242 Q200,260 177,275 Q188,280 200,280 Q212,280 223,275 Q200,260 212,242 Q200,248 188,242 Z" fill="#5C3317" stroke="#333" stroke-width="1.5"/>
+  </g>
+
+  <!-- Full Beard -->
+  <g transform="translate(870,20)">
+    <text x="200" y="10" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#333">Full Beard</text>
+    <!-- Head -->
+    <path d="M110,162 Q110,56 200,52 Q290,56 290,162 Q290,268 200,280 Q110,268 110,162 Z" fill="#FFDBB4" stroke="#333" stroke-width="2"/>
+    <!-- Eyes -->
+    <ellipse cx="170" cy="155" rx="22" ry="24" fill="#FFF" stroke="#333" stroke-width="2"/>
+    <ellipse cx="230" cy="155" rx="22" ry="24" fill="#FFF" stroke="#333" stroke-width="2"/>
+    <circle cx="172" cy="157" r="6" fill="#333"/>
+    <circle cx="232" cy="157" r="6" fill="#333"/>
+    <!-- Eyebrows -->
+    <path d="M150,120 Q170,114 190,120" fill="none" stroke="#333" stroke-width="3" stroke-linecap="round"/>
+    <path d="M210,120 Q230,114 250,120" fill="none" stroke="#333" stroke-width="3" stroke-linecap="round"/>
+    <!-- Nose -->
+    <path d="M193,190 Q200,200 207,190" fill="none" stroke="#333" stroke-width="2"/>
+    <!-- Full Beard -->
+    <path d="M148,204 Q135,250 155,272 Q178,290 200,292 Q222,290 245,272 Q265,250 252,204 Q228,214 200,210 Q172,214 148,204 Z" fill="#5C3317" stroke="#333" stroke-width="2"/>
+    <!-- Mouth (on top of beard) -->
+    <path d="M175,220 Q200,240 225,220" fill="none" stroke="#333" stroke-width="2"/>
+  </g>
+
+  <!-- Row 2: 5-8 -->
+
+  <!-- Mustache -->
+  <g transform="translate(-90,310)">
+    <text x="200" y="10" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#333">Mustache</text>
+    <!-- Head -->
+    <path d="M110,162 Q110,56 200,52 Q290,56 290,162 Q290,268 200,280 Q110,268 110,162 Z" fill="#FFDBB4" stroke="#333" stroke-width="2"/>
+    <!-- Eyes -->
+    <ellipse cx="170" cy="155" rx="22" ry="24" fill="#FFF" stroke="#333" stroke-width="2"/>
+    <ellipse cx="230" cy="155" rx="22" ry="24" fill="#FFF" stroke="#333" stroke-width="2"/>
+    <circle cx="172" cy="157" r="6" fill="#333"/>
+    <circle cx="232" cy="157" r="6" fill="#333"/>
+    <!-- Eyebrows -->
+    <path d="M150,120 Q170,114 190,120" fill="none" stroke="#333" stroke-width="3" stroke-linecap="round"/>
+    <path d="M210,120 Q230,114 250,120" fill="none" stroke="#333" stroke-width="3" stroke-linecap="round"/>
+    <!-- Nose -->
+    <path d="M193,190 Q200,200 207,190" fill="none" stroke="#333" stroke-width="2"/>
+    <!-- Mustache -->
+    <path d="M178,209 Q188,199 200,204 Q212,199 222,209 Q212,214 200,211 Q188,214 178,209 Z" fill="#5C3317" stroke="#333" stroke-width="1.5"/>
+    <!-- Mouth -->
+    <path d="M175,220 Q200,240 225,220" fill="none" stroke="#333" stroke-width="2"/>
+  </g>
+
+  <!-- Soul Patch -->
+  <g transform="translate(230,310)">
+    <text x="200" y="10" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#333">Soul Patch</text>
+    <!-- Head -->
+    <path d="M110,162 Q110,56 200,52 Q290,56 290,162 Q290,268 200,280 Q110,268 110,162 Z" fill="#FFDBB4" stroke="#333" stroke-width="2"/>
+    <!-- Eyes -->
+    <ellipse cx="170" cy="155" rx="22" ry="24" fill="#FFF" stroke="#333" stroke-width="2"/>
+    <ellipse cx="230" cy="155" rx="22" ry="24" fill="#FFF" stroke="#333" stroke-width="2"/>
+    <circle cx="172" cy="157" r="6" fill="#333"/>
+    <circle cx="232" cy="157" r="6" fill="#333"/>
+    <!-- Eyebrows -->
+    <path d="M150,120 Q170,114 190,120" fill="none" stroke="#333" stroke-width="3" stroke-linecap="round"/>
+    <path d="M210,120 Q230,114 250,120" fill="none" stroke="#333" stroke-width="3" stroke-linecap="round"/>
+    <!-- Nose -->
+    <path d="M193,190 Q200,200 207,190" fill="none" stroke="#333" stroke-width="2"/>
+    <!-- Mouth -->
+    <path d="M175,220 Q200,240 225,220" fill="none" stroke="#333" stroke-width="2"/>
+    <!-- Soul Patch -->
+    <ellipse cx="200" cy="248" rx="5" ry="8" fill="#5C3317" stroke="#333" stroke-width="1"/>
+  </g>
+
+  <!-- Mutton Chops -->
+  <g transform="translate(550,310)">
+    <text x="200" y="10" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#333">Mutton Chops</text>
+    <!-- Head -->
+    <path d="M110,162 Q110,56 200,52 Q290,56 290,162 Q290,268 200,280 Q110,268 110,162 Z" fill="#FFDBB4" stroke="#333" stroke-width="2"/>
+    <!-- Eyes -->
+    <ellipse cx="170" cy="155" rx="22" ry="24" fill="#FFF" stroke="#333" stroke-width="2"/>
+    <ellipse cx="230" cy="155" rx="22" ry="24" fill="#FFF" stroke="#333" stroke-width="2"/>
+    <circle cx="172" cy="157" r="6" fill="#333"/>
+    <circle cx="232" cy="157" r="6" fill="#333"/>
+    <!-- Eyebrows -->
+    <path d="M150,120 Q170,114 190,120" fill="none" stroke="#333" stroke-width="3" stroke-linecap="round"/>
+    <path d="M210,120 Q230,114 250,120" fill="none" stroke="#333" stroke-width="3" stroke-linecap="round"/>
+    <!-- Nose -->
+    <path d="M193,190 Q200,200 207,190" fill="none" stroke="#333" stroke-width="2"/>
+    <!-- Mouth -->
+    <path d="M175,220 Q200,240 225,220" fill="none" stroke="#333" stroke-width="2"/>
+    <!-- Mutton Chops -->
+    <path d="M112,185 Q113,230 145,258 Q155,265 162,255 Q142,230 132,195 Z" fill="#5C3317" stroke="#333" stroke-width="1.5"/>
+    <path d="M288,185 Q287,230 255,258 Q245,265 238,255 Q258,230 268,195 Z" fill="#5C3317" stroke="#333" stroke-width="1.5"/>
+  </g>
+
+  <!-- Handlebar -->
+  <g transform="translate(870,310)">
+    <text x="200" y="10" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#333">Handlebar</text>
+    <!-- Head -->
+    <path d="M110,162 Q110,56 200,52 Q290,56 290,162 Q290,268 200,280 Q110,268 110,162 Z" fill="#FFDBB4" stroke="#333" stroke-width="2"/>
+    <!-- Eyes -->
+    <ellipse cx="170" cy="155" rx="22" ry="24" fill="#FFF" stroke="#333" stroke-width="2"/>
+    <ellipse cx="230" cy="155" rx="22" ry="24" fill="#FFF" stroke="#333" stroke-width="2"/>
+    <circle cx="172" cy="157" r="6" fill="#333"/>
+    <circle cx="232" cy="157" r="6" fill="#333"/>
+    <!-- Eyebrows -->
+    <path d="M150,120 Q170,114 190,120" fill="none" stroke="#333" stroke-width="3" stroke-linecap="round"/>
+    <path d="M210,120 Q230,114 250,120" fill="none" stroke="#333" stroke-width="3" stroke-linecap="round"/>
+    <!-- Nose -->
+    <path d="M193,190 Q200,200 207,190" fill="none" stroke="#333" stroke-width="2"/>
+    <!-- Handlebar mustache -->
+    <path d="M168,209 Q182,198 200,204 Q218,198 232,209 Q218,214 200,211 Q182,214 168,209 Z" fill="#5C3317" stroke="#333" stroke-width="1.5"/>
+    <path d="M168,209 Q158,214 155,206 Q153,198 161,200" fill="#5C3317" stroke="#333" stroke-width="1.5"/>
+    <path d="M232,209 Q242,214 245,206 Q247,198 239,200" fill="#5C3317" stroke="#333" stroke-width="1.5"/>
+    <!-- Mouth -->
+    <path d="M175,220 Q200,240 225,220" fill="none" stroke="#333" stroke-width="2"/>
+  </g>
+
+  <!-- Row 3: 9 -->
+
+  <!-- Goatee II -->
+  <g transform="translate(-90,600)">
+    <text x="200" y="10" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#333">Goatee II</text>
+    <!-- Head -->
+    <path d="M110,162 Q110,56 200,52 Q290,56 290,162 Q290,268 200,280 Q110,268 110,162 Z" fill="#FFDBB4" stroke="#333" stroke-width="2"/>
+    <!-- Eyes -->
+    <ellipse cx="170" cy="155" rx="22" ry="24" fill="#FFF" stroke="#333" stroke-width="2"/>
+    <ellipse cx="230" cy="155" rx="22" ry="24" fill="#FFF" stroke="#333" stroke-width="2"/>
+    <circle cx="172" cy="157" r="6" fill="#333"/>
+    <circle cx="232" cy="157" r="6" fill="#333"/>
+    <!-- Eyebrows -->
+    <path d="M150,120 Q170,114 190,120" fill="none" stroke="#333" stroke-width="3" stroke-linecap="round"/>
+    <path d="M210,120 Q230,114 250,120" fill="none" stroke="#333" stroke-width="3" stroke-linecap="round"/>
+    <!-- Nose -->
+    <path d="M193,190 Q200,200 207,190" fill="none" stroke="#333" stroke-width="2"/>
+    <!-- Mouth -->
+    <path d="M175,220 Q200,240 225,220" fill="none" stroke="#333" stroke-width="2"/>
+    <!-- Goatee II (shallow convex arch + chin fill; bounded above by arch, below by head outline) -->
+    <path d="M169,272 Q200,260 231,272 Q217,278 200,280 Q183,278 169,272 Z" fill="#5C3317" stroke="#333" stroke-width="1.5"/>
+  </g>
+</svg>

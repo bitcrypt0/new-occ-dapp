@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" preserveAspectRatio="xMidYMid meet">
+  <path d="M86,400 Q85,325 105,305 Q120,290 152,285 L180,282 L180,265 L220,265 L220,282 L248,285 Q280,290 295,305 Q315,325 314,400 Z" fill="#FFDBB4" stroke="#333" stroke-width="2"/>
+  <line x1="112" y1="340" x2="112" y2="398" stroke="#333" stroke-width="1.5" stroke-linecap="round"/><line x1="288" y1="340" x2="288" y2="398" stroke="#333" stroke-width="1.5" stroke-linecap="round"/>
+  <path d="M115,165 Q115,62 200,58 Q285,62 285,165 Q285,268 200,280 Q115,268 115,165 Z" fill="#FFDBB4" stroke="#333" stroke-width="2"/>
+  <!-- Nose -->
+  <path d="M194,191 Q200,201 206,191" fill="none" stroke="#333" stroke-width="1.5"/>
+  <path d="M115,153 Q103,166 115,180 Z" fill="#FFDBB4" stroke="#333" stroke-width="2"/><path d="M113,160 Q111,166 113,172" fill="none" stroke="#333" stroke-width="1.5"/><path d="M285,153 Q297,166 285,180 Z" fill="#FFDBB4" stroke="#333" stroke-width="2"/><path d="M287,160 Q289,166 287,172" fill="none" stroke="#333" stroke-width="1.5"/>
+  <ellipse cx="170" cy="158" rx="14" ry="13" fill="#FFF" stroke="#333" stroke-width="2"/>
+  <ellipse cx="230" cy="158" rx="14" ry="13" fill="#FFF" stroke="#333" stroke-width="2"/>
+  <circle cx="172" cy="159" r="3" fill="#333"/>
+  <circle cx="232" cy="159" r="3" fill="#333"/>
+  <path d="M147,128 Q170,118 193,128" fill="none" stroke="#333" stroke-width="3" stroke-linecap="round"/><path d="M207,128 Q230,118 253,128" fill="none" stroke="#333" stroke-width="3" stroke-linecap="round"/>
+  <path d="M168,218 Q200,255 232,218 Z" fill="#333" stroke="#333" stroke-width="2"/>
+  <path d="M178,218 Q200,225 222,218" fill="#FFF" stroke="none"/>
+  <path d="M87,348 Q86,325 103,305 Q115,290 152,285 L182,280 L200,305 L218,280 L248,285 Q285,290 297,305 Q314,325 313,348 L288,348 L288,400 L112,400 L112,348 Z" fill="#A6C0E0" stroke="#333" stroke-width="2"/>
+  <!-- Bust seams -->
+  <path d="M122,350 Q106,374 122,400" fill="none" stroke="#333" stroke-width="1.5"/>
+  <path d="M278,350 Q294,374 278,400" fill="none" stroke="#333" stroke-width="1.5"/>
+</svg>
