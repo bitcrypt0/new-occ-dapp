@@ -44,7 +44,7 @@ const CHAPTERS: TocChapter[] = [
   { id: "reshuffle", number: "03", label: "The reshuffle" },
   { id: "rare-freeze", number: "04", label: "Rare traits freeze" },
   { id: "rare-atlas", number: "05", label: "Rare Traits Atlas" },
-  { id: "locked-personality", number: "06", label: "Locked personality" },
+  { id: "locked-personality", number: "06", label: "Core personality traits" },
   { id: "owner-actions", number: "07", label: "Owner actions" },
   { id: "provenance", number: "08", label: "Provenance" },
   { id: "trait-market", number: "09", label: "The Trait Market" },
@@ -251,13 +251,17 @@ export default async function DocsPage() {
           >
             <Panel tone="rose" className="p-6">
               <p className="font-body text-base leading-relaxed text-ink">
-                A Citizen is built to be <em>alive</em>. Every time a Citizen
-                moves between wallets, the contract re-rolls five of its trait
-                slots into a new combination. We call this a{" "}
+                All Citizens are built to be <em>alive</em>. Every time a
+                Citizen is transferred, five of its trait slots are liable to
+                be re-rolled into a new combination, producing a new look. We
+                call this a{" "}
                 <Link href="#glossary-reshuffle" className="font-semibold underline-offset-2 hover:underline">
                   reshuffle
                 </Link>
-                . Move it and its look earns a history.
+                . However, all rare traits within these five trait categories
+                are locked at mint and cannot be re-rolled during transfers.
+                Holders can also freely re-roll new background colors for
+                Citizens held.
               </p>
               <p className="mt-3 font-body text-base font-semibold text-ink">
                 The five reshufflable categories:
@@ -284,9 +288,9 @@ export default async function DocsPage() {
             </Panel>
             <div className="mt-6 flex flex-wrap items-center justify-between gap-4">
               <SpeechBubble tone="paper" tail="bottom-left">
-                {reshufflesActive
-                  ? "Five slots re-roll on every transfer. The look you mint is rarely the look you end with."
-                  : "Once it's switched on, five slots re-roll on every transfer — the look you mint is rarely the look you end with."}
+                Five trait slots re-roll on every transfer. By performing
+                self-transfers, holders can customize their Citizens&apos;
+                appearance — mood and clothing — at will.
               </SpeechBubble>
             </div>
 
@@ -319,19 +323,18 @@ export default async function DocsPage() {
           >
             <Panel tone="sage" className="p-6">
               <p className="font-body text-base leading-relaxed text-ink">
-                The reshuffle has one big exception. Each trait variant has an
-                <em> upload weight</em> — a number that controls how often it
-                rolls at mint. The rarer a variant, the lower its weight. The
-                contract&apos;s rule is exact:
+                The reshuffle has one big exception. Each trait variant has a
+                weight — a number that controls how often it rolls at mint.
+                The lower a trait&apos;s weight, the rarer it is.
               </p>
               <p className="mt-3 rounded border-2 border-ink bg-paper px-4 py-3 font-display text-base">
-                If a Citizen mints with a variant whose <strong>weight is less
-                than 16</strong>, that variant is <strong>frozen forever</strong>.
-                It never reshuffles — not on this transfer, not on any future one.
+                If a Citizen mints with a trait whose <strong>weight is less
+                than 16</strong>, that trait is <strong>locked forever</strong>.
+                It never reshuffles.
               </p>
               <p className="mt-4 font-body text-base leading-relaxed text-ink">
-                That&apos;s how rarity stays rare. The freeze is permanent
-                against reshuffles and transfers. The only way a frozen rare
+                This is how rare traits are defined. The lock is permanent
+                against reshuffles on-transfer. The only way a locked rare
                 trait ever leaves a Citizen is if its owner{" "}
                 <Link href="#trait-market" className="font-semibold underline-offset-2 hover:underline">
                   deliberately trades it on the Trait Market
@@ -340,15 +343,14 @@ export default async function DocsPage() {
               </p>
               <details className="mt-4 rounded border-2 border-ink bg-cream/60 px-4 py-2.5 text-sm [&_summary::-webkit-details-marker]:hidden">
                 <summary className="cursor-pointer list-none font-display text-sm uppercase tracking-wide text-brown">
-                  A note for the curious (you can skip this)
+                  Additional Note
                 </summary>
                 <p className="mt-2 font-body text-sm leading-relaxed text-brown">
                   Internally, Eyes and Specials weights are stored ×2, so their
                   on-chain comparison uses a threshold of 32. The user-facing
                   rule is the same either way: the rare-trait list is exactly
-                  the variants whose <em>metadata</em> weight is below 16. We
-                  show the metadata weight on every atlas card below — that&apos;s
-                  the authoritative one.
+                  the variants whose <em>metadata</em> weight is below 16. See
+                  the metadata weight on every atlas card below.
                 </p>
               </details>
             </Panel>
@@ -379,14 +381,14 @@ export default async function DocsPage() {
           <ChapterSection
             id="locked-personality"
             number="06"
-            title="The Locked Personality"
+            title="The Core Personality Traits"
           >
             <Panel tone="lavender" className="p-6">
               <p className="font-body text-base leading-relaxed text-ink">
-                These five categories <strong>never reshuffle</strong>. Whatever
-                your Citizen mints with stays with it forever — these traits
-                make each Citizen <em>unique</em>, no matter how many times
-                Eyes, Mouth, or Clothing re-roll on transfer.
+                These five attributes <strong>never reshuffle</strong>. Whatever
+                your Citizen mints with stays with it forever — these
+                attributes make each Citizen <em>unique</em>, no matter how
+                many times other traits change with transfers.
               </p>
             </Panel>
 
@@ -405,7 +407,7 @@ export default async function DocsPage() {
               id="locked-hair-color"
               kicker="9 palette colors"
               title="Hair Color"
-              intro="Applied as the fill on Hair and Facial Hair traits. The rare palette colors (Strawberry, Blonde, Platinum) are the harder rolls."
+              intro="Applied as the fill on Hair and Facial Hair traits."
             >
               <PaletteSwatchRow swatches={HAIR_COLOR_PALETTE} labelledBy="locked-hair-color-title" />
             </SubChapter>
@@ -415,7 +417,7 @@ export default async function DocsPage() {
               id="locked-facial-hair"
               kicker="9 variants · male only"
               title="Facial Hair"
-              intro="A male-only category. Citizens that mint female don't carry a Facial Hair variant at all."
+              intro="A male-only attribute. Female citizens don't carry a Facial Hair variant at all."
             >
               <LockedAtlasGrid folder="facial-hair" variants={LOCKED_FACIAL_HAIR} />
             </SubChapter>
@@ -469,8 +471,9 @@ export default async function DocsPage() {
                 </p>
                 <p className="mt-3 border-2 border-dashed border-ink bg-paper px-3 py-2 font-body text-xs text-brown">
                   Heads up: after the first re-roll, the background also
-                  becomes a reshuffling slot — it&apos;ll re-roll on future
-                  transfers alongside the other traits.
+                  becomes a reshuffling slot. Also, the first few re-rolls
+                  may land on the same color — this is normal. Keep trying
+                  until the reshuffle seed lands a new color.
                 </p>
               </Panel>
 
