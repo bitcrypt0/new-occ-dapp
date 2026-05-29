@@ -226,12 +226,12 @@ export function CitizenDetail({ id }: { id: number }) {
           {rareTraits.length > 0 && (
             <div className="mt-4 rounded-panel border-2 border-ink bg-orange/40 p-3">
               <p className="font-display text-sm uppercase tracking-wide">
-                Frozen rare trait{rareTraits.length > 1 ? "s" : ""}
+                Locked rare trait{rareTraits.length > 1 ? "s" : ""}
               </p>
               <div className="mt-2 flex flex-wrap gap-2">
                 {rareTraits.map((t) => (
                   <span key={t.category} className="inline-flex items-center gap-2">
-                    <RarityTag label={`${t.category}: ${t.value}`} />
+                    <RarityTag label={t.value} />
                   </span>
                 ))}
               </div>

@@ -25,15 +25,41 @@ function rareCategoryToDomain(c: RareTraitCategory): TraitCategory {
 }
 
 /**
+ * Categories whose lock comes from being a *core personality trait* rather
+ * than from being rare. Hair and Facial Hair are personality-locked by
+ * default regardless of weight — even when a variant happens to be weight
+ * < 16 (e.g. Mohawk, Mutton Chops) its permanence on the Citizen comes
+ * from the personality lock, not from rarity. So we don't surface those
+ * variants with the rare-lock tag anywhere in the dapp.
+ *
+ * Accessory (the static face-affixed slot — "Accessory I" in the docs) is
+ * also a core personality category, but the brief explicitly carves out
+ * its weight < 16 variants as rare personality traits — Sunglasses,
+ * Eye Patch, Monocle, Laser, etc. — so those *do* get the rare tag. The
+ * common Accessory variants (Blush, Freckles, Clear Glasses, Round
+ * Glasses, Scar, No Accessory) remain untagged.
+ *
+ * Reshufflable categories (Eyes, Eyebrows, Mouth, Clothing, Accessory II)
+ * and Special are unaffected — their rare variants are tagged as before.
+ */
+const PERSONALITY_LOCKED_NO_RARE_TAG: ReadonlySet<TraitCategory> = new Set([
+  "Hair",
+  "Facial Hair",
+]);
+
+/**
  * Lookup set of `${domainCategory}|${value}` keys for every known rare
  * variant. Both the display name ("Crown") and the on-disk slug ("crown")
  * are registered so we still resolve if the contract ever emits the slug
- * form. Comparison is case-insensitive.
+ * form. Comparison is case-insensitive. Categories listed in
+ * `PERSONALITY_LOCKED_NO_RARE_TAG` are skipped at insertion so their rare
+ * weight<16 variants never enter the lookup at all.
  */
 const RARE_KEY_SET: Set<string> = (() => {
   const set = new Set<string>();
   for (const t of RARE_TRAITS) {
     const cat = rareCategoryToDomain(t.category);
+    if (PERSONALITY_LOCKED_NO_RARE_TAG.has(cat)) continue;
     set.add(`${cat}|${t.display.toLowerCase()}`);
     set.add(`${cat}|${t.slug.toLowerCase()}`);
     if (t.pair) set.add(`${cat}|${t.pair.toLowerCase()}`);
