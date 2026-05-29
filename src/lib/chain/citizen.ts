@@ -10,6 +10,40 @@ import type {
   TraitCategory,
   V1Token,
 } from "../types";
+import {
+  RARE_TRAITS,
+  type TraitCategory as RareTraitCategory,
+} from "../data/traits";
+
+/**
+ * The docs/data layer uses "Accessory I" for the static face-affixed slot;
+ * the on-chain trait_type is just "Accessory". Bridge the two so rare-trait
+ * lookups for that category resolve.
+ */
+function rareCategoryToDomain(c: RareTraitCategory): TraitCategory {
+  return c === "Accessory I" ? "Accessory" : (c as TraitCategory);
+}
+
+/**
+ * Lookup set of `${domainCategory}|${value}` keys for every known rare
+ * variant. Both the display name ("Crown") and the on-disk slug ("crown")
+ * are registered so we still resolve if the contract ever emits the slug
+ * form. Comparison is case-insensitive.
+ */
+const RARE_KEY_SET: Set<string> = (() => {
+  const set = new Set<string>();
+  for (const t of RARE_TRAITS) {
+    const cat = rareCategoryToDomain(t.category);
+    set.add(`${cat}|${t.display.toLowerCase()}`);
+    set.add(`${cat}|${t.slug.toLowerCase()}`);
+    if (t.pair) set.add(`${cat}|${t.pair.toLowerCase()}`);
+  }
+  return set;
+})();
+
+function isRareAttribute(category: TraitCategory, value: string): boolean {
+  return RARE_KEY_SET.has(`${category}|${value.toLowerCase()}`);
+}
 
 interface RawAttribute {
   trait_type?: string;
@@ -74,11 +108,13 @@ export function parseCitizen(tokenId: number, tokenUri: string): Citizen {
   const attributes: Attribute[] = TRAIT_CATEGORIES.flatMap((category) => {
     const a = firstByCategory.get(category);
     if (!a) return [];
+    const value = String(a.value ?? "");
     return [
       {
         category,
-        value: String(a.value ?? ""),
+        value,
         reshufflable: RESHUFFLABLE.includes(category),
+        rare: isRareAttribute(category, value),
       },
     ];
   });

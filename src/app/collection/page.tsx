@@ -2,7 +2,7 @@
 
 import { useMemo } from "react";
 import { Page, PageHeader } from "@/components/layout/Page";
-import { CitizenCard } from "@/components/citizen/CitizenCard";
+import { CollectionFilters } from "@/components/citizen/CollectionFilters";
 import { EmptyState } from "@/components/states/EmptyState";
 import { ErrorState } from "@/components/states/ErrorState";
 import { LoadingSkeleton } from "@/components/states/LoadingSkeleton";
@@ -63,16 +63,7 @@ export default function CollectionPage() {
           }
         />
       ) : (
-        <>
-          <p className="mb-4 font-display text-sm uppercase tracking-wide text-brown">
-            {citizens.length} Citizen{citizens.length === 1 ? "" : "s"} held
-          </p>
-          <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
-            {citizens.map((c) => (
-              <CitizenCard key={c.id} citizen={c} />
-            ))}
-          </div>
-        </>
+        <CollectionFilters citizens={citizens} />
       )}
     </Page>
   );
