@@ -151,20 +151,25 @@ export function CitizenDetail({ id }: { id: number }) {
 
     const r = await transferCitizen(id, transferTo, setTx);
     if (r.state === "success") {
-      let message: string;
+      // Self-transfers keep ownership in the same wallet — the owner-action
+      // buttons should stay live so the holder can immediately re-roll or
+      // self-transfer again. Only a transfer to a *different* address sets
+      // the persistent `postTransferMessage`, which replaces the buttons
+      // (since the holder no longer owns the Citizen). Self-transfer
+      // feedback rides on the toast instead.
       if (!toSelf) {
-        message = reshufflesActive
+        const message = reshufflesActive
           ? "You transferred this Citizen — it's no longer in your wallet. Its unlocked traits will reshuffle for the new owner."
           : "You transferred this Citizen — it's no longer in your wallet. Once reshuffles are active, an unlocked Citizen's traits re-roll for each new owner.";
-      } else if (wasLocked) {
-        message = "Transfer successful. Your Citizen's metadata remains unchanged.";
-      } else {
-        message = "Transfer successful! You successfully reshuffled this Citizen's metadata.";
+        setPostTransferMessage(message);
       }
-      setPostTransferMessage(message);
       refresh(id);
       toast(
-        toSelf ? `Citizen #${id} transferred.` : `Citizen #${id} sent.`,
+        !toSelf
+          ? `Citizen #${id} sent.`
+          : wasLocked
+            ? `Citizen #${id} transferred — metadata unchanged.`
+            : `Citizen #${id} transferred — metadata reshuffled.`,
         "success",
       );
       setModal("none");
@@ -338,7 +343,9 @@ export function CitizenDetail({ id }: { id: number }) {
         <p className="mt-4 border-2 border-dashed border-ink bg-cream px-3 py-2 font-body text-xs text-brown">
           <strong className="text-ink">Heads up:</strong> after its first
           re-roll, the background also becomes a reshuffling trait — from then
-          on it re-rolls on future transfers alongside the other traits.
+          on it re-rolls on future transfers alongside the other traits. Also,
+          the first few re-rolls may land on the same color — this is normal.
+          Keep trying until the reshuffle seed lands a new color.
         </p>
         {tx !== "idle" && (
           <TxStatus
