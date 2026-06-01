@@ -141,3 +141,21 @@ export interface MockWallet {
 
 /** Visual-only transaction lifecycle. Agent 2 makes these real. */
 export type TxState = "idle" | "pending" | "success" | "fail";
+
+/**
+ * Output shape of `OCCV2TraitInspectorV2.inspect(tokenId)` — surfaces whether
+ * a Citizen's intrinsic Accessory (the one the seeder would currently freeze
+ * under the present frozen state) is visible or temporarily hidden because
+ * the displayed eyes block it. Field names mirror the V2 struct on-chain.
+ */
+export interface LaserInspection {
+  intrinsicAccessoryIdx: number;
+  displayedAccessoryIdx: number;
+  intrinsicAccessoryName: string;
+  displayedAccessoryName: string;
+  displayedEyesIdx: number;
+  displayedEyesName: string;
+  ownsHideableAccessory: boolean;
+  accessoryCurrentlyHidden: boolean;
+  intrinsicAccessoryEyesBlockMask: number;
+}

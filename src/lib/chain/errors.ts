@@ -26,6 +26,12 @@ const ERROR_MESSAGES: Record<string, string> = {
   OCCV2_AlreadyFrozen: "This Citizen's traits are already locked.",
   OCCV2_NotFrozen: "This Citizen's traits aren't locked.",
   OCCV2_ReshufflesAlreadyActive: "Reshuffles are already active.",
+  // ── Wardrobe rerolls ──
+  WardrobeManager_NotTokenOwner: "Only the current owner can reroll.",
+  WardrobeManager_TokenLocked:
+    "This Citizen's traits are locked. Unlock to reroll.",
+  WardrobeManager_ClothingIsRareFrozen:
+    "This Citizen has a rare clothing piece. You can still reroll its color with the Color button.",
   // ── Market ──
   Market_ListingNotActive: "This listing is no longer available.",
   Market_ListingExpired: "This listing has expired.",

@@ -22,6 +22,8 @@ import {
   occv2Contract,
   marketContract,
   citizenStakerContract,
+  wardrobeContract,
+  inspectorContract,
 } from "../chain/contracts";
 import { parseCitizen, parseV1Token } from "../chain/citizen";
 import { scanOwnedIds, scanUnclaimedIds, type MulticallRow } from "../chain/scan";
@@ -410,6 +412,138 @@ export function useV1ApprovedForV2(): { approved: boolean; isLoading: boolean } 
   return { approved: Boolean(data), isLoading: isConnected && isLoading };
 }
 
+export interface WardrobeButtonStates {
+  /** Direct contract reads (from WardrobeManager). */
+  canRerollClothing: boolean;
+  canRerollClothingColor: boolean;
+  canRerollClothingAndColor: boolean;
+  /**
+   * Derived: traits are currently locked. Because `canRerollClothingColor`
+   * only reverts on `WardrobeManager_TokenLocked` (rare-frozen clothing has
+   * no effect on color reroll), its `false` value uniquely identifies a
+   * locked Citizen.
+   */
+  locked: boolean;
+  /**
+   * Derived: clothing is rare-frozen. Read from the NFT's `tokenState.frozenClothingIdx`
+   * so the UI can distinguish "locked AND rare-frozen" (show only Color,
+   * disabled) from "locked alone" (show all three, all disabled).
+   */
+  rareFrozen: boolean;
+  isLoading: boolean;
+}
+
+/**
+ * `WardrobeManager.canReroll*` views — the source of truth for which of the
+ * three Wardrobe buttons should be enabled. The query is keyed by tokenId so
+ * `useMetadataWatch` / `useCitizenRefresh` can invalidate it on lock, unlock,
+ * trait-market trades, and successful reroll transactions.
+ */
+export function useWardrobeButtonStates(id: number): WardrobeButtonStates {
+  const client = usePublicClient();
+  const valid = Number.isInteger(id) && id >= 1 && id <= CONTRACT.totalSupply;
+  const query = useQuery({
+    queryKey: ["wardrobeStates", id],
+    enabled: valid && Boolean(client),
+    queryFn: async () => {
+      const tokenBig = BigInt(id);
+      const [canC, canCC, canBoth, state] = await Promise.all([
+        client!.readContract({
+          ...wardrobeContract,
+          functionName: "canRerollClothing",
+          args: [tokenBig],
+        }) as Promise<boolean>,
+        client!.readContract({
+          ...wardrobeContract,
+          functionName: "canRerollClothingColor",
+          args: [tokenBig],
+        }) as Promise<boolean>,
+        client!.readContract({
+          ...wardrobeContract,
+          functionName: "canRerollClothingAndColor",
+          args: [tokenBig],
+        }) as Promise<boolean>,
+        client!.readContract({
+          ...occv2Contract,
+          functionName: "tokenState",
+          args: [tokenBig],
+        }) as Promise<{ frozenClothingIdx?: number | bigint }>,
+      ]);
+      const frozenClothingIdx = Number(state?.frozenClothingIdx ?? 0);
+      return {
+        canRerollClothing: Boolean(canC),
+        canRerollClothingColor: Boolean(canCC),
+        canRerollClothingAndColor: Boolean(canBoth),
+        frozenClothingIdx,
+      };
+    },
+  });
+
+  const canRerollClothing = query.data?.canRerollClothing ?? false;
+  const canRerollClothingColor = query.data?.canRerollClothingColor ?? false;
+  const canRerollClothingAndColor = query.data?.canRerollClothingAndColor ?? false;
+  // Locked iff color reroll is refused — that's the locked-only signal.
+  // Rare-frozen iff the on-chain frozen Clothing index is non-zero — orthogonal
+  // to the locked state so we can show the right UI for both cases.
+  const locked = query.data ? !canRerollClothingColor : false;
+  const rareFrozen = (query.data?.frozenClothingIdx ?? 0) > 0;
+
+  return {
+    canRerollClothing,
+    canRerollClothingColor,
+    canRerollClothingAndColor,
+    locked,
+    rareFrozen,
+    isLoading: valid && query.isLoading && query.fetchStatus !== "idle",
+  };
+}
+
+/**
+ * Output of `OCCV2TraitInspectorV2.inspect(tokenId)`.
+ * Returns `undefined` while loading or on error so the LaserCallout can
+ * render nothing (the inspector should never block the page).
+ */
+export function useLaserInspection(id: number): {
+  data: import("../types").LaserInspection | undefined;
+  isLoading: boolean;
+} {
+  const valid = Number.isInteger(id) && id >= 1 && id <= CONTRACT.totalSupply;
+  const { data, isLoading } = useReadContract({
+    ...inspectorContract,
+    functionName: "inspect",
+    args: [BigInt(valid ? id : 1)],
+    query: { enabled: valid },
+  });
+  if (!data) return { data: undefined, isLoading };
+  // viem returns the named tuple as both an array AND an object with the
+  // struct's field names. Use the object form for clarity.
+  const r = data as unknown as {
+    intrinsicAccessoryIdx: number | bigint;
+    displayedAccessoryIdx: number | bigint;
+    intrinsicAccessoryName: string;
+    displayedAccessoryName: string;
+    displayedEyesIdx: number | bigint;
+    displayedEyesName: string;
+    ownsHideableAccessory: boolean;
+    accessoryCurrentlyHidden: boolean;
+    intrinsicAccessoryEyesBlockMask: number | bigint;
+  };
+  return {
+    data: {
+      intrinsicAccessoryIdx: Number(r.intrinsicAccessoryIdx),
+      displayedAccessoryIdx: Number(r.displayedAccessoryIdx),
+      intrinsicAccessoryName: r.intrinsicAccessoryName,
+      displayedAccessoryName: r.displayedAccessoryName,
+      displayedEyesIdx: Number(r.displayedEyesIdx),
+      displayedEyesName: r.displayedEyesName,
+      ownsHideableAccessory: Boolean(r.ownsHideableAccessory),
+      accessoryCurrentlyHidden: Boolean(r.accessoryCurrentlyHidden),
+      intrinsicAccessoryEyesBlockMask: Number(r.intrinsicAccessoryEyesBlockMask),
+    },
+    isLoading,
+  };
+}
+
 /** Live `traitLockFee()` in wei — the lock/unlock payable amount. */
 export function useTraitLockFee(): bigint | undefined {
   const { data } = useReadContract({
@@ -443,7 +577,8 @@ interface WriteParams {
     | typeof occv2Contract
     | typeof occv1Contract
     | typeof marketContract
-    | typeof citizenStakerContract;
+    | typeof citizenStakerContract
+    | typeof wardrobeContract;
   functionName: string;
   args: readonly unknown[];
   value?: bigint;
@@ -607,6 +742,48 @@ export function rerollBackground(
   return sendWrite({
     contract: occv2Contract,
     functionName: "rerollBackground",
+    args: [BigInt(id)],
+    onState,
+  });
+}
+
+/**
+ * Wardrobe re-rolls. All three are free (gas only) and bump nonces on the
+ * WardrobeManager. The contract does NOT emit ERC-4906 `MetadataUpdate` for
+ * these, so callers must invoke `useCitizenRefresh()` after success — the
+ * dapp-side image refresh won't fire from `useMetadataWatch` alone.
+ */
+export function rerollClothing(
+  id: number,
+  onState: (s: TxState) => void,
+): Promise<TxResult> {
+  return sendWrite({
+    contract: wardrobeContract,
+    functionName: "rerollClothing",
+    args: [BigInt(id)],
+    onState,
+  });
+}
+
+export function rerollClothingColor(
+  id: number,
+  onState: (s: TxState) => void,
+): Promise<TxResult> {
+  return sendWrite({
+    contract: wardrobeContract,
+    functionName: "rerollClothingColor",
+    args: [BigInt(id)],
+    onState,
+  });
+}
+
+export function rerollClothingAndColor(
+  id: number,
+  onState: (s: TxState) => void,
+): Promise<TxResult> {
+  return sendWrite({
+    contract: wardrobeContract,
+    functionName: "rerollClothingAndColor",
     args: [BigInt(id)],
     onState,
   });

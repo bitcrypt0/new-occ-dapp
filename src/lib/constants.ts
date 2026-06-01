@@ -38,7 +38,38 @@ export const ADDRESSES = {
   market: "0xc1D841B1C7DA40b4242429f562a22dC8A6076f54",
   // CitizenStaker — V1 staking vault (from deployments/mainnet-1.json).
   citizenStaker: "0x63E59D80C08aE9BB151fEcDC07d314505A2aEC2E",
+  // WardrobeManager — clothing/color reroll bundle (from
+  // deployments/occv2-wardrobe-bundle-mainnet.json).
+  wardrobe: "0x5375335840a54e0bEC888DD953af8b66E6150800",
+  // TraitInspectorV2 — read-only laser/hideable-accessory introspection
+  // (from deployments/occv2-inspector-v2-mainnet.json). Supersedes the V1
+  // inspector at 0x566F771850fbD2Ca7860120f83a83299a332b3F5, which spuriously
+  // reported `ownsHideableAccessory == false` when the registry contained
+  // rare blocked Eye variants (the live registry does).
+  inspector: "0xBA8D9B50b54dd3B1b949A9DE7334Ca8D97F1DCFb",
 } as const;
+
+/**
+ * Eye variants in registry index order — alphabetical, no `none` variant.
+ * Used to translate `intrinsicAccessoryEyesBlockMask` bit positions back into
+ * human-readable eye names for the LaserCallout's "compatible eyes" list.
+ */
+export const OCCV2_EYE_NAMES = [
+  "angry",
+  "animated",
+  "cross-eyed",
+  "happy",
+  "heart-eyes",
+  "normal",
+  "side-look",
+  "sleepy",
+  "small",
+  "squinting",
+  "starry",
+  "surprised",
+  "wide-open",
+  "wink",
+] as const;
 
 /** Contract / chain facts surfaced in the UI (mainnet, immutable). */
 export const CONTRACT = {

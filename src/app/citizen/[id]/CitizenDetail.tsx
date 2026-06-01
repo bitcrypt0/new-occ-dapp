@@ -11,6 +11,7 @@ import { ConnectButton } from "@/components/actions/ConnectButton";
 import { CitizenRender } from "@/components/citizen/CitizenRender";
 import { AttributeList } from "@/components/citizen/AttributeList";
 import { DownloadMenu } from "@/components/citizen/DownloadMenu";
+import { LaserCallout } from "@/components/citizen/LaserCallout";
 import { RarityTag } from "@/components/citizen/RarityTag";
 import { LockStamp } from "@/components/citizen/LockStamp";
 import { AddressInput, isAddressLike } from "@/components/forms/AddressInput";
@@ -27,14 +28,25 @@ import {
   useIsOwner,
   useReshufflesActive,
   useTraitLockFee,
+  useWardrobeButtonStates,
   rerollBackground,
+  rerollClothing,
+  rerollClothingColor,
+  rerollClothingAndColor,
   lockTraits,
   unlockTraits,
   transferCitizen,
 } from "@/lib/hooks/data";
 import { useMetadataWatch, useCitizenRefresh } from "@/lib/hooks/useMetadataWatch";
 
-type ActiveModal = "none" | "reroll" | "lock" | "transfer";
+type ActiveModal =
+  | "none"
+  | "reroll"
+  | "lock"
+  | "transfer"
+  | "rerollClothing"
+  | "rerollClothingColor"
+  | "rerollClothingAndColor";
 
 function provenance(count: number): string {
   if (count === 0) return "Fresh from the mint — never moved.";
@@ -48,6 +60,7 @@ export function CitizenDetail({ id }: { id: number }) {
   const { connected, isWrongNetwork, address } = useWallet();
   const reshufflesActive = useReshufflesActive();
   const lockFeeWei = useTraitLockFee();
+  const wardrobe = useWardrobeButtonStates(id);
   const toast = useToast();
   const refresh = useCitizenRefresh();
 
@@ -121,7 +134,54 @@ export function CitizenDetail({ id }: { id: number }) {
       setTx("idle");
     } else {
       setTxError(r.error);
-      toast(r.error ?? "Re-roll didn't go through.", "error");
+      toast(r.error ?? "Change didn't go through.", "error");
+    }
+  }
+
+  /**
+   * Three Wardrobe rerolls. The WardrobeManager does NOT emit ERC-4906
+   * `MetadataUpdate`, so `useMetadataWatch` won't auto-refresh — we drive the
+   * dapp-side refresh manually with `refresh(id)` after each successful tx.
+   */
+  async function doRerollClothing() {
+    setTxError(undefined);
+    const r = await rerollClothing(id, setTx);
+    if (r.state === "success") {
+      refresh(id);
+      toast("Clothing re-rolled — new look incoming.", "success");
+      setModal("none");
+      setTx("idle");
+    } else {
+      setTxError(r.error);
+      toast(r.error ?? "Change didn't go through.", "error");
+    }
+  }
+
+  async function doRerollClothingColor() {
+    setTxError(undefined);
+    const r = await rerollClothingColor(id, setTx);
+    if (r.state === "success") {
+      refresh(id);
+      toast("Clothing color re-rolled.", "success");
+      setModal("none");
+      setTx("idle");
+    } else {
+      setTxError(r.error);
+      toast(r.error ?? "Change didn't go through.", "error");
+    }
+  }
+
+  async function doRerollClothingAndColor() {
+    setTxError(undefined);
+    const r = await rerollClothingAndColor(id, setTx);
+    if (r.state === "success") {
+      refresh(id);
+      toast("Clothing & color re-rolled.", "success");
+      setModal("none");
+      setTx("idle");
+    } else {
+      setTxError(r.error);
+      toast(r.error ?? "Change didn't go through.", "error");
     }
   }
 
@@ -190,33 +250,43 @@ export function CitizenDetail({ id }: { id: number }) {
         <span className="font-semibold text-ink">Citizen #{id}</span>
       </nav>
 
-      <div className="grid gap-8 lg:grid-cols-[0.95fr_1.05fr]">
-        {/* ---- art ---- */}
-        <div>
-          <div className="relative rounded-panel border-ink-lg border-ink bg-paper p-3 shadow-panel-lg">
-            <CitizenRender
-              art={citizen.art}
-              stage={citizen.stage}
-              background={citizen.background}
-              id={citizen.id}
-              locked={citizen.traitsLocked}
-              imageUri={citizen.imageUri}
-              framed
-            />
-            <DownloadMenu
-              citizen={citizen}
-              size="md"
-              onError={(msg) => toast(msg, "error")}
-              className="absolute bottom-5 right-5 z-10"
-            />
+      <div className="grid items-stretch gap-8 lg:grid-cols-[0.95fr_1.05fr]">
+        {/* ---- art ----
+          The art column is a flex column on desktop so the rounded-panel can
+          grow to the grid row height, keeping its bottom edge level with the
+          Owner Actions card on the right. The "Rendered on-chain" caption
+          lives INSIDE the panel and is pushed to its bottom via `lg:mt-auto`,
+          so the panel itself owns the column's bottom edge. */}
+        <div className="lg:flex lg:flex-col">
+          <div className="rounded-panel border-ink-lg border-ink bg-paper p-3 shadow-panel-lg lg:flex lg:flex-1 lg:flex-col">
+            <div className="relative">
+              <CitizenRender
+                art={citizen.art}
+                stage={citizen.stage}
+                background={citizen.background}
+                id={citizen.id}
+                locked={citizen.traitsLocked}
+                imageUri={citizen.imageUri}
+                framed
+              />
+              <DownloadMenu
+                citizen={citizen}
+                size="md"
+                onError={(msg) => toast(msg, "error")}
+                className="absolute bottom-2 right-2 z-10"
+              />
+            </div>
+            <p className="mt-3 text-center font-body text-xs text-brown lg:mt-auto lg:pt-3">
+              Rendered on-chain · {CONTRACT.chain}
+            </p>
           </div>
-          <p className="mt-3 text-center font-body text-xs text-brown">
-            Rendered on-chain · {CONTRACT.chain}
-          </p>
         </div>
 
-        {/* ---- info ---- */}
-        <div>
+        {/* ---- info ----
+          On desktop the column is a flex stack so the Owner Actions Panel
+          (last child) can grow with `lg:flex-1`, filling whatever vertical
+          space is left between the trait grid and the bottom of the row. */}
+        <div className="lg:flex lg:flex-col">
           <div className="flex flex-wrap items-center gap-3">
             <h1 className="font-display text-display-lg leading-none">
               Citizen #{citizen.id}
@@ -252,8 +322,9 @@ export function CitizenDetail({ id }: { id: number }) {
             Life story: {provenance(citizen.transferCount)}
           </p>
 
-          {/* owner actions */}
-          <Panel tone="cream" className="mt-6 p-5">
+          {/* owner actions — `lg:flex-1` makes the panel grow on desktop so
+              its bottom edge meets the art card's bottom edge cleanly. */}
+          <Panel tone="cream" className="mt-6 p-5 lg:flex-1">
             <h2 className="font-display text-display-sm">Owner actions</h2>
             {postTransferMessage ? (
               <p className="mt-3 font-body text-sm text-brown">
@@ -274,42 +345,56 @@ export function CitizenDetail({ id }: { id: number }) {
             ) : !isOwner ? (
               <p className="mt-3 font-body text-sm text-brown">
                 You don&apos;t own this Citizen, so owner actions are locked. Only
-                the holder can re-roll, lock, or transfer it.
+                the holder can change, lock, or transfer it.
               </p>
             ) : (
-              <div className="mt-4 grid gap-3 sm:grid-cols-3">
-                <Button
-                  variant="secondary"
-                  size="sm"
-                  onClick={() => setModal("reroll")}
-                  disabled={citizen.traitsLocked}
-                >
-                  Re-roll background
-                </Button>
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={() => setModal("lock")}
-                >
-                  {citizen.traitsLocked ? "Unlock traits" : "Lock traits"}
-                </Button>
-                <Button variant="ghost" size="sm" onClick={() => setModal("transfer")}>
-                  Transfer
-                </Button>
-                {citizen.traitsLocked && (
-                  <p className="font-body text-xs text-brown sm:col-span-3">
-                    Re-roll is disabled while traits are locked. Unlock first to
-                    change the background.
-                  </p>
-                )}
-              </div>
+              <>
+                <div className="mt-4 grid gap-3 sm:grid-cols-3">
+                  <Button
+                    variant="secondary"
+                    size="sm"
+                    onClick={() => setModal("reroll")}
+                    disabled={citizen.traitsLocked}
+                  >
+                    Change Background
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => setModal("lock")}
+                  >
+                    {citizen.traitsLocked ? "Unlock traits" : "Lock traits"}
+                  </Button>
+                  <Button variant="ghost" size="sm" onClick={() => setModal("transfer")}>
+                    Transfer
+                  </Button>
+                  {citizen.traitsLocked && (
+                    <p className="font-body text-xs text-brown sm:col-span-3">
+                      Changing is disabled while traits are locked. Unlock first
+                      to change the background.
+                    </p>
+                  )}
+                </div>
+
+                <WardrobeActions
+                  states={wardrobe}
+                  onOpenClothing={() => setModal("rerollClothing")}
+                  onOpenColor={() => setModal("rerollClothingColor")}
+                  onOpenBoth={() => setModal("rerollClothingAndColor")}
+                />
+              </>
             )}
           </Panel>
         </div>
       </div>
 
+      {/* ---- laser callout (public — also shown to non-owners) ---- */}
+      <div className="mt-10">
+        <LaserCallout tokenId={id} isOwner={isOwner} gender={citizen.gender} />
+      </div>
+
       {/* ---- attributes ---- */}
-      <section className="mt-10">
+      <section className="mt-6">
         <h2 className="mb-4 font-display text-display-md">All 14 traits</h2>
         <AttributeList attributes={citizen.attributes} />
       </section>
@@ -318,21 +403,21 @@ export function CitizenDetail({ id }: { id: number }) {
       <Modal
         open={modal === "reroll"}
         onClose={closeModal}
-        title="Re-roll background"
+        title="Change background"
         footer={
           <>
             <Button variant="ghost" size="sm" onClick={closeModal} disabled={busy}>
               Cancel
             </Button>
             <Button size="sm" onClick={doReroll} disabled={busy}>
-              {busy ? "Rolling…" : "Confirm re-roll (free)"}
+              {busy ? "Changing…" : "Confirm change (free)"}
             </Button>
           </>
         }
       >
         <p className="font-body text-sm text-brown">
-          Re-rolling is free — gas only. The contract rolls a brand-new
-          background color <strong>at random, on-chain</strong>. You can&apos;t
+          Changing the background is free — gas only. The contract rolls a
+          brand-new color <strong>at random, on-chain</strong>. You can&apos;t
           pick or preview the result — it&apos;s a fresh roll every time.
         </p>
         <div className="mt-4 flex items-center justify-center gap-4">
@@ -436,7 +521,197 @@ export function CitizenDetail({ id }: { id: number }) {
           />
         )}
       </Modal>
+
+      {/* ---- Wardrobe rerolls ---- */}
+      <Modal
+        open={modal === "rerollClothing"}
+        onClose={closeModal}
+        title="Change clothing"
+        footer={
+          <>
+            <Button variant="ghost" size="sm" onClick={closeModal} disabled={busy}>
+              Cancel
+            </Button>
+            <Button size="sm" onClick={doRerollClothing} disabled={busy}>
+              {busy ? "Changing…" : "Confirm change (free)"}
+            </Button>
+          </>
+        }
+      >
+        <p className="font-body text-sm text-brown">
+          Pick a new clothing variant. The color may shift as a side effect
+          because each variant has its own palette. This is free; you pay only
+          gas.
+        </p>
+        {tx !== "idle" && (
+          <TxStatus
+            state={tx}
+            className="mt-4"
+            messages={tx === "fail" && txError ? { fail: txError } : undefined}
+          />
+        )}
+      </Modal>
+
+      <Modal
+        open={modal === "rerollClothingColor"}
+        onClose={closeModal}
+        title="Change clothing color"
+        footer={
+          <>
+            <Button variant="ghost" size="sm" onClick={closeModal} disabled={busy}>
+              Cancel
+            </Button>
+            <Button size="sm" onClick={doRerollClothingColor} disabled={busy}>
+              {busy ? "Changing…" : "Confirm change (free)"}
+            </Button>
+          </>
+        }
+      >
+        <p className="font-body text-sm text-brown">
+          Pick a new color within your current clothing variant&apos;s palette.
+          The clothing variant itself won&apos;t change.
+        </p>
+        {tx !== "idle" && (
+          <TxStatus
+            state={tx}
+            className="mt-4"
+            messages={tx === "fail" && txError ? { fail: txError } : undefined}
+          />
+        )}
+      </Modal>
+
+      <Modal
+        open={modal === "rerollClothingAndColor"}
+        onClose={closeModal}
+        title="Change clothing & color"
+        footer={
+          <>
+            <Button variant="ghost" size="sm" onClick={closeModal} disabled={busy}>
+              Cancel
+            </Button>
+            <Button size="sm" onClick={doRerollClothingAndColor} disabled={busy}>
+              {busy ? "Changing…" : "Confirm change (free)"}
+            </Button>
+          </>
+        }
+      >
+        <p className="font-body text-sm text-brown">
+          Pick a new clothing variant AND a new color in one transaction. Free;
+          you pay only gas.
+        </p>
+        {tx !== "idle" && (
+          <TxStatus
+            state={tx}
+            className="mt-4"
+            messages={tx === "fail" && txError ? { fail: txError } : undefined}
+          />
+        )}
+      </Modal>
     </Page>
+  );
+}
+
+/**
+ * Wardrobe sub-section of Owner Actions — three reroll buttons with the
+ * visibility / disabled rules from the spec:
+ *
+ *   - locked AND rare-frozen → render only the Color button, disabled.
+ *   - locked alone           → render all three, all disabled, "Traits locked".
+ *   - rare-frozen alone      → Clothing + Both disabled with rare tooltip;
+ *                              Color enabled (the holder's escape valve).
+ *   - clean                  → all three enabled.
+ */
+function WardrobeActions({
+  states,
+  onOpenClothing,
+  onOpenColor,
+  onOpenBoth,
+}: {
+  states: import("@/lib/hooks/data").WardrobeButtonStates;
+  onOpenClothing: () => void;
+  onOpenColor: () => void;
+  onOpenBoth: () => void;
+}) {
+  const { locked, rareFrozen } = states;
+  const lockedAndRare = locked && rareFrozen;
+
+  const lockedTooltip = "Traits are locked. Unlock to reroll.";
+  const rareTooltip =
+    "Your Citizen has a rare clothing piece — the variant is permanently locked. You can still reroll its color.";
+
+  // locked + rare-frozen: only render the Color button, disabled.
+  if (lockedAndRare) {
+    return (
+      <div className="mt-6">
+        <h3 className="mb-2 font-display text-sm uppercase tracking-wide text-brown">
+          Wardrobe
+        </h3>
+        <div className="grid gap-3 sm:grid-cols-3">
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={onOpenColor}
+            disabled
+            title={lockedTooltip}
+          >
+            Change Clothing Color
+          </Button>
+          <p className="font-body text-xs text-brown sm:col-span-3">
+            {lockedTooltip}
+          </p>
+        </div>
+      </div>
+    );
+  }
+
+  // locked alone: all three visible, all disabled, "Traits are locked".
+  // rare-frozen alone: Clothing + Both disabled (rare tooltip), Color enabled.
+  // clean: all three enabled.
+  return (
+    <div className="mt-6">
+      <h3 className="mb-2 font-display text-sm uppercase tracking-wide text-brown">
+        Wardrobe
+      </h3>
+      <div className="grid gap-3 sm:grid-cols-3">
+        <Button
+          variant="ghost"
+          size="sm"
+          onClick={onOpenClothing}
+          disabled={!states.canRerollClothing}
+          title={locked ? lockedTooltip : rareFrozen ? rareTooltip : undefined}
+        >
+          Change Clothing
+        </Button>
+        <Button
+          variant="ghost"
+          size="sm"
+          onClick={onOpenColor}
+          disabled={!states.canRerollClothingColor}
+          title={locked ? lockedTooltip : undefined}
+        >
+          Reroll Clothing Color
+        </Button>
+        <Button
+          variant="ghost"
+          size="sm"
+          onClick={onOpenBoth}
+          disabled={!states.canRerollClothingAndColor}
+          title={locked ? lockedTooltip : rareFrozen ? rareTooltip : undefined}
+        >
+          Change Clothing &amp; Color
+        </Button>
+        {locked && (
+          <p className="font-body text-xs text-brown sm:col-span-3">
+            {lockedTooltip}
+          </p>
+        )}
+        {!locked && rareFrozen && (
+          <p className="font-body text-xs text-brown sm:col-span-3">
+            {rareTooltip}
+          </p>
+        )}
+      </div>
+    </div>
   );
 }
 

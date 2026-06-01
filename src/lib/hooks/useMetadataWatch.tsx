@@ -44,6 +44,8 @@ export function useMetadataWatch(tokenIds: number[]) {
         const id = Number(rawId);
         if (Number.isFinite(id) && idSet.has(id)) {
           queryClient.invalidateQueries({ queryKey: ["citizen", id] });
+          // Lock / unlock / trait-market trades all change canReroll* state.
+          queryClient.invalidateQueries({ queryKey: ["wardrobeStates", id] });
           touchedOwned = true;
         }
       }
@@ -62,6 +64,7 @@ export function useCitizenRefresh() {
   const queryClient = useQueryClient();
   return (tokenId: number) => {
     queryClient.invalidateQueries({ queryKey: ["citizen", tokenId] });
+    queryClient.invalidateQueries({ queryKey: ["wardrobeStates", tokenId] });
     queryClient.invalidateQueries({ queryKey: ["ownedCitizens"] });
   };
 }
