@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Page, PageHeader } from "@/components/layout/Page";
 import { Panel } from "@/components/layout/Panel";
 import { Button } from "@/components/actions/Button";
@@ -9,48 +9,51 @@ import { TxStatus } from "@/components/actions/TxStatus";
 import { EmptyState } from "@/components/states/EmptyState";
 import { ErrorState } from "@/components/states/ErrorState";
 import { LoadingSkeleton } from "@/components/states/LoadingSkeleton";
-import { TokenIdPicker } from "@/components/forms/TokenIdPicker";
-import { WalletBalancePill } from "@/components/forms/WalletBalancePill";
 import { MintedCitizensModal } from "@/components/citizen/MintedCitizensModal";
 import { ActionBurst } from "@/components/narrative/ActionBurst";
 import { useToast } from "@/components/actions/Toast";
 import { cn } from "@/lib/cn";
-import { CONTRACT } from "@/lib/constants";
+import { SOCIALS } from "@/lib/constants";
 import { useWallet } from "@/lib/hooks/useWallet";
-import { classifyBalance, freeMint, useMintAvailability } from "@/lib/hooks/data";
+import {
+  publicFreeMint,
+  usePublicFreeMintEligibility,
+} from "@/lib/hooks/data";
 import { useCitizenRefresh } from "@/lib/hooks/useMetadataWatch";
 import type { TxState } from "@/lib/types";
 
 export default function MintPage() {
-  const { connected, balanceEth, isWrongNetwork } = useWallet();
-  const avail = useMintAvailability();
+  const { connected, address, isWrongNetwork } = useWallet();
+  const eligibility = usePublicFreeMintEligibility(
+    address as `0x${string}` | undefined,
+  );
   const toast = useToast();
   const refresh = useCitizenRefresh();
 
-  const [selected, setSelected] = useState<number[]>([]);
+  const [quantity, setQuantity] = useState<1 | 2>(1);
   const [mintTx, setMintTx] = useState<TxState>("idle");
   const [txError, setTxError] = useState<string>();
   const [mintedIds, setMintedIds] = useState<number[]>([]);
   const [showMinted, setShowMinted] = useState(false);
 
-  const tier = classifyBalance(balanceEth);
-  const cap = avail.remainingCap;
+  // Cap the quantity selector to whatever this wallet has left.
+  const cap = Math.max(1, Math.min(2, eligibility.remainingForWallet || 2));
 
-  const toggle = (id: number) =>
-    setSelected((s) =>
-      s.includes(id) ? s.filter((x) => x !== id) : s.length < cap ? [...s, id] : s,
-    );
+  // If the cap dropped (e.g. after a 1-mint), clamp the current selection.
+  useEffect(() => {
+    if (quantity > cap) setQuantity(cap as 1 | 2);
+  }, [cap, quantity]);
 
   async function runMint() {
     setTxError(undefined);
-    const ids = [...selected];
-    const r = await freeMint(ids, setMintTx);
+    const r = await publicFreeMint(quantity, setMintTx);
     if (r.state === "success") {
-      toast(`Minted ${ids.length} Citizen${ids.length === 1 ? "" : "s"}!`, "success");
-      ids.forEach(refresh);
-      setMintedIds(ids);
+      const n = r.mintedIds.length;
+      toast(`Minted ${n} Citizen${n === 1 ? "" : "s"}!`, "success");
+      r.mintedIds.forEach(refresh);
+      setMintedIds(r.mintedIds);
       setShowMinted(true);
-      setSelected([]);
+      eligibility.refetch();
     } else {
       setTxError(r.error);
       toast(r.error ?? "Mint didn't go through — try again.", "error");
@@ -61,9 +64,9 @@ export default function MintPage() {
     <Page>
       <div className="flex flex-wrap items-start justify-between gap-4">
         <PageHeader
-          kicker="For everyone else"
+          kicker="Public Free Mint"
           title="Mint a Citizen"
-          intro="No V1 token? Free-mint a brand-new Citizen from the eligible IDs in 1–8000 — the token IDs whose original V1 is no longer live (the never-minted block in 4541–8000 plus the 24 V1 tokens burnt-in-place inside 1–4540). It's genuinely free, you only pay Ethereum gas."
+          intro="The public free mint distributes brand-new OnChain Citizens from the raffle bucket. No IDs to pick — the contract auto-assigns them. It's genuinely free, you only pay Ethereum gas."
           className="mb-0"
         />
         <div className="hidden h-24 w-24 shrink-0 sm:block">
@@ -76,9 +79,18 @@ export default function MintPage() {
       {/* eligibility strip */}
       <div className="my-8 grid gap-3 sm:grid-cols-3">
         {[
-          { t: "No V1 token", d: "Free Mint is for wallets that don't hold an OCC V1." },
-          { t: "No prior claim", d: "You haven't already claimed a Citizen with this wallet." },
-          { t: `Max ${CONTRACT.freeMintCap} per wallet`, d: "Mint one or two — that's the cap, forever." },
+          {
+            t: "Mint permit",
+            d: "Each mint needs a permit signed by our backend. We'll request one for you when you click Mint.",
+          },
+          {
+            t: "Max 2 per wallet",
+            d: "Mint one or two — that's the cap, forever.",
+          },
+          {
+            t: "No current OCCV2 holders",
+            d: "If your wallet already holds an OCCV2 Citizen, the public free mint isn't eligible. You can still buy on the marketplace.",
+          },
         ].map((r) => (
           <div key={r.t} className="rounded-lg border-2 border-ink bg-cream px-4 py-3">
             <p className="font-display text-base">{r.t}</p>
@@ -91,141 +103,78 @@ export default function MintPage() {
         <EmptyState
           mark="0x"
           title="Connect to free-mint"
-          description="Connect your wallet and we'll check your eligibility and the mintable IDs."
+          description="Connect your wallet and we'll check your eligibility for the public free mint."
           action={<ConnectButton />}
         />
       ) : isWrongNetwork ? (
         <ErrorState
           title="Wrong network"
-          description="Free Mint runs on Ethereum Mainnet. Switch your wallet's network to continue."
+          description="The public free mint runs on Ethereum Mainnet. Switch your wallet's network to continue."
           action={<ConnectButton />}
         />
-      ) : avail.isLoading ? (
-        <LoadingSkeleton variant="grid" count={6} />
-      ) : avail.holdsV1 ? (
-        <EmptyState
-          mark="V1"
-          title="You hold a V1 — claim instead"
-          description="This wallet holds an OCC V1 token, so Free Mint isn't your path. Burn your V1 to claim the matching V2 Citizen."
-          action={<Button href="/claim">Go to Claim</Button>}
-        />
-      ) : avail.hasClaimed || cap === 0 ? (
-        <EmptyState
-          mark="✓"
-          title="You've already claimed"
-          description="This wallet has used its mint allowance. Browse what you've got over in your collection."
-          action={<Button href="/collection">My Collection</Button>}
+      ) : eligibility.isLoading ? (
+        <LoadingSkeleton variant="grid" count={4} />
+      ) : !eligibility.canMint ? (
+        <BlockedState
+          reason={eligibility.blockReason}
+          mintedBy={eligibility.mintedBy}
         />
       ) : (
-        <div className="grid gap-8 lg:grid-cols-[1.3fr_1fr]">
-          {/* ---- ID picker ---- */}
-          <section>
-            <h2 className="font-display text-display-sm">Pick your token IDs</h2>
-            <p className="mb-4 mt-1 font-body text-sm text-brown">
-              Choose up to {cap} mintable ID{cap === 1 ? "" : "s"} below — IDs
-              in 1–8000 whose original V1 token is no longer live. Each becomes
-              a fresh Citizen with on-chain art.
-            </p>
-            <Panel tone="paper" shadow="sm" className="p-5">
-              <TokenIdPicker
-                label="Mintable IDs"
-                ids={avail.mintableIds}
-                selected={selected}
-                onToggle={toggle}
-                max={cap}
-              />
-              <p className="mt-3 font-body text-xs text-brown">
-                {selected.length}/{cap} selected.
-              </p>
-            </Panel>
-          </section>
+        <div className="mx-auto max-w-xl">
+          <h2 className="font-display text-display-sm">Pick a quantity</h2>
+          <p className="mb-4 mt-1 font-body text-sm text-brown">
+            The contract auto-assigns Citizen IDs from the raffle bucket
+            (8001+). No need to pick — choose how many you want and we&apos;ll
+            fetch a mint permit for you.
+          </p>
 
-          {/* ---- balance gate + mint ---- */}
-          <aside>
-            <Panel tone="cream" className="sticky top-24 p-5">
-              <h2 className="font-display text-display-sm">Wallet check</h2>
+          <Panel tone="paper" shadow="sm" className="p-5">
+            <QuantitySelector value={quantity} onChange={setQuantity} max={cap} />
 
-              <div className="mt-3">
-                <WalletBalancePill balanceEth={balanceEth} variant="full" />
+            <dl className="mt-5 space-y-1.5 border-t-2 border-ink/15 pt-4 font-body text-sm">
+              <div className="flex justify-between">
+                <dt className="text-brown">Quantity</dt>
+                <dd className="font-semibold">{quantity}</dd>
               </div>
+              <div className="flex justify-between">
+                <dt className="text-brown">Mint price</dt>
+                <dd className="font-semibold">0 ETH — free</dd>
+              </div>
+              <div className="flex justify-between">
+                <dt className="text-brown">Remaining on this wallet</dt>
+                <dd className="font-semibold">
+                  {eligibility.remainingForWallet} of 2
+                </dd>
+              </div>
+            </dl>
 
-              {/* gate messaging */}
-              <div
-                className={cn(
-                  "mt-3 rounded-lg border-2 border-ink px-3 py-2.5 font-body text-sm",
-                  tier === "blocked" && "bg-red/15",
-                  tier === "caution" && "bg-orange/30",
-                  tier === "good" && "bg-sage/40",
-                )}
+            <div className="mt-4 space-y-3">
+              <Button
+                fullWidth
+                onClick={runMint}
+                disabled={mintTx === "pending"}
               >
-                {tier === "blocked" && (
-                  <p>
-                    <strong>Below the {CONTRACT.balanceGateMin} ETH gate.</strong> Our
-                    contract checks (never spends) a small balance to keep bots
-                    out. Top up past {CONTRACT.balanceGateSafe} ETH to mint.
-                  </p>
-                )}
-                {tier === "caution" && (
-                  <p>
-                    <strong>You&apos;re over the gate</strong> — but only just. Some
-                    wallets reserve gas first and can dip under the line. Top up
-                    toward {CONTRACT.balanceGateSafe} ETH to be safe.
-                  </p>
-                )}
-                {tier === "good" && (
-                  <p>
-                    <strong>You&apos;re good to mint.</strong> Comfortable headroom
-                    over the {CONTRACT.balanceGateMin} ETH anti-bot gate.
-                  </p>
-                )}
-              </div>
+                {mintTx === "pending"
+                  ? "Minting…"
+                  : quantity > 1
+                    ? `Free Mint ${quantity} Citizens`
+                    : "Free Mint Citizen"}
+              </Button>
+              {mintTx !== "idle" && (
+                <TxStatus
+                  state={mintTx}
+                  messages={
+                    mintTx === "fail" && txError ? { fail: txError } : undefined
+                  }
+                />
+              )}
+            </div>
+          </Panel>
 
-              {/* the reassurance note */}
-              <div className="mt-3 rounded-lg border-2 border-dashed border-ink bg-paper px-3 py-2.5">
-                <p className="font-body text-xs leading-relaxed text-brown">
-                  <strong className="text-ink">Heads up:</strong> your wallet may
-                  show a &ldquo;this transaction might fail&rdquo; warning. That&apos;s
-                  normal for our free mint — as long as your wallet holds a little
-                  ETH for gas, it will go through.{" "}
-                  <strong className="text-ink">Try with another wallet if your
-                  first attempt fails.</strong>
-                </p>
-              </div>
-
-              <dl className="mt-4 space-y-1.5 border-t-2 border-ink/15 pt-4 font-body text-sm">
-                <div className="flex justify-between">
-                  <dt className="text-brown">Selected</dt>
-                  <dd className="font-semibold">{selected.length} ID(s)</dd>
-                </div>
-                <div className="flex justify-between">
-                  <dt className="text-brown">Mint price</dt>
-                  <dd className="font-semibold">0 ETH — free</dd>
-                </div>
-              </dl>
-
-              <div className="mt-4 space-y-3">
-                <Button
-                  fullWidth
-                  onClick={runMint}
-                  disabled={tier === "blocked" || selected.length === 0 || mintTx === "pending"}
-                >
-                  {mintTx === "pending"
-                    ? "Minting…"
-                    : tier === "blocked"
-                      ? "Top up to mint"
-                      : selected.length > 1
-                        ? `Free Mint ${selected.length} Citizens`
-                        : "Free Mint Citizen"}
-                </Button>
-                {mintTx !== "idle" && (
-                  <TxStatus
-                    state={mintTx}
-                    messages={mintTx === "fail" && txError ? { fail: txError } : undefined}
-                  />
-                )}
-              </div>
-            </Panel>
-          </aside>
+          <p className="mt-3 text-center font-body text-xs text-brown">
+            {eligibility.remainingAllocation.toLocaleString()} of 1,980 Citizens
+            remaining in the public-free-mint pool.
+          </p>
         </div>
       )}
 
@@ -242,4 +191,114 @@ export default function MintPage() {
       />
     </Page>
   );
+}
+
+/* ─────────────────────────── pieces ─────────────────────────── */
+
+function QuantitySelector({
+  value,
+  onChange,
+  max,
+}: {
+  value: 1 | 2;
+  onChange: (v: 1 | 2) => void;
+  max: number;
+}) {
+  return (
+    <div role="radiogroup" aria-label="Quantity" className="flex gap-3">
+      {[1, 2].map((n) => {
+        const disabled = n > max;
+        const selected = value === n;
+        return (
+          <button
+            key={n}
+            type="button"
+            role="radio"
+            aria-checked={selected}
+            disabled={disabled}
+            onClick={() => onChange(n as 1 | 2)}
+            className={cn(
+              "flex-1 rounded-panel border-ink-lg border-ink px-4 py-4 font-display text-2xl uppercase tracking-wide shadow-panel-sm transition-transform",
+              "hover:-translate-y-0.5 hover:shadow-panel",
+              "active:translate-x-1 active:translate-y-1 active:shadow-none",
+              selected ? "bg-red text-paper" : "bg-paper text-ink",
+              disabled && "cursor-not-allowed opacity-40 hover:translate-y-0 hover:shadow-panel-sm",
+            )}
+          >
+            {n}
+          </button>
+        );
+      })}
+    </div>
+  );
+}
+
+function BlockedState({
+  reason,
+  mintedBy,
+}: {
+  reason: 0 | 1 | 2 | 3 | 4 | 5;
+  mintedBy: number;
+}) {
+  switch (reason) {
+    case 1:
+      return (
+        <EmptyState
+          mark="‖"
+          title="Public mint paused"
+          description="The public free mint is paused. Check the project's channels for updates."
+        />
+      );
+    case 2:
+      return (
+        <EmptyState
+          mark="…"
+          title="Not open yet"
+          description="The public free mint isn't open yet. Stand by — keep an eye on the project's channels."
+        />
+      );
+    case 3:
+      return (
+        <EmptyState
+          mark="✓"
+          title="All claimed"
+          description="All 1,980 public free mints have been claimed."
+          action={
+            <Button href={SOCIALS.marketplace} external>
+              View on OpenSea
+            </Button>
+          }
+        />
+      );
+    case 4:
+      return (
+        <EmptyState
+          mark="✓"
+          title="Cap reached"
+          description={`You've already minted ${mintedBy} of 2 from this wallet.`}
+          action={<Button href="/collection">View my Collection</Button>}
+        />
+      );
+    case 5:
+      return (
+        <EmptyState
+          mark="!"
+          title="Already a holder"
+          description="Wallets that already hold an OCCV2 Citizen aren't eligible for the public free mint. You can still pick one up on the marketplace."
+          action={
+            <Button href={SOCIALS.marketplace} external>
+              Buy on OpenSea
+            </Button>
+          }
+        />
+      );
+    default:
+      return (
+        <EmptyState
+          mark="!"
+          title="Can't mint right now"
+          description="The contract refused this wallet. Refresh and try again — or check the project's channels for updates."
+        />
+      );
+  }
 }

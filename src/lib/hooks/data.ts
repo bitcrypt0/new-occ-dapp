@@ -6,7 +6,7 @@
  * style objects; write functions keep the `(args, onState) => Promise`
  * shape and drive the same TxState lifecycle the UI already consumes.
  */
-import { useAccount, usePublicClient, useReadContract } from "wagmi";
+import { useAccount, usePublicClient, useReadContract, useReadContracts } from "wagmi";
 import { useQuery } from "@tanstack/react-query";
 import {
   getAccount,
@@ -24,6 +24,7 @@ import {
   citizenStakerContract,
   wardrobeContract,
   inspectorContract,
+  publicFreeMintContract,
 } from "../chain/contracts";
 import { parseCitizen, parseV1Token } from "../chain/citizen";
 import { scanOwnedIds, scanUnclaimedIds, type MulticallRow } from "../chain/scan";
@@ -252,75 +253,66 @@ export function useIsOwner(id: number): boolean {
   }
 }
 
-export interface MintAvailability {
+export interface PublicFreeMintEligibility {
   connected: boolean;
-  holdsV1: boolean;
-  hasClaimed: boolean;
-  remainingCap: number;
-  mintableIds: number[];
+  /** Direct contract read — `canMint(address)`. */
+  canMint: boolean;
+  /** 0 OK | 1 paused | 2 signer unset | 3 exhausted | 4 wallet cap | 5 holder. */
+  blockReason: 0 | 1 | 2 | 3 | 4 | 5;
+  /** 0–2 — how many more this wallet may mint. */
+  remainingForWallet: number;
+  /** 0–1980 — how many remain in the public-free-mint allocation. */
+  remainingAllocation: number;
+  /** How many have been minted across the whole contract. */
+  totalMinted: number;
+  /** How many this wallet has already minted (0, 1, or 2). */
+  mintedBy: number;
   isLoading: boolean;
+  /** Imperative refetch — call after a successful mint to refresh state. */
+  refetch: () => void;
 }
 
-/** Free Mint eligibility + the live free-mintable id pool. */
-export function useMintAvailability(): MintAvailability {
-  const { address, isConnected } = useAccount();
-  const client = usePublicClient();
+const FALLBACK_ADDRESS = "0x0000000000000000000000000000000000000000" as const;
 
-  // Per-wallet eligibility reads.
-  const elig = useQuery({
-    queryKey: ["mintEligibility", address],
-    enabled: Boolean(isConnected && address && client),
-    queryFn: async () => {
-      const owner = getAddress(address!);
-      const [hasClaimed, freeMinted, v1Balance] = await Promise.all([
-        client!.readContract({
-          ...occv2Contract,
-          functionName: "hasClaimed",
-          args: [owner],
-        }) as Promise<boolean>,
-        client!.readContract({
-          ...occv2Contract,
-          functionName: "freeMintedCount",
-          args: [owner],
-        }) as Promise<bigint>,
-        client!.readContract({
-          ...occv1Contract,
-          functionName: "balanceOf",
-          args: [owner],
-        }) as Promise<bigint>,
-      ]);
-      return {
-        hasClaimed,
-        freeMinted: Number(freeMinted),
-        holdsV1: v1Balance > 0n,
-      };
-    },
+/**
+ * Batched eligibility read against OCCV2PublicFreeMint. One `useReadContracts`
+ * call gets every value the UI needs to drive button state + per-blockReason
+ * copy. Reads are disabled when the wallet isn't connected.
+ */
+export function usePublicFreeMintEligibility(
+  address: `0x${string}` | undefined,
+): PublicFreeMintEligibility {
+  const enabled = Boolean(address);
+  const safe = (address ?? FALLBACK_ADDRESS) as `0x${string}`;
+  const { data, isLoading, refetch } = useReadContracts({
+    contracts: [
+      { ...publicFreeMintContract, functionName: "canMint", args: [safe] },
+      { ...publicFreeMintContract, functionName: "mintBlockReason", args: [safe] },
+      { ...publicFreeMintContract, functionName: "remainingForWallet", args: [safe] },
+      { ...publicFreeMintContract, functionName: "remainingAllocation" },
+      { ...publicFreeMintContract, functionName: "totalMinted" },
+      { ...publicFreeMintContract, functionName: "mintedBy", args: [safe] },
+    ],
+    query: { enabled },
   });
 
-  // The contiguous-block portion of the free-mintable pool: ids in the
-  // never-minted block (4541–8000) that haven't been claimed on V2 yet.
-  // NB: this does not include the burnt-in-place V1 tokens inside 1–4540
-  // that the contract also accepts as free-mintable.
-  const pool = useQuery({
-    queryKey: ["mintablePool"],
-    enabled: Boolean(client),
-    staleTime: 60_000,
-    queryFn: () =>
-      scanUnclaimedIds(
-        client!,
-        occv2Contract,
-        CONTRACT.neverMintedBlockStart,
-        CONTRACT.neverMintedBlockEnd,
-      ),
-  });
+  const blockReasonRaw = Number(data?.[1]?.result ?? 2);
+  const blockReason = (
+    blockReasonRaw >= 0 && blockReasonRaw <= 5 ? blockReasonRaw : 2
+  ) as PublicFreeMintEligibility["blockReason"];
 
   return {
-    connected: isConnected,
-    holdsV1: elig.data?.holdsV1 ?? false,
-    hasClaimed: elig.data?.hasClaimed ?? false,
-    remainingCap: Math.max(0, CONTRACT.freeMintCap - (elig.data?.freeMinted ?? 0)),
-    mintableIds: pool.data ?? [],
-    isLoading: elig.isLoading || pool.isLoading,
+    connected: enabled,
+    canMint: Boolean(data?.[0]?.result),
+    blockReason,
+    remainingForWallet: Number(data?.[2]?.result ?? 0),
+    remainingAllocation: Number(data?.[3]?.result ?? 0),
+    totalMinted: Number(data?.[4]?.result ?? 0),
+    mintedBy: Number(data?.[5]?.result ?? 0),
+    isLoading: enabled && isLoading,
+    refetch: () => {
+      void refetch();
+    },
   };
 }
 
@@ -709,29 +701,177 @@ export function claimTokens(
       });
 }
 
-/** V2 `freeMint(id)` / `freeMintBatch(ids)` — explicit-gas path (Mandate 5.2). */
-export function freeMint(
-  ids: number[],
+/* ─────────────────────────── Public Free Mint ─────────────────────────── */
+
+export type PublicFreeMintResult =
+  | { state: "success"; mintedIds: number[] }
+  | { state: "error"; error: string };
+
+const TRANSFER_EVENT_TOPIC =
+  "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef" as const;
+const ZERO_TOPIC =
+  "0x0000000000000000000000000000000000000000000000000000000000000000" as const;
+
+/**
+ * Public Free Mint write helper. Fetches an EIP-712 permit from the backend,
+ * submits `OCCV2PublicFreeMint.mint(...)` with an explicit buffered gas limit
+ * (same approach as `freeMint` — keeps wallets from refusing the tx on a
+ * faulty pre-flight), waits the receipt, then extracts the newly minted V2
+ * token ids by parsing the OCC V2 `Transfer` logs (`from = 0x0`, `to = caller`)
+ * out of the receipt.
+ *
+ * The permit endpoint is the dapp's own `/api/free-mint/permit` route — a
+ * server-side EIP-712 signer (see `src/app/api/free-mint/permit/route.ts`)
+ * that runs inside the Next.js / Vercel function and reads
+ * `OCCV2_PERMIT_SIGNER_PRIVATE_KEY` at request time. Override with
+ * `NEXT_PUBLIC_PERMIT_URL` if you ever move the signer to a separate
+ * service; defaults are correct for the self-hosted setup.
+ */
+export async function publicFreeMint(
+  quantity: 1 | 2,
   onState: (s: TxState) => void,
-): Promise<TxResult> {
-  const bad = validateIds(ids, 1, CONTRACT.migrationBucketEnd);
-  if (bad) {
-    onState("fail");
-    return Promise.resolve({ state: "fail", error: bad });
-  }
-  return ids.length === 1
-    ? sendWrite({
-        contract: occv2Contract,
-        functionName: "freeMint",
-        args: [BigInt(ids[0])],
-        onState,
-      })
-    : sendWrite({
-        contract: occv2Contract,
-        functionName: "freeMintBatch",
-        args: [ids.map((i) => BigInt(i))],
-        onState,
+): Promise<PublicFreeMintResult> {
+  onState("pending");
+  try {
+    if (quantity !== 1 && quantity !== 2) {
+      onState("fail");
+      return { state: "error", error: "Quantity must be 1 or 2." };
+    }
+
+    const account = getAccount(wagmiConfig);
+    if (!account.address) {
+      onState("fail");
+      return { state: "error", error: "Connect your wallet first." };
+    }
+    if (account.chainId !== CHAIN_ID) {
+      onState("fail");
+      return {
+        state: "error",
+        error: "Your wallet is on the wrong network. Switch to Ethereum Mainnet.",
+      };
+    }
+
+    const client = getPublicClient(wagmiConfig);
+    if (!client) {
+      onState("fail");
+      return { state: "error", error: "No RPC connection. Try again in a moment." };
+    }
+
+    // 1) Permit fetch.
+    const permitUrl =
+      process.env.NEXT_PUBLIC_PERMIT_URL ?? "/api/free-mint/permit";
+    let permit: { recipient: `0x${string}`; deadline: number; signature: `0x${string}` };
+    try {
+      const res = await fetch(permitUrl, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ wallet: account.address, quantity }),
       });
+      if (!res.ok) {
+        const errText = (await res.text().catch(() => "")) || "";
+        onState("fail");
+        return {
+          state: "error",
+          error:
+            errText && errText.length < 240
+              ? errText
+              : "Couldn't get a mint permit from the backend. Try again in a moment.",
+        };
+      }
+      permit = (await res.json()) as typeof permit;
+      if (!permit.signature || !permit.recipient || !permit.deadline) {
+        throw new Error("Backend returned an invalid permit.");
+      }
+    } catch (fetchErr) {
+      onState("fail");
+      return {
+        state: "error",
+        error:
+          fetchErr instanceof Error && fetchErr.message
+            ? fetchErr.message
+            : "Couldn't reach the permit backend. Try again in a moment.",
+      };
+    }
+
+    // 2) Gas estimation + buffer. Surfacing estimation reverts as friendly
+    //    errors before signing means the wallet never has to pop up only to
+    //    reject the tx — same UX win as the original Free Mint path.
+    const args: readonly [`0x${string}`, bigint, bigint, `0x${string}`] = [
+      permit.recipient,
+      BigInt(quantity),
+      BigInt(permit.deadline),
+      permit.signature,
+    ];
+
+    let gas: bigint | undefined;
+    try {
+      const estimate = await client.estimateContractGas({
+        address: publicFreeMintContract.address,
+        abi: publicFreeMintContract.abi as never,
+        functionName: "mint" as never,
+        args: args as never,
+        account: account.address,
+      });
+      gas = (estimate * 130n) / 100n;
+    } catch (estErr) {
+      // Surface the raw error in the browser console so a developer can read
+      // the full revert reason / stack — the user-facing message goes through
+      // decodeTxError which collapses everything to a short sentence.
+      // eslint-disable-next-line no-console
+      console.error("[publicFreeMint] gas estimation failed:", estErr);
+      onState("fail");
+      return { state: "error", error: decodeTxError(estErr) };
+    }
+
+    // 3) Submit the tx + wait the receipt.
+    const hash = await writeContract(wagmiConfig, {
+      address: publicFreeMintContract.address,
+      abi: publicFreeMintContract.abi as never,
+      functionName: "mint" as never,
+      args: args as never,
+      gas,
+      chainId: CHAIN_ID,
+      account: account.address,
+    });
+    const receipt = await waitForTransactionReceipt(wagmiConfig, {
+      hash,
+      chainId: CHAIN_ID,
+    });
+    if (receipt.status !== "success") {
+      onState("fail");
+      return { state: "error", error: "The transaction reverted on-chain." };
+    }
+
+    // 4) Pull the freshly minted token ids out of the receipt. The V2 NFT
+    //    contract emits a `Transfer(0x0, recipient, tokenId)` per mint —
+    //    filter to those.
+    const nftAddr = occv2Contract.address.toLowerCase();
+    const recipientPadded = `0x${permit.recipient
+      .toLowerCase()
+      .slice(2)
+      .padStart(64, "0")}` as const;
+    const mintedIds: number[] = [];
+    for (const log of receipt.logs) {
+      if (log.address.toLowerCase() !== nftAddr) continue;
+      if (log.topics.length < 4) continue;
+      if (log.topics[0] !== TRANSFER_EVENT_TOPIC) continue;
+      if (log.topics[1] !== ZERO_TOPIC) continue;
+      if ((log.topics[2] ?? "").toLowerCase() !== recipientPadded) continue;
+      try {
+        mintedIds.push(Number(BigInt(log.topics[3] as string)));
+      } catch {
+        /* skip malformed topic */
+      }
+    }
+
+    onState("success");
+    return { state: "success", mintedIds };
+  } catch (err) {
+    // eslint-disable-next-line no-console
+    console.error("[publicFreeMint] tx submission failed:", err);
+    onState("fail");
+    return { state: "error", error: decodeTxError(err) };
+  }
 }
 
 /** V2 `rerollBackground(id)` — free, random new background. */

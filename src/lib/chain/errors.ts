@@ -26,6 +26,21 @@ const ERROR_MESSAGES: Record<string, string> = {
   OCCV2_AlreadyFrozen: "This Citizen's traits are already locked.",
   OCCV2_NotFrozen: "This Citizen's traits aren't locked.",
   OCCV2_ReshufflesAlreadyActive: "Reshuffles are already active.",
+  // ── Public Free Mint ──
+  PublicFreeMint_RecipientMismatch:
+    "Wallet address doesn't match the mint permit. Re-request a permit and try again.",
+  PublicFreeMint_DeadlineExpired:
+    "Mint permit expired. Re-request a permit and try again.",
+  PublicFreeMint_InvalidQuantity: "Quantity must be 1 or 2.",
+  PublicFreeMint_InvalidSignature:
+    "Mint permit is invalid. Re-request a permit and try again.",
+  PublicFreeMint_PerWalletCapExceeded:
+    "You've reached the 2-mint limit for this wallet.",
+  PublicFreeMint_TotalAllocationExceeded:
+    "The public free mint is fully claimed.",
+  PublicFreeMint_AlreadyOCCV2Holder:
+    "Wallets that already hold an OCCV2 Citizen aren't eligible for the public free mint.",
+  PublicFreeMint_TrustedSignerNotSet: "Public free mint isn't open yet.",
   // ── Wardrobe rerolls ──
   WardrobeManager_NotTokenOwner: "Only the current owner can reroll.",
   WardrobeManager_TokenLocked:

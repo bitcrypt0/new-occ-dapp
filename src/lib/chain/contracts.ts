@@ -5,6 +5,7 @@ import { marketAbi } from "../abi/market";
 import { citizenStakerAbi } from "../abi/citizenStaker";
 import { wardrobeManagerAbi } from "../abi/wardrobeManager";
 import { traitInspectorV2Abi } from "../abi/traitInspectorV2";
+import { publicFreeMintAbi } from "../abi/publicFreeMint";
 
 /** Reusable {address, abi} bundles for the three live mainnet contracts. */
 export const occv2Contract = {
@@ -35,4 +36,9 @@ export const wardrobeContract = {
 export const inspectorContract = {
   address: ADDRESSES.inspector as `0x${string}`,
   abi: traitInspectorV2Abi,
+} as const;
+
+export const publicFreeMintContract = {
+  address: ADDRESSES.publicFreeMint as `0x${string}`,
+  abi: publicFreeMintAbi,
 } as const;

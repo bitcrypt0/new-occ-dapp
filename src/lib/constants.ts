@@ -47,6 +47,11 @@ export const ADDRESSES = {
   // reported `ownsHideableAccessory == false` when the registry contained
   // rare blocked Eye variants (the live registry does).
   inspector: "0xBA8D9B50b54dd3B1b949A9DE7334Ca8D97F1DCFb",
+  // OCCV2PublicFreeMint — public free-mint program for the raffle bucket
+  // (from deployments/occv2-public-free-mint-mainnet.json). Distributes up
+  // to 1,980 of the 2,000 raffle-bucket Citizens, gated by an EIP-712
+  // signature from a backend trusted signer.
+  publicFreeMint: "0x4ECCC82224B95d0976F9Bb3c575B766AC3Ffd6A1",
 } as const;
 
 /**
