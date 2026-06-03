@@ -5,42 +5,12 @@ import { BaseError, ContractFunctionRevertedError, UserRejectedRequestError } fr
  * contract's custom-error name (OCCV2_* / Market_* / ERC721*).
  */
 const ERROR_MESSAGES: Record<string, string> = {
-  // ── Free mint / claim ──
-  OCCV2_InsufficientFreeMintBalance:
-    "Your wallet is below the 0.015 ETH anti-bot minimum. Top up and try again — the balance is only checked, never spent.",
-  OCCV2_FreeMintCapExceeded: "This wallet has already used both of its free mints.",
-  OCCV2_FreeMintForMigrator: "This wallet already claimed a Citizen, so it can't free-mint.",
-  OCCV2_FreeMintForOCCHolder:
-    "This wallet holds an OCC V1 token — use Claim instead of Free Mint.",
-  OCCV2_AlreadyClaimed: "That token ID has already been minted.",
-  OCCV2_OCCTokenStillLive:
-    "That V1 token is still live, so its V2 ID can't be free-minted.",
-  OCCV2_NotOCCTokenOwner: "You don't own the V1 token you're trying to claim.",
-  OCCV2_InvalidTokenId: "That token ID is outside the valid range.",
-  OCCV2_MigrationBucketExhausted: "The migration supply (1–8000) is fully minted.",
-  OCCV2_EmptyBatch: "Select at least one token first.",
-  OCCV2_BatchLengthMismatch: "Batch input mismatch — refresh and try again.",
   // ── Owner actions ──
   OCCV2_NotTokenOwner: "Only the current owner of this Citizen can do that.",
   OCCV2_IncorrectFee: "The fee sent didn't match the contract's trait-lock fee.",
   OCCV2_AlreadyFrozen: "This Citizen's traits are already locked.",
   OCCV2_NotFrozen: "This Citizen's traits aren't locked.",
   OCCV2_ReshufflesAlreadyActive: "Reshuffles are already active.",
-  // ── Public Free Mint ──
-  PublicFreeMint_RecipientMismatch:
-    "Wallet address doesn't match the mint permit. Re-request a permit and try again.",
-  PublicFreeMint_DeadlineExpired:
-    "Mint permit expired. Re-request a permit and try again.",
-  PublicFreeMint_InvalidQuantity: "Quantity must be 1 or 2.",
-  PublicFreeMint_InvalidSignature:
-    "Mint permit is invalid. Re-request a permit and try again.",
-  PublicFreeMint_PerWalletCapExceeded:
-    "You've reached the 2-mint limit for this wallet.",
-  PublicFreeMint_TotalAllocationExceeded:
-    "The public free mint is fully claimed.",
-  PublicFreeMint_AlreadyOCCV2Holder:
-    "Wallets that already hold an OCCV2 Citizen aren't eligible for the public free mint.",
-  PublicFreeMint_TrustedSignerNotSet: "Public free mint isn't open yet.",
   // ── Wardrobe rerolls ──
   WardrobeManager_NotTokenOwner: "Only the current owner can reroll.",
   WardrobeManager_TokenLocked:

@@ -50,16 +50,15 @@ export default function CollectionPage() {
         <EmptyState
           mark="!"
           title="No Citizens yet"
-          description="This wallet doesn't hold any V2 Citizens. Claim a V1 you own, or free-mint a fresh one."
+          description="This wallet doesn't hold any V2 Citizens. The mint programs have wrapped — pick one up on the secondary marketplace."
           action={
-            <div className="flex gap-3">
-              <Button href="/claim" size="sm">
-                Claim
-              </Button>
-              <Button href="/mint" variant="secondary" size="sm">
-                Free Mint
-              </Button>
-            </div>
+            <Button
+              href="https://opensea.io/collection/onchain-citizens-v2"
+              external
+              size="sm"
+            >
+              Browse on OpenSea
+            </Button>
           }
         />
       ) : (

@@ -8,7 +8,6 @@ import type {
   Mood,
   SkinTone,
   TraitCategory,
-  V1Token,
 } from "../types";
 import {
   RARE_TRAITS,
@@ -159,29 +158,4 @@ export function parseCitizen(tokenId: number, tokenUri: string): Citizen {
     attributes,
     imageUri: meta.image,
   };
-}
-
-/**
- * Parse an OCC V1 `tokenURI` payload into a `V1Token` — the on-chain V1 art
- * and a best-effort art base. Falls back gracefully if the metadata can't
- * be decoded so the claim flow still works from the token id alone.
- */
-export function parseV1Token(tokenId: number, tokenUri?: string): V1Token {
-  const fallbackArt = tokenId % 2 === 0 ? "female-bob" : "male-buzzcut";
-  if (!tokenUri) return { id: tokenId, art: fallbackArt };
-  try {
-    const meta = JSON.parse(decodeDataUri(tokenUri)) as RawMetadata;
-    const genderAttr = (meta.attributes ?? []).find(
-      (a) => a.trait_type === "Gender",
-    )?.value;
-    const art =
-      genderAttr === "Female"
-        ? "female-bob"
-        : genderAttr === "Male"
-          ? "male-buzzcut"
-          : fallbackArt;
-    return { id: tokenId, art, imageUri: meta.image };
-  } catch {
-    return { id: tokenId, art: fallbackArt };
-  }
 }

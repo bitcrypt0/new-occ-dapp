@@ -6,7 +6,7 @@
  * style objects; write functions keep the `(args, onState) => Promise`
  * shape and drive the same TxState lifecycle the UI already consumes.
  */
-import { useAccount, usePublicClient, useReadContract, useReadContracts } from "wagmi";
+import { useAccount, usePublicClient, useReadContract } from "wagmi";
 import { useQuery } from "@tanstack/react-query";
 import {
   getAccount,
@@ -18,18 +18,15 @@ import { formatEther, getAddress, isAddress } from "viem";
 import { wagmiConfig } from "../wagmi";
 import { CHAIN_ID, CONTRACT } from "../constants";
 import {
-  occv1Contract,
   occv2Contract,
   marketContract,
-  citizenStakerContract,
   wardrobeContract,
   inspectorContract,
-  publicFreeMintContract,
 } from "../chain/contracts";
-import { parseCitizen, parseV1Token } from "../chain/citizen";
-import { scanOwnedIds, scanUnclaimedIds, type MulticallRow } from "../chain/scan";
+import { parseCitizen } from "../chain/citizen";
+import { scanOwnedIds, type MulticallRow } from "../chain/scan";
 import { decodeTxError } from "../chain/errors";
-import type { Citizen, MarketListing, TxState, V1Token } from "../types";
+import type { Citizen, MarketListing, TxState } from "../types";
 
 /* ============================ READS ============================ */
 
@@ -66,114 +63,6 @@ export function useOwnedCitizens() {
     citizens: query.data ?? [],
     isLoading: query.isLoading && query.fetchStatus !== "idle",
     error: query.error as Error | null,
-  };
-}
-
-/** V1 tokens held by the connected wallet, claimable into V2. */
-export function useV1Tokens() {
-  const { address, isConnected } = useAccount();
-  const client = usePublicClient();
-
-  const query = useQuery({
-    queryKey: ["v1Tokens", address],
-    enabled: Boolean(isConnected && address && client),
-    queryFn: async (): Promise<V1Token[]> => {
-      const owner = getAddress(address!);
-      const balance = (await client!.readContract({
-        ...occv1Contract,
-        functionName: "balanceOf",
-        args: [owner],
-      })) as bigint;
-      if (balance === 0n) return [];
-
-      // V1's highest minted id is 4540; scan that bounded range.
-      const ids = await scanOwnedIds(
-        client!,
-        occv1Contract,
-        owner,
-        1,
-        4540,
-        Number(balance),
-      );
-      return loadV1Tokens(client!, ids);
-    },
-  });
-
-  return {
-    tokens: query.data ?? [],
-    isLoading: query.isLoading && query.fetchStatus !== "idle",
-    error: query.error as Error | null,
-  };
-}
-
-/** Decode a batch of V1 token ids into V1Tokens via V1 `tokenURI`. */
-async function loadV1Tokens(
-  client: NonNullable<ReturnType<typeof usePublicClient>>,
-  ids: number[],
-  staked = false,
-): Promise<V1Token[]> {
-  if (ids.length === 0) return [];
-  const uris = (await client.multicall({
-    allowFailure: true,
-    contracts: ids.map((id) => ({
-      ...occv1Contract,
-      functionName: "tokenURI",
-      args: [BigInt(id)],
-    })),
-  } as never)) as MulticallRow[];
-  return ids.map((id, i) => {
-    const r = uris[i];
-    const uri =
-      r && r.status === "success" && typeof r.result === "string"
-        ? r.result
-        : undefined;
-    const token = parseV1Token(id, uri);
-    return staked ? { ...token, staked: true } : token;
-  });
-}
-
-/**
- * V1 tokens the connected wallet has staked in the CitizenStaker vault.
- * They must be unstaked before they can be migrated to V2.
- */
-export function useStakedV1Tokens() {
-  const { address, isConnected } = useAccount();
-  const client = usePublicClient();
-
-  const query = useQuery({
-    queryKey: ["stakedV1Tokens", address],
-    enabled: Boolean(isConnected && address && client),
-    queryFn: async (): Promise<V1Token[]> => {
-      const owner = getAddress(address!);
-      const ids = (await client!.readContract({
-        ...citizenStakerContract,
-        functionName: "stakedTokensOf",
-        args: [owner],
-      })) as readonly bigint[];
-      if (ids.length === 0) return [];
-      return loadV1Tokens(client!, ids.map(Number), true);
-    },
-  });
-
-  return {
-    tokens: query.data ?? [],
-    isLoading: query.isLoading && query.fetchStatus !== "idle",
-    error: query.error as Error | null,
-  };
-}
-
-/** Fetch a fixed set of V2 Citizens by id — used by the post-mint modal. */
-export function useCitizensByIds(ids: number[]) {
-  const client = usePublicClient();
-  const key = [...ids].sort((a, b) => a - b).join(",");
-  const query = useQuery({
-    queryKey: ["citizensByIds", key],
-    enabled: Boolean(client && ids.length > 0),
-    queryFn: () => loadCitizens(client!, ids),
-  });
-  return {
-    citizens: query.data ?? [],
-    isLoading: query.isLoading && query.fetchStatus !== "idle",
   };
 }
 
@@ -253,69 +142,6 @@ export function useIsOwner(id: number): boolean {
   }
 }
 
-export interface PublicFreeMintEligibility {
-  connected: boolean;
-  /** Direct contract read — `canMint(address)`. */
-  canMint: boolean;
-  /** 0 OK | 1 paused | 2 signer unset | 3 exhausted | 4 wallet cap | 5 holder. */
-  blockReason: 0 | 1 | 2 | 3 | 4 | 5;
-  /** 0–2 — how many more this wallet may mint. */
-  remainingForWallet: number;
-  /** 0–1980 — how many remain in the public-free-mint allocation. */
-  remainingAllocation: number;
-  /** How many have been minted across the whole contract. */
-  totalMinted: number;
-  /** How many this wallet has already minted (0, 1, or 2). */
-  mintedBy: number;
-  isLoading: boolean;
-  /** Imperative refetch — call after a successful mint to refresh state. */
-  refetch: () => void;
-}
-
-const FALLBACK_ADDRESS = "0x0000000000000000000000000000000000000000" as const;
-
-/**
- * Batched eligibility read against OCCV2PublicFreeMint. One `useReadContracts`
- * call gets every value the UI needs to drive button state + per-blockReason
- * copy. Reads are disabled when the wallet isn't connected.
- */
-export function usePublicFreeMintEligibility(
-  address: `0x${string}` | undefined,
-): PublicFreeMintEligibility {
-  const enabled = Boolean(address);
-  const safe = (address ?? FALLBACK_ADDRESS) as `0x${string}`;
-  const { data, isLoading, refetch } = useReadContracts({
-    contracts: [
-      { ...publicFreeMintContract, functionName: "canMint", args: [safe] },
-      { ...publicFreeMintContract, functionName: "mintBlockReason", args: [safe] },
-      { ...publicFreeMintContract, functionName: "remainingForWallet", args: [safe] },
-      { ...publicFreeMintContract, functionName: "remainingAllocation" },
-      { ...publicFreeMintContract, functionName: "totalMinted" },
-      { ...publicFreeMintContract, functionName: "mintedBy", args: [safe] },
-    ],
-    query: { enabled },
-  });
-
-  const blockReasonRaw = Number(data?.[1]?.result ?? 2);
-  const blockReason = (
-    blockReasonRaw >= 0 && blockReasonRaw <= 5 ? blockReasonRaw : 2
-  ) as PublicFreeMintEligibility["blockReason"];
-
-  return {
-    connected: enabled,
-    canMint: Boolean(data?.[0]?.result),
-    blockReason,
-    remainingForWallet: Number(data?.[2]?.result ?? 0),
-    remainingAllocation: Number(data?.[3]?.result ?? 0),
-    totalMinted: Number(data?.[4]?.result ?? 0),
-    mintedBy: Number(data?.[5]?.result ?? 0),
-    isLoading: enabled && isLoading,
-    refetch: () => {
-      void refetch();
-    },
-  };
-}
-
 /** Trait Market listings (empty while the market is dormant). */
 export function useMarketListings() {
   const client = usePublicClient();
@@ -382,26 +208,6 @@ export function useReshufflesActive(): boolean {
     functionName: "reshufflesActive",
   });
   return Boolean(data);
-}
-
-/**
- * Has the connected wallet already approved the V2 contract to move its V1
- * tokens? V1 `setApprovalForAll(v2, true)` is a one-time, owner-wide grant —
- * persistent on-chain — so the claim flow should skip the Approve step for
- * anyone who has already done it (or who approved through another dapp).
- */
-export function useV1ApprovedForV2(): { approved: boolean; isLoading: boolean } {
-  const { address, isConnected } = useAccount();
-  const { data, isLoading } = useReadContract({
-    ...occv1Contract,
-    functionName: "isApprovedForAll",
-    args: [
-      (address ?? "0x0000000000000000000000000000000000000000") as `0x${string}`,
-      occv2Contract.address,
-    ],
-    query: { enabled: isConnected && Boolean(address) },
-  });
-  return { approved: Boolean(data), isLoading: isConnected && isLoading };
 }
 
 export interface WardrobeButtonStates {
@@ -545,17 +351,6 @@ export function useTraitLockFee(): bigint | undefined {
   return data as bigint | undefined;
 }
 
-/* ===================== BALANCE-GATE LOGIC ====================== */
-
-export type BalanceTier = "blocked" | "caution" | "good";
-
-/** Classify a real wallet balance against the 0.015 ETH anti-bot gate. */
-export function classifyBalance(balanceEth: number): BalanceTier {
-  if (balanceEth < CONTRACT.balanceGateMin) return "blocked";
-  if (balanceEth < CONTRACT.balanceGateSafe) return "caution";
-  return "good";
-}
-
 /* ============================ WRITES =========================== */
 
 /** Result of a write — a lifecycle state plus a human error when it fails. */
@@ -567,9 +362,7 @@ export interface TxResult {
 interface WriteParams {
   contract:
     | typeof occv2Contract
-    | typeof occv1Contract
     | typeof marketContract
-    | typeof citizenStakerContract
     | typeof wardrobeContract;
   functionName: string;
   args: readonly unknown[];
@@ -655,224 +448,6 @@ async function sendWrite({
   }
 }
 
-/** Validate a list of token ids is non-empty and in range. */
-function validateIds(ids: number[], lo: number, hi: number): string | null {
-  if (ids.length === 0) return "Select at least one token first.";
-  for (const id of ids) {
-    if (!Number.isInteger(id) || id < lo || id > hi) {
-      return `Token id ${id} is outside the valid range.`;
-    }
-  }
-  return null;
-}
-
-/** OCC V1 `setApprovalForAll(v2, true)` — required before claiming. */
-export function approveV2(onState: (s: TxState) => void): Promise<TxResult> {
-  return sendWrite({
-    contract: occv1Contract,
-    functionName: "setApprovalForAll",
-    args: [occv2Contract.address, true],
-    onState,
-  });
-}
-
-/** V2 `claim(id)` / `claimBatch(ids)`. */
-export function claimTokens(
-  ids: number[],
-  onState: (s: TxState) => void,
-): Promise<TxResult> {
-  const bad = validateIds(ids, 1, CONTRACT.migrationBucketEnd);
-  if (bad) {
-    onState("fail");
-    return Promise.resolve({ state: "fail", error: bad });
-  }
-  return ids.length === 1
-    ? sendWrite({
-        contract: occv2Contract,
-        functionName: "claim",
-        args: [BigInt(ids[0])],
-        onState,
-      })
-    : sendWrite({
-        contract: occv2Contract,
-        functionName: "claimBatch",
-        args: [ids.map((i) => BigInt(i))],
-        onState,
-      });
-}
-
-/* ─────────────────────────── Public Free Mint ─────────────────────────── */
-
-export type PublicFreeMintResult =
-  | { state: "success"; mintedIds: number[] }
-  | { state: "error"; error: string };
-
-const TRANSFER_EVENT_TOPIC =
-  "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef" as const;
-const ZERO_TOPIC =
-  "0x0000000000000000000000000000000000000000000000000000000000000000" as const;
-
-/**
- * Public Free Mint write helper. Fetches an EIP-712 permit from the backend,
- * submits `OCCV2PublicFreeMint.mint(...)` with an explicit buffered gas limit
- * (same approach as `freeMint` — keeps wallets from refusing the tx on a
- * faulty pre-flight), waits the receipt, then extracts the newly minted V2
- * token ids by parsing the OCC V2 `Transfer` logs (`from = 0x0`, `to = caller`)
- * out of the receipt.
- *
- * The permit endpoint is the dapp's own `/api/free-mint/permit` route — a
- * server-side EIP-712 signer (see `src/app/api/free-mint/permit/route.ts`)
- * that runs inside the Next.js / Vercel function and reads
- * `OCCV2_PERMIT_SIGNER_PRIVATE_KEY` at request time. Override with
- * `NEXT_PUBLIC_PERMIT_URL` if you ever move the signer to a separate
- * service; defaults are correct for the self-hosted setup.
- */
-export async function publicFreeMint(
-  quantity: 1 | 2,
-  onState: (s: TxState) => void,
-): Promise<PublicFreeMintResult> {
-  onState("pending");
-  try {
-    if (quantity !== 1 && quantity !== 2) {
-      onState("fail");
-      return { state: "error", error: "Quantity must be 1 or 2." };
-    }
-
-    const account = getAccount(wagmiConfig);
-    if (!account.address) {
-      onState("fail");
-      return { state: "error", error: "Connect your wallet first." };
-    }
-    if (account.chainId !== CHAIN_ID) {
-      onState("fail");
-      return {
-        state: "error",
-        error: "Your wallet is on the wrong network. Switch to Ethereum Mainnet.",
-      };
-    }
-
-    const client = getPublicClient(wagmiConfig);
-    if (!client) {
-      onState("fail");
-      return { state: "error", error: "No RPC connection. Try again in a moment." };
-    }
-
-    // 1) Permit fetch.
-    const permitUrl =
-      process.env.NEXT_PUBLIC_PERMIT_URL ?? "/api/free-mint/permit";
-    let permit: { recipient: `0x${string}`; deadline: number; signature: `0x${string}` };
-    try {
-      const res = await fetch(permitUrl, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ wallet: account.address, quantity }),
-      });
-      if (!res.ok) {
-        const errText = (await res.text().catch(() => "")) || "";
-        onState("fail");
-        return {
-          state: "error",
-          error:
-            errText && errText.length < 240
-              ? errText
-              : "Couldn't get a mint permit from the backend. Try again in a moment.",
-        };
-      }
-      permit = (await res.json()) as typeof permit;
-      if (!permit.signature || !permit.recipient || !permit.deadline) {
-        throw new Error("Backend returned an invalid permit.");
-      }
-    } catch (fetchErr) {
-      onState("fail");
-      return {
-        state: "error",
-        error:
-          fetchErr instanceof Error && fetchErr.message
-            ? fetchErr.message
-            : "Couldn't reach the permit backend. Try again in a moment.",
-      };
-    }
-
-    // 2) Gas estimation + buffer. Surfacing estimation reverts as friendly
-    //    errors before signing means the wallet never has to pop up only to
-    //    reject the tx — same UX win as the original Free Mint path.
-    const args: readonly [`0x${string}`, bigint, bigint, `0x${string}`] = [
-      permit.recipient,
-      BigInt(quantity),
-      BigInt(permit.deadline),
-      permit.signature,
-    ];
-
-    let gas: bigint | undefined;
-    try {
-      const estimate = await client.estimateContractGas({
-        address: publicFreeMintContract.address,
-        abi: publicFreeMintContract.abi as never,
-        functionName: "mint" as never,
-        args: args as never,
-        account: account.address,
-      });
-      gas = (estimate * 130n) / 100n;
-    } catch (estErr) {
-      // Surface the raw error in the browser console so a developer can read
-      // the full revert reason / stack — the user-facing message goes through
-      // decodeTxError which collapses everything to a short sentence.
-      // eslint-disable-next-line no-console
-      console.error("[publicFreeMint] gas estimation failed:", estErr);
-      onState("fail");
-      return { state: "error", error: decodeTxError(estErr) };
-    }
-
-    // 3) Submit the tx + wait the receipt.
-    const hash = await writeContract(wagmiConfig, {
-      address: publicFreeMintContract.address,
-      abi: publicFreeMintContract.abi as never,
-      functionName: "mint" as never,
-      args: args as never,
-      gas,
-      chainId: CHAIN_ID,
-      account: account.address,
-    });
-    const receipt = await waitForTransactionReceipt(wagmiConfig, {
-      hash,
-      chainId: CHAIN_ID,
-    });
-    if (receipt.status !== "success") {
-      onState("fail");
-      return { state: "error", error: "The transaction reverted on-chain." };
-    }
-
-    // 4) Pull the freshly minted token ids out of the receipt. The V2 NFT
-    //    contract emits a `Transfer(0x0, recipient, tokenId)` per mint —
-    //    filter to those.
-    const nftAddr = occv2Contract.address.toLowerCase();
-    const recipientPadded = `0x${permit.recipient
-      .toLowerCase()
-      .slice(2)
-      .padStart(64, "0")}` as const;
-    const mintedIds: number[] = [];
-    for (const log of receipt.logs) {
-      if (log.address.toLowerCase() !== nftAddr) continue;
-      if (log.topics.length < 4) continue;
-      if (log.topics[0] !== TRANSFER_EVENT_TOPIC) continue;
-      if (log.topics[1] !== ZERO_TOPIC) continue;
-      if ((log.topics[2] ?? "").toLowerCase() !== recipientPadded) continue;
-      try {
-        mintedIds.push(Number(BigInt(log.topics[3] as string)));
-      } catch {
-        /* skip malformed topic */
-      }
-    }
-
-    onState("success");
-    return { state: "success", mintedIds };
-  } catch (err) {
-    // eslint-disable-next-line no-console
-    console.error("[publicFreeMint] tx submission failed:", err);
-    onState("fail");
-    return { state: "error", error: decodeTxError(err) };
-  }
-}
 
 /** V2 `rerollBackground(id)` — free, random new background. */
 export function rerollBackground(
@@ -976,24 +551,6 @@ async function readTraitLockFee(
     onState("fail");
     return { state: "fail", error: decodeTxError(err) };
   }
-}
-
-/** CitizenStaker `unstake(tokenIds[])` — frees staked V1 tokens for migration. */
-export function unstakeV1(
-  ids: number[],
-  onState: (s: TxState) => void,
-): Promise<TxResult> {
-  const bad = validateIds(ids, 1, 4540);
-  if (bad) {
-    onState("fail");
-    return Promise.resolve({ state: "fail", error: bad });
-  }
-  return sendWrite({
-    contract: citizenStakerContract,
-    functionName: "unstake",
-    args: [ids.map((i) => BigInt(i))],
-    onState,
-  });
 }
 
 /** ERC-721 `transferFrom(account, to, id)`. */

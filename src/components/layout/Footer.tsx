@@ -3,8 +3,6 @@ import { CONTRACT, SOCIALS } from "@/lib/constants";
 import { Logo } from "./Logo";
 
 const PAGES = [
-  { href: "/claim", label: "Claim" },
-  { href: "/mint", label: "Free Mint" },
   { href: "/collection", label: "My Collection" },
   { href: "/feed", label: "Live Feed" },
   { href: "/market", label: "Trait Market" },

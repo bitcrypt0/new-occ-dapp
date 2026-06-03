@@ -34,10 +34,7 @@ export const CHAIN_ID = 1 as const;
 
 export const ADDRESSES = {
   occv2: "0x55ad98c4D8ECE5E1f40C04e0E1D87c014584Dc76",
-  occv1: "0xB7fb783381d0cF227C2A23ae2D62a43c08B70F12",
   market: "0xc1D841B1C7DA40b4242429f562a22dC8A6076f54",
-  // CitizenStaker — V1 staking vault (from deployments/mainnet-1.json).
-  citizenStaker: "0x63E59D80C08aE9BB151fEcDC07d314505A2aEC2E",
   // WardrobeManager — clothing/color reroll bundle (from
   // deployments/occv2-wardrobe-bundle-mainnet.json).
   wardrobe: "0x5375335840a54e0bEC888DD953af8b66E6150800",
@@ -47,11 +44,6 @@ export const ADDRESSES = {
   // reported `ownsHideableAccessory == false` when the registry contained
   // rare blocked Eye variants (the live registry does).
   inspector: "0xBA8D9B50b54dd3B1b949A9DE7334Ca8D97F1DCFb",
-  // OCCV2PublicFreeMint — public free-mint program for the raffle bucket
-  // (from deployments/occv2-public-free-mint-mainnet.json). Distributes up
-  // to 1,980 of the 2,000 raffle-bucket Citizens, gated by an EIP-712
-  // signature from a backend trusted signer.
-  publicFreeMint: "0x4ECCC82224B95d0976F9Bb3c575B766AC3Ffd6A1",
 } as const;
 
 /**
@@ -82,23 +74,9 @@ export const CONTRACT = {
   chain: "Ethereum Mainnet",
   chainId: CHAIN_ID,
   totalSupply: 10000,
-  migrationBucketEnd: 8000,
-  /**
-   * The contiguous **never-minted block** on V1: token ids 4541–8000 were
-   * never minted on the V1 contract. These ids are the easiest source of
-   * free-mintable V2 ids — a public `claimed(id)` scan across this range
-   * is enough to enumerate them.
-   *
-   * NOTE: this is NOT the full free-mint pool. The actual contract rule
-   * is `tokenId in 1..8000 AND OCC.ownerOf(tokenId) reverts`, which also
-   * includes V1 tokens that were burnt-in-place inside 1..4540 (~24 of
-   * them at last check). Treat these constants as the bounds of the
-   * contiguous block only — do not codify a "free-mint range" assumption.
-   */
-  neverMintedBlockStart: 4541,
-  neverMintedBlockEnd: 8000,
+  // Historical free-mint figures — surfaced in /docs to narrate the mint
+  // program that has since wrapped. Not used to drive any live behavior.
   freeMintCap: 2,
-  // anti-bot balance gate (ETH) — checked, never spent
   balanceGateMin: 0.015,
   balanceGateSafe: 0.02,
   // default paid action fee (ETH) — UI fallback only; the live fee is read

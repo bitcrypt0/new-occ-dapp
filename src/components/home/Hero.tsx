@@ -50,11 +50,11 @@ export function Hero() {
           </motion.p>
 
           <motion.div {...rise(0.24)} className="mt-7 flex flex-wrap items-center gap-3">
-            <Button href="/claim" size="lg">
-              Migrate V1 NFTs
+            <Button href="https://opensea.io/collection/onchain-citizens-v2" external size="lg">
+              Browse on OpenSea
             </Button>
-            <Button href="/mint" variant="secondary" size="lg">
-              Free Mint
+            <Button href="/feed" variant="secondary" size="lg">
+              Watch the Live Feed
             </Button>
           </motion.div>
 

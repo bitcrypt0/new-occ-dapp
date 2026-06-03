@@ -63,30 +63,3 @@ export async function scanOwnedIds(
   return found;
 }
 
-/**
- * Scan `claimed(id)` across [startId, endId] and return the ids that are
- * still free (claimed === false) — the live free-mintable pool.
- */
-export async function scanUnclaimedIds(
-  client: PublicClient,
-  contract: AbiContract,
-  startId: number,
-  endId: number,
-): Promise<number[]> {
-  const open: number[] = [];
-  for (const ids of chunkRange(startId, endId, CHUNK)) {
-    const results = (await client.multicall({
-      allowFailure: true,
-      contracts: ids.map((id) => ({
-        address: contract.address,
-        abi: contract.abi,
-        functionName: "claimed",
-        args: [BigInt(id)],
-      })),
-    } as never)) as MulticallRow[];
-    results.forEach((r, i) => {
-      if (r.status === "success" && r.result === false) open.push(ids[i]);
-    });
-  }
-  return open;
-}

@@ -97,11 +97,19 @@ export default async function DocsPage() {
               </p>
               <p className="mt-3 font-body text-base leading-relaxed text-ink">
                 OCCV2 is the migration of the original OCC V1 collection. V1
-                holders can <Link className="font-semibold underline-offset-2 hover:underline" href="/claim">burn their V1 token to claim the matching V2 Citizen</Link>{" "}
-                with the same ID; everyone else can{" "}
-                <Link className="font-semibold underline-offset-2 hover:underline" href="/mint">free-mint a brand-new Citizen</Link>{" "}
-                — only paying gas. The top 2,000 IDs ship via an external
-                raffle on{" "}
+                holders <strong>burned their V1 token to claim the matching
+                V2 Citizen</strong> with the same ID; everyone else could{" "}
+                <strong>free-mint a brand-new Citizen</strong>. Both programs
+                have wrapped — secondary supply now lives on{" "}
+                <a
+                  className="font-semibold underline-offset-2 hover:underline"
+                  href={SOCIALS.marketplace}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  OpenSea
+                </a>
+                . The top 2,000 IDs ship via an external raffle on{" "}
                 <a className="font-semibold underline-offset-2 hover:underline" href={SOCIALS.raffle} target="_blank" rel="noopener noreferrer">
                   dropr.fun
                 </a>
@@ -145,8 +153,13 @@ export default async function DocsPage() {
                   your wallet, one by one. A <strong>two-step move</strong>:
                   approve the V2 contract on V1, then claim. Free — gas only.
                 </p>
-                <Button href="/claim" size="sm" className="mt-4">
-                  Go to Claim
+                <Button
+                  href={SOCIALS.marketplace}
+                  external
+                  size="sm"
+                  className="mt-4"
+                >
+                  Browse on OpenSea
                 </Button>
               </Panel>
 
@@ -672,9 +685,8 @@ export default async function DocsPage() {
           <ChapterSection id="faq" number="12" title="FAQ">
             <FaqAccordion items={FAQ} />
             <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-              <Button href="/claim">Claim your V1</Button>
-              <Button href="/mint" variant="secondary">
-                Free Mint
+              <Button href={SOCIALS.marketplace} external>
+                Browse on OpenSea
               </Button>
               <Button href="/" variant="ghost">
                 Back to the home page

@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     template: "%s · OnChain Citizens V2",
   },
   description:
-    "10,000 flat-cartoon citizens drawn and stored entirely on Ethereum. Free to mint — migrate your V1, or free-mint a new Citizen.",
+    "10,000 flat-cartoon citizens drawn and stored entirely on Ethereum. Reshuffles on every transfer; rare frozen traits are forever.",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

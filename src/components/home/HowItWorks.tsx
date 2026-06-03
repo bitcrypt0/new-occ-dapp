@@ -6,7 +6,7 @@ function buildSteps(reshufflesActive: boolean) {
       n: "01",
       tone: "sky" as const,
       title: "Get a Citizen",
-      body: "Claim the V1 you already hold, or free-mint a fresh one. Both cost only gas.",
+      body: "The mint programs have wrapped. Pick one up on the secondary marketplace — they still trade like any other ERC-721.",
     },
     {
       n: "02",

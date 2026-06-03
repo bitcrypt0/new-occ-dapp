@@ -37,16 +37,22 @@ export function Finale() {
           Now — write your own.
         </h2>
         <p className="mx-auto mt-4 max-w-xl font-body text-lg font-medium text-paper">
-          Claim the V1 you already hold, or free-mint a brand-new Citizen.
-          Either way it costs nothing but gas — there is no mint price.
+          The mint programs have wrapped. Pick one up on the secondary
+          marketplace — Citizens still reshuffle, lock and trade their rare
+          frozen traits on-chain forever.
         </p>
 
         <div className="mt-8 flex flex-wrap justify-center gap-4">
-          <Button href="/claim" variant="secondary" size="lg">
-            Migrate V1 NFTs
+          <Button
+            href="https://opensea.io/collection/onchain-citizens-v2"
+            external
+            variant="secondary"
+            size="lg"
+          >
+            Browse on OpenSea
           </Button>
-          <Button href="/mint" variant="ghost" size="lg">
-            Free Mint a Citizen
+          <Button href="/how-it-works" variant="ghost" size="lg">
+            How it works
           </Button>
         </div>
 

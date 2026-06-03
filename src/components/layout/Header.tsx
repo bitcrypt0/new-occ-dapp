@@ -8,8 +8,6 @@ import { ConnectButton } from "../actions/ConnectButton";
 import { Logo } from "./Logo";
 
 const NAV = [
-  { href: "/claim", label: "Claim" },
-  { href: "/mint", label: "Free Mint" },
   { href: "/collection", label: "My Collection" },
   { href: "/feed", label: "Live Feed" },
   { href: "/market", label: "Market" },

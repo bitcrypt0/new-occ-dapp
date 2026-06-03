@@ -111,15 +111,6 @@ export interface Citizen {
   imageUri?: string;
 }
 
-/** A token from the original OCC V1 collection, claimable into V2. */
-export interface V1Token {
-  id: number;
-  art: ArtBase;
-  /** On-chain V1 art as a `data:` URI, decoded from V1 `tokenURI`. */
-  imageUri?: string;
-  /** True when the token is currently held by the CitizenStaker vault. */
-  staked?: boolean;
-}
 
 /** A rare-trait listing on the (dormant) Trait Market. */
 export interface MarketListing {
@@ -130,13 +121,6 @@ export interface MarketListing {
   priceEth: number;
   art: ArtBase;
   stage: ArtStage;
-}
-
-export interface MockWallet {
-  connected: boolean;
-  address: string;
-  /** ETH balance — drives the Free Mint balance gate. */
-  balanceEth: number;
 }
 
 /** Visual-only transaction lifecycle. Agent 2 makes these real. */
